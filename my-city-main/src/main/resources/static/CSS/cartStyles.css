@@ -1,0 +1,133 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid black;
+}
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+.product-image {
+    width: 100px;
+    height: auto;
+}
+
+header {
+    background-color: rgb(0, 0, 0); /* Add transparency for better video visibility */
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    margin: 20px 80px 0 80px;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 25px;
+    position: relative;
+    z-index: 100; /* Ensure header is above video */
+}
+.mobile_header{
+    display: none;
+}
+.mobile_header {
+    display: none;
+}
+
+.logo_placeholder {
+    color: whitesmoke;
+    width: auto;
+}
+
+.logo_placeholder img {
+    width: 80px;
+    height: 55px;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-content: space-evenly;
+    width: 800px !important;
+    list-style: none;
+}
+
+.nav_link {
+    padding: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.nav_link a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.nav_link:hover {
+    border-bottom: 2px solid orange;
+    color: orange;
+}
+
+.nav_link:hover a {
+    color: orange;
+}
+
+.nav_link.active {
+    border-bottom: 2px solid orange;
+    color: orange;
+}
+
+.nav_link.active a {
+    color: orange;
+}
+
+.login_button {
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 2px solid #f5640a;
+    background-color: #f5640a;
+    cursor: pointer;
+}
+
+.login_button a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #888;
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: black;
+  height: 80px;
+  align-items: center;
+  margin-top: 30px;
+  
+  max-width: 100%; 
+}
+
+footer ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  list-style: none;
+  width: 250px;
+}
+
+footer li a {
+  text-decoration: none;
+  color: whitesmoke;
+}
+
+footer li a:hover,
+footer li a.active {
+  color: orange;
+}
+
+footer p {
+  color: white;
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Artist</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/Styles2.css">
+</head>
+<body>
+    <style>
+        .main-content{
+            margin-left: 260px;
+        }
+    </style>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <h2>My<span>Site</span></h2>
+        </div>
+        <ul>
+            <li><a href="/">Dashboard</a></li>
+            <li><a href="#">Movies</a></li>
+            <li class="active"><a href="/hotels-page">Music</a>
+                <ul class="submenu">
+                    <li><a href="/artists">Artists</a></li>
+                    <li><a href="/albums">Albums</a></li>
+                    <li><a href="/tracks">Tracks</a></li>
+                    <li><a href="/city-list">City List</a></li>
+                    <li><a href="/hotels-page">Add Hotel</a></li>
+                    <li><a href="/list">Hotel List</a></li>
+                </ul>
+            </li>
+            <li><a href="/hotels-page">Shopping</a>
+                <ul class="submenu">
+                    <li><a th:href="@{/brands}">Brands</a></li>
+                    <li><a href="category">Category</a></li>
+                    <li><a href="products">Product</a></li>
+                    <li><a href="/city-list">City List</a></li>
+                    <li><a href="/hotels-page">Add Hotel</a></li>
+                    <li><a href="/list">Hotel List</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Hotels</a></li>
+
+        </ul>
+    </div>
+
+    <!-- Topbar -->
+    <div class="topbar">
+        <img src="images/logo.png" alt="" width="70px">
+        <input type="text" placeholder="Search...">
+        <button>Search</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1 class="text-center mb-4">Add Artist</h1>
+
+        <!-- Artist Form -->
+        <form th:action="@{/createArtist}" method="post" enctype="multipart/form-data" class="form-container">
+            <div class="mb-3">
+                <label for="name" class="form-label">Artist Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter artist name" required>
+            </div>
+            <div class="mb-3">
+                <label for="bio" class="form-label">Artist Bio</label>
+                <textarea class="form-control" id="bio" name="bio" rows="3" placeholder="Enter artist biography" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Artist Image</label>
+                <input type="file" class="form-control" id="image" name="imageFile" accept="image/*" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <div class="col-sm-4 d-grid">
+                <a class="btn btn-outline-primary" href="/artists" role="button">Cancel</a>
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</body>
+</html>

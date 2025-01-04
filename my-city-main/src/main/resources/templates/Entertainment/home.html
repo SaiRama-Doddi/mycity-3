@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="/CSS/entertainment_styles.css" rel="stylesheet">
+</head>
+<body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entertainment - Home</title>
+</head>
+<body>
+    <div class="w-full topbar z-[999]">    
+        <nav class="navbar flex justify-between text-white items-center mx-[3rem]">
+            <div class="navlinks-container flex h-[100%] items-center pl-8">
+                <p class="navlink" id="home-link">
+                    <a href="/Entertainment/home" class="hover:text-white">Home</a>
+                </p>
+                <p class="navlink" id="movies-link">
+                    <a href="/Entertainment/Movies" class="hover:text-white">Movies</a>
+                </p>
+                <p class="navlink" id="musics-link">
+                    <a href="/Entertainment/MyMusic" class="hover:text-white">Music</a>
+                </p>
+                <p class="navlink" id="shortfilms-link">
+                    <a href="/Entertainment/ShortFilms" class="hover:text-white">Short Films</a>
+                </p>
+                <p class="navlink" id="filmnews-link">
+                    <a href="/Entertainment/FilmNews" class="hover:text-white">Film News</a>
+                </p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="SearchBar pr-10">
+                <div class="searchInput flex w-[160px] gap-[10px] p-[10px] border-[3px] rounded-[13px] border-liteOrange mt-3 cursor-pointer" onclick="searchExpand(event)">
+                    <label for="searchbar">
+                        <img src="/icons/search.svg" alt="search Icon" class="w-[25px]"/>
+                    </label>
+                    <input type="text" placeholder="Search" id="searchbar" class="searchbar bg-transparent w-full placeholder-gray-500 placeholder:font-bold focus:outline-none transition"/>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+      <!-- HERO SECTION / IMAGE CAROUSEL -->
+      <div id="home">
+        <!-- Carousel Section -->
+        <section class="hero-container my-[1rem] w-full">
+            <div class="text-white mx-[4rem] mb-[2rem]" id="carousel-container">
+                <!-- Carousel images will be inserted here -->
+            </div>
+        </section>
+
+        <!-- Trending News and Events -->
+        <div class="flex w-full gap-[1rem]">
+
+            <div class="trendingNews w-[100%] mb-[4rem]" >
+                <div class="trendingTitle flex items-center gap-[10px] ml-[5rem] ">
+                    <img src="/icons/fire.png" alt="Trending Icon" class="w-[30px] h-[30px]" />
+                    <h1 class="title1">Trending News</h1>
+                </div>
+                <div id="trending-news-container" class="ml-[2rem]">
+
+                </div>
+
+            </div>
+
+            <div class="line w-[1px] bg-white my-[4.5em]"></div>
+
+            <div class="events pt-[.5rem] w-[50%] mb-[4rem] mr-[6rem]" id="events-container">
+                <div class="eventTitle flex items-center gap-[10px] mb-[2rem]">
+                    <img src="/icons/events.svg" alt="Event Icon" class="w-[30px] h-[30px]" />
+                    <h1 class="title1">Events</h1>
+                </div>
+                <div class="min-h-[260px]">
+                    <marquee behavior="" direction="">
+                        <div id="event-cards" class="flex gap-5">
+                            <!-- Event cards will be inserted here -->
+                        </div>
+                    </marquee>
+                </div>
+            </div>
+        </div>
+
+        <!-- Latest Movies Section -->
+        <div class="ml-[4rem] mb-[2rem] translate-y-[-3rem] pr-[4rem]" id="latest-movies-container">
+            <div class="eventTitle flex items-center ml-[10px] gap-[10px] mb-[2rem]">
+                <img src="/icons/latest.svg" alt="Latest Release Icon" class="w-[30px] h-[30px]" />
+                <h1 class="title1">Latest Release</h1>
+            </div>
+            <div id="latest-movies" class="flex gap-[6rem] overflow-x-scroll scrollbarhide">
+                
+            </div>
+        </div>
+
+         <!-- PLAYLIST MOVIES -->
+    <div class="ml-[4rem] mb-[4rem] relative">
+        <div class="eventTitle flex items-center ml-[10px] gap-[10px] mb-[2rem]">
+            <img src="/icons/latest.svg" alt="Latest Image" class="w-[30px] h-[30px]" />
+            <h1 class="title1">Your Playlist</h1>
+        </div>
+        <div class="playlist-container flex gap-[4rem] items-center">
+            <div class="current-playing rounded-[30px] flex flex-col text-white">
+                <div class="w-[500px] rounded-[30px] h-[300px]">
+                    <img id="currentTrackImage" src="" alt="Current Track" class="rounded-t-[30px] object-center w-[500px] h-[300px]" />
+                </div>
+                <div class="rounded-b-[30px] w-[500px] h-[80px] px-4 py-2 bg-[#BCB4A5]">
+                    <div class="details-controls flex gap-[1rem] items-center">
+                        <div class="flex flex-col justify-start overflow-scroll scrollbarhide w-[100px]">
+                            <p id="currentTrackTitle" class="text-[16px] font-bold w-[100px] text-nowrap">Track Title</p>
+                            <p id="currentTrackArtist" class="text-[10px] font-normal text-nowrap">Track Artist</p>
+                        </div>
+                        <div class="controls flex gap-4 items-center">
+                            <div class="shuffle flex flex-col items-center">
+                                <img id="shuffleIcon" class="w-8 cursor-pointer scalable" src="/icons/shuffle.svg" alt="shuffle" />
+                            </div>
+                            <img id="previousIcon" class="w-10 cursor-pointer scalable" src="/icons/previous.svg" alt="previous" />
+                            <div class="play-btn w-10 h-10 rounded-full bg-white flex items-center justify-center">
+                                <img id="playPauseIcon" class="w-5 cursor-pointer" src="/icons/play.svg" alt="play" />
+                            </div>
+                            <img id="nextIcon" class="w-10 cursor-pointer scalable" src="/icons/next.svg" alt="next" />
+                            <div class="loop flex flex-col items-center">
+                                <img id="loopIcon" class="w-8 cursor-pointer scalable" src="/icons/loop.svg" alt="loop" />
+                            </div>
+                        </div>
+                        <div class="more">
+                            <img id="likeIcon" class="w-8 cursor-pointer scalable ml-3" src="/icons/heart.svg" alt="heart" />
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-5">
+                        <p id="currentTime">0:00</p>
+                        <div id="seekBg" class="w-[60vw] max-w-[500px] bg-[#404040] h-2 rounded-full cursor-pointer">
+                            <hr id="seekBar" class="h-2 border-none bg-[#FF8202] rounded-full w-0" />
+                        </div>
+                        <p id="totalTime">3:00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="playlistContainer" class="list-container flex w-full mr-[2rem] h-[340px] gap-[4rem] overflow-x-scroll scrollbarhide"></div>
+        </div>
+    </div>
+
+    </div>
+
+
+  <script type="module" src="/js/Home.js"></script>
+
+    <script src="/JS/navbar.js"></script>
+</body>
+</html>
+
+</body>
+</html>

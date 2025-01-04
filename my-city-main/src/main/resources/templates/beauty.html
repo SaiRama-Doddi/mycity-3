@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/paybill_home.css">
+
+</head>
+
+<body>
+    <div class="nav_header" id="myHeader">
+        <div class="mobile_header">
+            <svg width="32px" height="32px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"
+                transform="rotate(0)">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path d="M4 6H20M4 12H20M4 18H20" stroke="white" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </g>
+            </svg>
+        </div>
+
+        <header class="mobile-header">
+            <div class="logo_placeholder">
+                <img src="/imgs/logo.jpg" alt="logo" />
+            </div>
+            <div class="nav_links_placeholder">
+                <ul class="nav_links">
+                    <li class="nav_link">
+                        <a th:href="@{/mycity-homepage}"><span>Home</span></a>
+                    </li>
+                    <li class="nav_link">
+                        <a href="/Entertainment/home"><span>Entertainment</span></a>
+                    </li>
+                    <li class="nav_link ">
+                        <a th:href="@{/shopping}"><span>Shopping</span></a>
+                    </li>
+                    <li class="nav_link">
+                        <a th:href="@{/tourism}"><span>Tourism</span></a>
+                    </li>
+
+                    <li class="nav_link active">
+                        <a th:href="@{/beauty}"><span>Pay Bills</span></a>
+                    </li>
+                    <li class="nav_link">
+                        <a th:href="@{/hotels}"><span>Hotels</span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="login-button_placeholder">
+                <button class="login_button"><a href="">Sign Up</a></button>
+            </div>
+        </header>
+
+        <!-- Welcome Section -->
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <div class="banner-container">
+                <div class="banner-text">
+                    <h1>HI<br>MY City User!</h1>
+                    <p>Home services at<br>your doorstep</p>
+                    <button class="book-now-btn">BOOK NOW</button>
+                </div>
+                <div class="banner-images">
+                    <div class="image-row">
+                        <img src="/imgs/manicure.jpg" alt="Women's Salon">
+                        <img src="/imgs/men haircut.jpg" alt="Men's Salon">
+                    </div>
+                    <div class="image-row">
+                        <img src="/imgs/facialwax.jpg" alt="facial wax">
+                        <img src="/imgs/men detan.jpg" alt="General Repair">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="search-location-section">
+            <div class="location">
+                <button class="location-btn">
+                    <i class="fas fa-map-marker-alt"></i> Visakhapatnam
+                </button>
+            </div>
+            <div class="search-location-section">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search services...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="cart">
+                    <i class="fas fa-shopping-cart cart-icon"></i>
+                </div>
+            </div>
+        </section>
+
+        <div class="con">
+            <section class="services-section">
+                <div class="service-category">
+                    <div class="category-header">
+                        <h2>Our Services</h2>
+                    </div>
+                    <div class="category-buttons">
+                        <button class="category-btn beauty">
+                            <i class="fas fa-spa"></i>
+                            Beauty
+                        </button>
+                        <button class="category-btn home">
+                            <a href="paybills_service"><i class="fas fa-home"></i>
+                                Home Services</a>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="service-category" data-category="beauty">
+                    <div class="category-header">
+                        <h3>Salon for Women</h3>
+                        <a th:href="@{/paybillsCart}" class="see-all">SEE ALL</a>
+                    </div>
+                    <div class="service-grid">
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/facialwax.jpg" alt="Waxing">
+                            <h4>WAXING</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/manicure.jpg" alt="Manicure">
+                            <h4>MANICURE</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/clean-up1.png" alt="Cleanup">
+                            <h4>CLEANUP</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/hair care.jpg" alt="Hair Care">
+                            <h4>HAIR CARE</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/threading.jpg" alt="Threading">
+                            <h4>THREADING & FACIAL</h4>
+                        </div>
+
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/hair colour.jpg" alt="Waxing">
+                            <h4>HAIR COLOR</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/pedicure.jpg" alt="Manicure">
+                            <h4>PEDICURE</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/pigmentation.jpg" alt="Cleanup">
+                            <h4>PIGMENTATION</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/bodytanning.jpg" alt="Hair Care">
+                            <h4>BODY TANNING</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/mackupservices.jpg" alt="Threading">
+                            <h4>MACK-UP</h4>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="service-category" data-category="beauty">
+                    <div class="category-header">
+                        <h3>Spa for Women</h3>
+                        <a th:href="@{/waxing}" class="see-all">SEE ALL</a>
+                    </div>
+                    <div class="service-grid">
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/streesrelief.jpg" alt="Stress Relief">
+                            <h4>STRESS RELIEF</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/pain relief.jpg" alt="Pain Relief">
+                            <h4>PAIN RELIEF</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/natural skin care.jpg" alt="Natural Skincare">
+                            <h4>NATURAL SKINCARE</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/paraffin wax therapy.jpg" alt="Stress Relief">
+                            <h4>PARAFFIN WAX THERAPY</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/hair spa.jpg" alt="Pain Relief">
+                            <h4>HAIR SPA</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/hydrotherapy.jpg" alt="Natural Skincare">
+                            <h4>HYDROTHERAPY</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/herbal face steam therapy.jpg" alt="Stress Relief">
+                            <h4>HERBAL FACE STAEM THERAPY</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/microdermabrasion.jpg" alt="Pain Relief">
+                            <h4>MICRODERMABRASION</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/reflexology.jpg" alt="Natural Skincare">
+                            <h4>REFLEXOLOGY</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/shirodhara.jpg" alt="Natural Skincare">
+                            <h4>SHIRODHARA</h4>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="service-category" data-category="beauty">
+                    <div class="category-header">
+                        <h3>Salon for Men</h3>
+                        <a href="paybillsCart" class="see-all">SEE ALL</a>
+                    </div>
+                    <div class="service-grid">
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/men haircut.jpg" alt="Haircut & Beard">
+                            <h4>HAIRCUT</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/men hair color.jpg" alt="Hair Color">
+                            <h4>HAIR COLOR & STYLING</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/men detan.jpg" alt="Hair Color">
+                            <h4>DETAN PACK</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/men pedicure.jpg" alt="Pedicure">
+                            <h4>PEDICURE & MANICURE</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/men facial.jpg" alt="Facial">
+                            <h4>FACIAL</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/cleanupmens.jpg" alt="Haircut & Beard">
+                            <h4>CLEANUP</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/beard1.jpg" alt="Hair Color">
+                            <h4>BEARD</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/dandruff1.jpg" alt="Hair Color">
+                            <h4>DNDRUFF</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/head massage.jpg" alt="Pedicure">
+                            <h4>HEAD MASSAGE</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/darkcircles.jpg" alt="Facial">
+                            <h4>DARK CIRCULES</h4>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="service-category" data-category="beauty">
+                    <div class="category-header">
+                        <h3>Spa for Men</h3>
+                        <a href="#" class="see-all">SEE ALL</a>
+                    </div>
+                    <div class="service-grid">
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/hydro therapy.jpg" alt="Haircut & Beard">
+                            <h4>HYDRO THERAPY</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/cupping1.jpg" alt="Hair Color">
+                            <h4>CUPPING</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/aromatherapy.jpg" alt="Hair Color">
+                            <h4>AROMA THERAPY</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/chestwaxing.jpg" alt="Pedicure">
+                            <h4>CHEST WAXING</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/sports massage.jpg" alt="Facial">
+                            <h4>SPORTS MASSAGE</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/scalp massager.jpg" alt="Haircut & Beard">
+                            <h4>SCALP MASSAGE</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/manicure men.jpg" alt="Hair Color">
+                            <h4>MANICURE</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/mud therapy.jpg" alt="Hair Color">
+                            <h4>MUD THERAPY</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/meditation.jpg" alt="Pedicure">
+                            <h4>MEDITATION</h4>
+                        </div>
+                        <div class="service-card" data-category="beauty">
+                            <img src="/imgs/sound.jpg" alt="Facial">
+                            <h4>SOUND THERAPY</h4>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="service-category">
+                    <div class="category-header">
+                        <h3>Quick Services</h3>
+                        <a href="#" class="see-all">SEE ALL</a>
+                    </div>
+                    <div class="quick-services-wrapper">
+                        <div class="quick-services-scroll">
+                            <div class="quick-service-card">
+                                <img src="/imgs/facialwax.jpg" alt="Tap Repair">
+                                <h4>waxing</h4>
+                                <p>₹199</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    4.5 (200k)
+                                </div>
+                            </div>
+                            <div class="quick-service-card">
+                                <img src="/imgs/head massage.jpg" alt="Switch Repair">
+                                <h4>head massage</h4>
+                                <p>₹199</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    4.5 (150k)
+                                </div>
+                            </div>
+                            <div class="quick-service-card">
+                                <img src="/imgs/hair colour.jpg" alt="Socket Repair">
+                                <h4>hair color</h4>
+                                <p>₹199</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    4.5 (180k)
+                                </div>
+                            </div>
+                            <div class="quick-service-card">
+                                <img src="/imgs/chestwaxing.jpg" alt="Fan Repair">
+                                <h4>chest waxing</h4>
+                                <p>₹199</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    4.5 (120k)
+                                </div>
+                            </div>
+                            <div class="quick-service-card">
+                                <img src="/imgs/pigmentation.jpg" alt="Fan Repair">
+                                <h4>pigmentation</h4>
+                                <p>₹199</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    4.5 (120k)
+                                </div>
+                            </div>
+                            <div class="quick-service-card">
+                                <img src="/imgs/sound.jpg" alt="Fan Repair">
+                                <h4>sound therapy</h4>
+                                <p>₹199</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    4.5 (120k)
+                                </div>
+                            </div>
+                            <div class="quick-service-card">
+                                <img src="/imgs/hair spa.jpg" alt="Fan Repair">
+                                <h4>hair spa</h4>
+                                <p>₹199</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    4.5 (120k)
+                                </div>
+                            </div>
+                            <div class="quick-service-card">
+                                <img src="/imgs/scalp massager.jpg" alt="Fan Repair">
+                                <h4>scalp massage</h4>
+                                <p>₹199</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    4.5 (120k)
+                                </div>
+                            </div>
+                            <div class="quick-service-card">
+                                <img src="/imgs/pain relief.jpg" alt="Fan Repair">
+                                <h4>pain relief</h4>
+                                <p>₹199</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    4.5 (120k)
+                                </div>
+                            </div>
+                            <div class="quick-service-card">
+                                <img src="/imgs/men detan.jpg" alt="Fan Repair">
+                                <h4>detan pack</h4>
+                                <p>₹199</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    4.0 (100k)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+
+                <!-- Add more cards as needed -->
+        </div>
+    </div>
+    </div>
+
+    </section>
+    </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            });
+
+            // const searchInput = document.querySelector('.search-bar input');
+            // const serviceCards = document.querySelectorAll('.service-card');
+
+            // searchInput.addEventListener('input', (e) => {
+            //     const searchTerm = e.target.value.toLowerCase();
+            //     let isAnyCardVisible = false;
+
+            //     serviceCards.forEach(card => {
+            //         const title = card.querySelector('h4').textContent.toLowerCase();
+            //         if (title.includes(searchTerm)) {
+            //             card.style.display = 'flex'; // Or 'block' depending on your layout
+            //             isAnyCardVisible = true;
+            //         } else {
+            //             card.style.display = 'none';
+            //         }
+            //     });
+
+            const noResultsMessage = document.getElementById('no-results-message');
+            if (!noResultsMessage) {
+                const message = document.createElement('p');
+                message.id = 'no-results-message';
+                message.textContent = 'No services found.';
+                message.style.textAlign = 'center';
+                message.style.display = 'none'; // Initially hidden
+                searchInput.closest('.services-section').appendChild(message);
+            }
+
+            document.getElementById('no-results-message').style.display = isAnyCardVisible ? 'none' : 'block';
+        });
+
+        // document.querySelectorAll('.see-all').forEach(button => {
+        //     button.addEventListener('click', (e) => {
+        //         e.preventDefault();
+        //         const category = e.target.closest('.service-category');
+        //         const grid = category.querySelector('.service-grid');
+        //         grid.classList.toggle('expanded');
+        //     });
+        // });
+
+        const bookNowBtn = document.querySelector('.book-now-btn');
+        bookNowBtn.addEventListener('click', () => {
+            alert('Booking feature will be implemented soon!');
+        });
+
+        document.getElementById('locationButton').addEventListener('click', function () {
+            const dropdown = document.getElementById('districtDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        window.addEventListener('click', function (event) {
+            const dropdown = document.getElementById('districtDropdown');
+            if (!event.target.matches('#locationButton')) {
+                dropdown.style.display = 'none';
+            }
+        });
+        // scroll
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const quickServicesScroll = document.querySelector('.quick-services-scroll');
+            const scrollLeftBtn = document.querySelector('.scroll-btn.left');
+            const scrollRightBtn = document.querySelector('.scroll-btn.right');
+
+            // Scroll left functionality
+            scrollLeftBtn.addEventListener('click', () => {
+                quickServicesScroll.scrollBy({ left: -200, behavior: 'smooth' });
+            });
+
+            // Scroll right functionality
+            scrollRightBtn.addEventListener('click', () => {
+                quickServicesScroll.scrollBy({ left: 200, behavior: 'smooth' });
+            });
+        });
+
+
+
+    </script>
+</body>
+
+</html>

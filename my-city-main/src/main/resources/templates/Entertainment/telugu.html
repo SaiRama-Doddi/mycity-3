@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mycity</title>
+  <style>
+    
+  </style>
+
+  <link rel="shortcut icon" href="../Entertainment/favicon.svg" type="image/svg+xml">
+
+  <link rel="stylesheet" href="/CSS/shortFilmStyles.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+
+<body id="top">
+
+
+  <header class="header" data-header>
+    <div class="container">
+
+      <div class="overlay" data-overlay></div>
+
+      <a href="/Entertainment/ShortFilms" class="logo">
+        <!-- <img src="./assets/images/logo.jpg" alt="MY CIty"> -->
+      </a>
+
+      <div class="header-actions">
+
+       
+        <div class="search-wrapper">
+          <input type="text" id="search-input" placeholder="Search YouTube...">
+          <button id="search-button">Search</button>
+      </div>
+
+        <div class="lang-wrapper">
+          <label for="language">
+            <ion-icon name="globe-outline"></ion-icon>
+          </label>
+
+          <select name="language" id="language" onchange="navigateToLanguage()">            
+            <option value="au">TELUGU</option>
+           <option value="tu">TAMIL</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary">Sign in</button>
+
+      </div>
+
+      <button class="menu-open-btn" data-menu-open-btn>
+        <ion-icon name="reorder-two"></ion-icon>
+      </button>
+
+      <nav class="navbar" data-navbar>
+
+        <div class="navbar-top">
+
+          <a href="/Entertainment/home" class="logo">
+            <img src="./assets/images/logo.jpg" alt="mycity logo">
+          </a>
+
+          <button class="menu-close-btn" data-menu-close-btn>
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+
+        </div>
+
+        <ul class="navbar-list">
+
+          <li>
+            <a href="/Entertainment/home" class="navbar-link">Home</a>
+          </li>
+
+          <li>
+            <a href="/Entertainment/Movies" class="navbar-link">Movie</a>
+          </li>
+
+          <li>
+            <a href="/Entertainment/MyMusic" class="navbar-link">Music</a>
+          </li>
+
+          <li>
+            <a href="/Entertainment/ShortFilms" class="navbar-link">Short Films</a>
+          </li>
+
+          
+          <li>
+            <a href="/Entertainment/FilmNews" class="navbar-link">Film News</a>
+          </li>
+
+        </ul>
+
+        <ul class="navbar-social-list">
+
+          <li>
+            <a href="#" class="navbar-social-link">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-social-link">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-social-link">
+              <ion-icon name="logo-pinterest"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-social-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-social-link">
+              <ion-icon name="logo-youtube"></ion-icon>
+            </a>
+          </li>
+
+        </ul>
+
+      </nav>
+
+    </div>
+  </header>
+
+
+
+
+
+  <main>
+    <article>
+
+
+      <section class="hero">
+        <div class="container">
+
+          <div class="hero-content">
+
+            <p class="hero-subtitle">Mycity</p>
+
+            <h1 class="h1 hero-title">
+              Unlimited <strong>short films</strong>, web series, & More in Telugu.
+            </h1>
+
+            <div class="meta-wrapper">
+
+              <div class="badge-wrapper">
+
+                <div class="badge badge-outline">Love</div>
+              </div>
+
+              <div class="ganre-wrapper">
+                <a href="#">Romance,</a>
+
+                <a href="#">Drama</a>
+              </div>
+
+              <div class="date-time">
+
+                <div>
+                  <ion-icon name="calendar-outline"></ion-icon>
+
+                  <time datetime="2022">2024</time>
+                </div>
+
+
+              </div>
+
+            </div>
+
+            <button class="btn btn-primary">
+              <ion-icon name="play"></ion-icon>
+
+              <span>Watch now</span>
+            </button>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+
+      <section class="upcoming">
+        <div class="container">
+
+          <div class="flex-wrapper">
+
+            <div class="title-wrapper">
+              <p class="section-subtitle">Online Streaming</p>
+
+              <h2 class="h2 section-title">Top Rates Short Films in Telugu</h2>
+            </div>
+
+            <ul class="filter-list">
+
+              <li>
+                <button class="filter-btn">Love </button>
+              </li>
+
+              <li>
+                <button class="filter-btn">Romanance</button>
+              </li>
+
+              <li>
+                <button class="filter-btn">Comedy</button>
+              </li>
+
+            </ul>
+
+          </div>
+
+          <ul class="movies-list  has-scrollbar">
+
+            <li>
+              <div class="movie-card">
+
+                <a href="https://www.youtube.com/watch?v=CDk5ZqVnLfA">
+                  <figure class="card-banner">
+                    <img src="/images/backseat.jpeg" alt="movie poster">
+                  </figure>
+                </a>
+
+                <div class="title-wrapper">
+                  <a href="./movie-details.html">
+                    <h3 class="card-title">Back seat</h3>
+                  </a>
+
+                  <time datetime="2022">2023</time>
+                </div>
+
+                <div class="card-meta">
+                  <div class="badge badge-outline">HD</div>
+
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <time datetime="PT137M">20 minta</time>
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <data>8.5</data>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="movie-card">
+
+                <a href="https://www.youtube.com/watch?v=F_3yO2dvfoY">
+                  <figure class="card-banner">
+                    <img src="/images/telugumedium.jpeg"
+                      alt="Telugu medium">
+                  </figure>
+                </a>
+
+                <div class="title-wrapper">
+                  <a href="https://www.youtube.com/watch?v=F_3yO2dvfoY">
+                    <h3 class="card-title">Telugu Medium</h3>
+                  </a>
+
+                  <time datetime="2022">2024</time>
+                </div>
+
+                <div class="card-meta">
+                  <div class="badge badge-outline">4K</div>
+
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <time datetime="PT126M">32 mints</time>
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <data>8.5</data>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="movie-card">
+
+                <a href="https://www.youtube.com/watch?v=u2bQlysGdAM">
+                  <figure class="card-banner">
+                    <img src="/images/richgirlfriend.jpeg" alt="Memory movie poster">
+                  </figure>
+                </a>
+
+                <div class="title-wrapper">
+                  <a href="https://www.youtube.com/watch?v=u2bQlysGdAM">
+                    <h3 class="card-title">Rich Girlfriend</h3>
+                  </a>
+
+                  <time datetime="2022">2023</time>
+                </div>
+
+                <div class="card-meta">
+                  <div class="badge badge-outline">2K</div>
+
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <time datetime="">28 mints</time>
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <data>8.0</data>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="movie-card">
+
+                <a href="https://www.youtube.com/watch?v=ChuwJE3y6Ts">
+                  <figure class="card-banner">
+                    <img src="/images/miss unlucky.jpeg"
+                      alt="The Unbearable Weight of Massive Talent movie poster">
+                  </figure>
+                </a>
+
+                <div class="title-wrapper">
+                  <a href="https://www.youtube.com/watch?v=ChuwJE3y6Ts">
+                    <h3 class="card-title">Miss Unlucky</h3>
+                  </a>
+
+                  <time datetime="2022">2022</time>
+                </div>
+
+                <div class="card-meta">
+                  <div class="badge badge-outline">HD</div>
+
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <time datetime="PT107M">15 min</time>
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <data>NR</data>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+      <section class="service">
+        <div class="container">
+
+          <div class="service-banner">
+            <figure>
+              <img src="/images/info2.jpeg" alt="HD 4k resolution! only $3.99">
+            </figure>
+
+            <a href="/images/service-banner.jpg" download class="service-btn">
+              <span>Download</span>
+
+              <ion-icon name="download-outline"></ion-icon>
+            </a>
+          </div>
+
+          <div class="service-content">
+
+            <p class="service-subtitle">Our Services</p>
+
+            <h2 class="h2 service-title">Download Your Shows Watch Offline.</h2>
+
+            <p class="service-text">Download Your favourite short films and webseries and watch when you are free
+            </p>
+
+            <ul class="service-list">
+
+              <li>
+                <div class="service-card">
+
+                  <div class="card-icon">
+                    <ion-icon name="tv"></ion-icon>
+                  </div>
+
+                  <div class="card-content">
+                    <h3 class="h3 card-title">Enjoy on Your TV.</h3>
+
+                    <p class="card-text">
+                     You can download our app in tv and enjoy our shown in Bigger screen's
+                    </p>
+                  </div>
+
+                </div>
+              </li>
+
+              <li>
+                <div class="service-card">
+
+                  <div class="card-icon">
+                    <ion-icon name="videocam"></ion-icon>
+                  </div>
+
+                  <div class="card-content">
+                    <h3 class="h3 card-title">Watch Everywhere.</h3>
+
+                    <p class="card-text">
+                     You can access your content anywhere in the world
+                    </p>
+                  </div>
+
+                </div>
+              </li>
+
+            </ul>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+
+      <section class="top-rated">
+        <div class="container">
+
+          <p class="section-subtitle">Online Streaming</p>
+
+          <h2 class="h2 section-title">Top Rated web series</h2>
+
+          <ul class="filter-list">
+
+            <li>
+              <button class="filter-btn">Action</button>
+            </li>
+
+            <li>
+              <button class="filter-btn">Crime</button>
+            </li>
+
+            <li>
+              <button class="filter-btn">Documentary</button>
+            </li>
+
+            <li>
+              <button class="filter-btn">Family</button>
+            </li>
+
+          </ul>
+
+          <ul class="movies-list">
+
+            <li>
+              <div class="movie-card">
+
+                <a href="https://www.zee5.com/web-series/details/the-casino/0-6-2556">
+                  <figure class="card-banner">
+                    <img src="/images/casino.jpeg" alt="Sonic the Hedgehog 2 movie poster">
+                  </figure>
+                </a>
+
+                <div class="title-wrapper">
+                  <a href="./movie-details.html">
+                    <h3 class="card-title">THE CASINO</h3>
+                  </a>
+
+                  <time datetime="2022">2022</time>
+                </div>
+
+                <div class="card-meta">
+                  <div class="badge badge-outline">Telugu & Tamil</div> 
+
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <time datetime="PT122M">1 - 6 episodes</time>
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <data>7.8</data>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="movie-card">
+
+                <a href="https://www.zee5.com/web-series/details/puli-meka/0-6-4z5310699">
+                  <figure class="card-banner">
+                    <img src="/images/puli meka.jpeg" alt="Morbius movie poster">
+                  </figure>
+                </a>
+
+                <div class="title-wrapper">
+                  <a href="https://www.zee5.com/web-series/details/puli-meka/0-6-4z5310699">
+                    <h3 class="card-title">PULI MEKA</h3>
+                  </a>
+
+                  <time datetime="2022">2022</time>
+                </div>
+
+                <div class="card-meta">
+                  <div class="badge badge-outline">Telugu</div>
+
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <time datetime="PT104M"> 1 - 8 episodes</time>
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <data>5.9</data>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="movie-card">
+
+                <a href="https://www.zee5.com/web-series/details/hello-world/0-6-4z5192239">
+                  <figure class="card-banner">
+                    <img src="/images/hello world.jpeg" alt="The Adam Project movie poster">
+                  </figure>
+                </a>
+
+                <div class="title-wrapper">
+                  <a href="https://www.zee5.com/web-series/details/hello-world/0-6-4z5192239">
+                    <h3 class="card-title">HELLO WORLD</h3>
+                  </a>
+
+                  <time datetime="2022">2022</time>
+                </div>
+
+                <div class="card-meta">
+                  <div class="badge badge-outline">Telugu & Tamil</div>
+
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <time datetime="PT106M">1 - 5 episodes</time>
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <data>7.0</data>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="movie-card">
+
+                <a href="https://www.zee5.com/web-series/details/koose-munisamy-veerappan/0-6-4z5469248">
+                  <figure class="card-banner">
+                    <img src="/images/koose.jpeg" alt="koose munuswamy">
+                  </figure>
+                </a>
+
+                <div class="title-wrapper">
+                  <a href="https://www.zee5.com/web-series/details/koose-munisamy-veerappan/0-6-4z5469248">
+                    <h3 class="card-title">KOOSE MUNISWAMY VERRAPPAN</h3>
+                  </a>
+
+                  <time datetime="2021">2023</time>
+                </div>
+
+                <div class="card-meta">
+                  <div class="badge badge-outline">Tamil,Telugu & Kannada</div>
+
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <time datetime="PT115M">1 - 6 episodes</time>
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <data>7.7</data>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="movie-card">
+
+                <a href="https://www.zee5.com/web-series/details/paruvu/0-6-4z5570736">
+                  <figure class="card-banner">
+                    <img src="/images/pavuvu.jpeg" alt="The Batman movie poster">
+                  </figure>
+                </a>
+
+                <div class="title-wrapper">
+                  <a href="https://www.zee5.com/web-series/details/paruvu/0-6-4z5570736">
+                    <h3 class="card-title">PARUVU</h3>
+                  </a>
+
+                  <time datetime="2022">2024</time>
+                </div>
+
+                <div class="card-meta">
+                  <div class="badge badge-outline">Telugu</div>
+
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <time datetime="PT176M">1 - 8 episodes</time>
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <data>8.9</data>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="movie-card">
+
+                <a href="https://www.primevideo.com/detail/Dhootha/0U9GNC4J1WHF2ME4SLKFR80XAL">
+                  <figure class="card-banner">
+                    <img src="/images/doota.jpg" alt="Uncharted movie poster">
+                  </figure>
+                </a>
+
+                <div class="title-wrapper">
+                  <a href="./movie-details.html">
+                    <h3 class="card-title">Doota </h3>
+                  </a>
+
+                  <time datetime="2022">2023</time>
+                </div>
+
+                <div class="card-meta">
+                  <div class="badge badge-outline">Telugu & Hindi</div>
+
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <time datetime="PT116M">1 - 8 episodes</time>
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <data>8.0</data>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="movie-card">
+
+                <a href="https://www.netflix.com/in/title/81569920">
+                  <figure class="card-banner">
+                    <img src="/images/breakpoint.jpeg" alt="Death on the Nile movie poster">
+                  </figure>
+                </a>
+
+                <div class="title-wrapper">
+                  <a href="https://www.netflix.com/in/title/81569920">
+                    <h3 class="card-title">BREAK POINT</h3>
+                  </a>
+
+                  <time datetime="2022">2022</time>
+                </div>
+
+                <div class="card-meta">
+                  <div class="badge badge-outline">Telugu & Hindi</div>
+
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <time datetime="PT127M">1 - 6 episodes</time>
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <data>6.5</data>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="movie-card">
+
+                <a href="https://www.primevideo.com/detail/Hostel-Days-Telugu/0JV5DHR0ETGXOJNHQPD28DBI2T">
+                  <figure class="card-banner">
+                    <img src="/images/hostel days.jpg" alt="The King's Man movie poster">
+                  </figure>
+                </a>
+
+                <div class="title-wrapper">
+                  <a href="https://www.primevideo.com/detail/Hostel-Days-Telugu/0JV5DHR0ETGXOJNHQPD28DBI2T">
+                    <h3 class="card-title">Hostel Days </h3>
+                  </a>
+
+                  <time datetime="2021">2023</time>
+                </div>
+
+                <div class="card-meta">
+                  <div class="badge badge-outline">Telugu & Hindi</div>
+
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <time datetime="PT131M">1 - 5 episodes</time>
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <data>7.0</data>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+      
+ <section class="youtube-videos" id="youtube-videos">
+        <div class="container">
+          <div class="title-wrapper">
+            <h2 class="h2 section-title"> YouTube shotfilms</h2>
+          </div>
+          <ul class="movies-list has-scrollbar" id="youtube-video-list">
+          </ul>
+           <div id="videoPlayerContainer">
+            <div id="player"></div> </div>
+        </div>
+      </section>
+
+
+      <section class="tv-series">
+        <div class="container">
+
+          <p class="section-subtitle">Best web Series</p>
+
+          <h2 class="h2 section-title">World Best web Series</h2>
+
+          <ul class="movies-list">
+
+            <li>
+              <div class="movie-card">
+
+                <a href="https://www.netflix.com/in/title/70143836">
+                  <figure class="card-banner">
+                    <img src="/images/breakingbad.jpeg" alt="Moon Knight movie poster">
+                  </figure>
+                </a>
+
+                <div class="title-wrapper">
+                  <a href="./movie-details.html">
+                    <h3 class="card-title">BREAKING BAD</h3>
+                  </a>
+
+                  <time datetime="2022">2008</time>
+                </div>
+
+                <div class="card-meta">
+                  <div class="badge badge-outline">ENGLISH & Telugu</div>
+
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <time datetime="PT47M">5 seasons</time>
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <data>8.6</data>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="movie-card">
+
+                <a href="https://www.primevideo.com/detail/Game-of-Thrones/0NZG3AUJEXFXKKDLKRB7KAI0S2">
+                  <figure class="card-banner">
+                    <img src="/images/got.jpeg" alt="Halo movie poster">
+                  </figure>
+                </a>
+
+                <div class="title-wrapper">
+                  <a href="./movie-details.html">
+                    <h3 class="card-title">GAME OF THRONES</h3>
+                  </a>
+
+                  <time datetime="2022">2011</time>
+                </div>
+
+                <div class="card-meta">
+                  <div class="badge badge-outline">English & Telugu</div>
+
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <time datetime="PT59M">8 seasons</time>
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <data>8.8</data>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="movie-card">
+
+                <a href="https://www.primevideo.com/detail/The-Boys/0SSV1CIYHPUKDFUE5JOYRDKF06">
+                  <figure class="card-banner">
+                    <img src="/images/the boys.jpeg" alt="Vikings: Valhalla movie poster">
+                  </figure>
+                </a>
+
+                <div class="title-wrapper">
+                  <a href="https://www.primevideo.com/detail/The-Boys/0SSV1CIYHPUKDFUE5JOYRDKF06">
+                    <h3 class="card-title">THE BOYS</h3>
+                  </a>
+
+                  <time datetime="2022">2019</time>
+                </div>
+
+                <div class="card-meta">
+                  <div class="badge badge-outline">English & Telugu</div>
+
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <time datetime="PT51M">4 seasons</time>
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <data>8.7</data>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="movie-card">
+
+                <a href="https://www.netflix.com/in/title/80192098">
+                  <figure class="card-banner">
+                    <img src="/images/series-4.png" alt="Money Heist movie poster">
+                  </figure>
+                </a>
+
+                <div class="title-wrapper">
+                  <a href="https://www.netflix.com/in/title/80192098">
+                    <h3 class="card-title">Money Heist</h3>
+                  </a>
+
+                  <time datetime="2017">2017</time>
+                </div>
+
+                <div class="card-meta">
+                  <div class="badge badge-outline">English & Telugu</div>
+
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <time datetime="PT70M">5 seasons</time>
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <data>9.0</data>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+
+      <section class="cta">
+        <div class="container">
+
+          <div class="title-wrapper">
+            <h2 class="cta-title">Trial start first 30 days.</h2>
+
+            <p class="cta-text">
+              Enter your email to create or restart your membership.
+            </p>
+          </div>
+
+          <form action="" class="cta-form">
+            <input type="email" name="email" required placeholder="Enter your email" class="email-field">
+
+            <button type="submit" class="cta-form-btn">Get started</button>
+          </form>
+
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <a href="#top" class="go-top" data-go-top>
+    <ion-icon name="chevron-up"></ion-icon>
+  </a>
+
+  <script src="./assets/js/script.js"></script>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script> API_KEY = 'AIzaSyBcrc0mhl0JJmMPuaJ1S8iwHl3VD-nFjEo'; 
+const searchButton = document.getElementById('search-button');
+const searchInput = document.getElementById('search-input');
+
+searchButton.addEventListener('click', function() {
+    const query = searchInput.value;
+    if (query) {
+        fetchYouTubeVideos(query);
+    }
+});
+
+async function fetchYouTubeVideos(query) {
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=10&q=${encodeURIComponent(query)}&key=${API_KEY}`;
+    
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        displayVideos(data.items);
+        document.getElementById('youtube-videos').scrollIntoView({ behavior: 'smooth' });
+    } 
+    catch (error) {
+        console.error('Error fetching YouTube videos:', error);
+    }
+}
+
+function displayVideos(videos) {
+    const videoList = document.getElementById('youtube-video-list');
+    videoList.innerHTML = ''; 
+
+    videos.forEach(video => {
+        const videoItem = document.createElement('li');
+        videoItem.classList.add('youtube-card');
+        
+        videoItem.innerHTML = `
+            <a href="https://www.youtube.com/watch?v=${video.id.videoId}">
+                <figure class="card-banner">
+                    <img src="${video.snippet.thumbnails.default.url}" alt="${video.snippet.title}">
+                </figure>
+            </a>
+            <div class="title-wrapper">
+                <a href="https://www.youtube.com/watch?v=${video.id.videoId}">
+                    <h3 class="card-title">${video.snippet.title}</h3>
+                </a>
+                <time datetime="${video.snippet.publishedAt}">${new Date(video.snippet.publishedAt).toLocaleDateString()}</time>
+            </div>
+        `;
+        
+        videoList.appendChild(videoItem);
+    });
+    if (data.items) {
+      displayVideos(data.items);
+  } else {
+      console.error('No videos found or error in response:', data);
+  }
+}
+</script>
+<script>
+  function navigateToLanguage() {
+      const languageSelect = document.getElementById('language');
+      const selectedLanguage = languageSelect.value;
+
+      switch (selectedLanguage) {
+          case 'en':
+              window.location.href = './telugu.html'; 
+              break;
+          case 'au':
+              window.location.href = './telugu.html'; 
+              break;
+          case 'ar':
+              window.location.href = './telugu.html'; 
+              break;
+          case 'tu':
+              window.location.href = './tamil.html'; 
+              break;
+          default:
+              console.error('Invalid language selection');
+              break;
+      }
+  }
+</script>
+
+<script>
+  var player;
+
+  function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: '', 
+          events: {
+              'onReady': onPlayerReady,
+              'onStateChange': onPlayerStateChange
+          }
+      });
+  }
+
+  function onPlayerReady(event) {
+  }
+
+  function onPlayerStateChange(event) {
+  }
+
+  function playVideo(videoId) {
+      player.loadVideoById(videoId); 
+  }
+</script></body>
+
+</html>

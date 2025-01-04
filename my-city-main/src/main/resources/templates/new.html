@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+</body>
+
+</html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Confirmation</title>
+    <!-- <link rel="stylesheet" href="/css/new.css"> -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-container {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .details-container {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .image-container img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FF5733;
+            margin-top: 10px;
+        }
+
+        .reserve-button {
+            background-color: #FF5733;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .reserve-button:hover {
+            background-color: #FF4500;
+        }
+
+        .amenities-section {
+            display: block;
+        }
+
+        .amenities {
+            display: flex;
+            gap: 15px;
+        }
+
+        .amenities li {
+            display: flex;
+            align-items: center;
+        }
+
+        .amenities img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+
+        /* Price Input Style */
+        .price-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .roomPrice {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FF5733;
+        }
+
+        .quantity-input {
+            width: 30px;
+            text-align: center;
+        }
+
+        .minus,
+        .plus {
+            background-color: #FF5733;
+            color: white;
+            padding: 6px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .minus:hover,
+        .plus:hover {
+            background-color: #FF4500;
+        }
+
+        footer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            background-color: black;
+            height: 59px;
+            align-items: center;
+            padding-top: 10px;
+            margin-top: 30px;
+
+            ul {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                list-style: none;
+                width: fit-content;
+
+                li {
+                    a {
+                        text-decoration: none;
+                        color: whitesmoke;
+
+
+                        &:hover {
+                            color: orange;
+                        }
+
+                        &.active {
+                            color: orange;
+                        }
+                    }
+                }
+            }
+
+            p {
+                color: white;
+            }
+        }
+
+        .navbar-brand,
+        .nav-link,
+        .btn-orange {
+            color: white;
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-orange {
+            background-color: #FF5722;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-orange:hover {
+            background-color: #e64a19;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .sticky {
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            /* Make sure it appears above the video */
+        }
+
+        header {
+            background-color: rgb(6, 6, 6);
+            /* Add transparency for better video visibility */
+            display: flex;
+            flex-direction: row;
+            height: 60px;
+            margin: 20px 80px 30px 80px;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 25px;
+            position: relative;
+            z-index: 100;
+
+            /* Ensure header is above video */
+        }
+
+        .mobile_header {
+            display: none;
+        }
+
+        .logo_placeholder {
+            color: whitesmoke;
+            width: auto;
+        }
+
+        .logo_placeholder img {
+            width: 80px;
+            height: 55px;
+        }
+
+        .nav_links_placeholder ul {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            justify-content: space-evenly;
+            width: 800px !important;
+            list-style: none;
+        }
+
+        .nav_link {
+            padding: 10px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .nav_link a {
+            text-decoration: none;
+            color: whitesmoke;
+        }
+
+        .nav_link:hover {
+            border-bottom: 2px solid #f5640a;
+            color: #f5640a;
+        }
+
+        .nav_link:hover a {
+            color: #f5640a;
+        }
+
+        .nav_link.active {
+            border-bottom: 2px solid #f5640a;
+            color: #f5640a;
+        }
+
+        .nav_link.active a {
+            color: #f5640a;
+        }
+
+        .login_button {
+            padding: 10px 15px;
+            border-radius: 15px;
+            border: 2px solid #f5640a;
+            background-color: #f5640a;
+            cursor: pointer;
+        }
+
+        .login_button a {
+            text-decoration: none;
+            color: whitesmoke;
+        }
+
+        .closeImage {
+            display: none;
+        }
+
+        @media screen and (min-width: 320px) and (max-width: 480px) {
+            .mobile_header {
+                display: block;
+                width: fit-content;
+
+            }
+
+            .mobile-header {
+                display: none !important;
+            }
+
+
+            .closeImage.active {
+                display: flex;
+                width: 30px;
+                height: 30px;
+            }
+
+            .logo_placeholder {
+                display: flex !important;
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .mobile-header.active {
+                display: flex !important;
+                flex-direction: column !important;
+                position: absolute;
+                left: 10px;
+                top: 1rem;
+                width: 90vw;
+                height: fit-content;
+                z-index: 99;
+                background: #000000cc;
+                align-items: start;
+                padding: 20px;
+                gap: 20px;
+                margin: 0;
+            }
+
+            .nav_links_placeholder ul {
+                width: 100% !important;
+            }
+
+
+            .nav_links {
+                flex-direction: column !important;
+                text-align: start;
+                width: 100% !important;
+                padding: 0;
+                font-size: 24px;
+
+                .nav-link {
+                    width: 100% !important;
+
+                    a {
+                        font-size: 24px;
+                    }
+                }
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .container {
+                flex-direction: column;
+                width: 90%;
+                align-items: center;
+                height: auto;
+
+                .image-container {
+                    width: 90%;
+                    margin-right: 0;
+
+                    img {
+                        width: 100%;
+                        height: 260px;
+                        object-fit: cover;
+                    }
+                }
+
+
+                .details-container {
+                    width: 100%;
+                    padding: 10px;
+
+
+
+                    .amenities-section {
+
+                        .amenities {
+                            gap: 0;
+                            flex-direction: column;
+                        }
+                    }
+
+                    .price-container {
+                        height: 100%;
+                        width: 100%;
+                        justify-content: space-between;
+
+                        .minus,
+                        .plus,
+                        input {
+                            width: 40px;
+                            height: 40px;
+                        }
+                    }
+                }
+            }
+
+            footer {
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-items: start;
+                gap: 20px;
+                flex-direction: column;
+                height: auto;
+
+                .footer_nav-links_placeholder,
+                .footer_social-links_placeholder {
+                    margin: 0;
+                }
+
+                ul {
+                    gap: 10px;
+                    width: fit-content;
+                }
+
+                .footer_nav-links {
+                    padding: 0;
+
+                    a {
+                        font-size: 16px;
+                        text-wrap: nowrap;
+
+                    }
+                }
+
+                .footer_social-links {
+                    padding: 0;
+                }
+
+                .footer_social-link {
+                    padding: 0;
+
+                    a svg {
+                        width: 20px;
+                    }
+                }
+
+                .footer_copy-rights_placeholder {
+                    margin: 0;
+
+                    .copy-rights {
+                        font-size: 16px;
+                    }
+                }
+            }
+
+
+        }
+
+        @media screen and (min-width: 575px) and (max-width: 767.98px) {
+
+            .mobile_header {
+                display: block !important;
+                width: fit-content;
+            }
+
+            .mobile-header {
+                display: none;
+            }
+
+            .closeImage.active {
+                display: flex;
+                width: 30px;
+                height: 30px;
+            }
+
+            .logo_placeholder {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .mobile-header.active {
+                display: flex !important;
+                flex-direction: column !important;
+                position: absolute;
+                left: 05px;
+                top: 05px;
+                width: 50vw;
+                height: fit-content;
+                z-index: 99;
+                background: #000000cc;
+                align-items: start;
+                padding: 20px;
+                gap: 20px;
+                margin: 0;
+            }
+
+            .nav_links_placeholder ul {
+                width: 100% !important;
+            }
+
+            .nav_links {
+                flex-direction: column !important;
+                text-align: start;
+                width: 100% !important;
+                padding: 0;
+                font-size: 24px;
+
+                .nav-link {
+                    width: 100% !important;
+
+                    a {
+                        font-size: 24px;
+                    }
+                }
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .container {
+                flex-direction: column;
+                width: 80%;
+                align-items: center;
+                height: auto;
+
+                .image-container {
+                    width: 90%;
+                    margin-right: 0;
+
+                    img {
+                        width: 100%;
+                        height: 260px;
+                        object-fit: cover;
+                    }
+                }
+
+
+                .details-container {
+                    width: 100%;
+                    padding: 10px;
+
+
+
+                    .amenities-section {
+
+                        .amenities {
+                            gap: 0;
+                            flex-direction: column;
+                        }
+                    }
+
+                    .price-container {
+                        height: 100%;
+                        width: 100%;
+
+
+                        .roomPrice {
+                            margin-right: 40px;
+                        }
+
+                        .minus,
+                        .plus,
+                        input {
+                            width: 40px;
+                            height: 40px;
+                            font-size: 18px;
+                        }
+                    }
+                }
+            }
+
+
+            footer {
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                gap: 20px;
+
+                .footer_nav-links_placeholder,
+                .footer_social-links_placeholder {
+                    margin: 0;
+                }
+
+                ul {
+                    gap: 10px;
+                    width: fit-content !important;
+                }
+
+                .footer_nav-links {
+                    a {
+                        font-size: 16px;
+                        text-wrap: nowrap;
+
+                    }
+                }
+
+                .footer_social-link {
+                    a svg {
+                        width: 20px;
+                    }
+                }
+
+                .footer_copy-rights_placeholder {
+                    margin: 0;
+
+                    .copy-rights {
+                        font-size: 16px;
+                    }
+                }
+            }
+
+
+
+
+        }
+
+        @media screen and (min-width: 768px) and (max-width: 1023px) {
+            header {
+                margin: 20px;
+            }
+
+            .nav_links_placeholder ul {
+                width: 100% !important;
+            }
+
+            .nav_links {
+                text-align: start;
+                width: 100% !important;
+                padding: 0;
+                font-size: 16px;
+
+                .nav-link {
+                    width: 100% !important;
+
+                    a {
+                        font-size: 24px;
+                    }
+                }
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                gap: 10px;
+                width: 90%;
+
+                height: auto;
+
+                .image-container {
+                    width: 90%;
+                    margin-right: 0;
+
+                    img {
+                        width: 100%;
+                        height: 260px;
+                        object-fit: cover;
+                    }
+                }
+
+
+                .details-container {
+                    width: 100%;
+                    padding: 10px;
+
+                    p {
+                        font-size: 18px;
+                    }
+
+                    .amenities-section {
+
+                        .amenities {
+                            font-size: 18px;
+                            gap: 0;
+                            flex-direction: column;
+                        }
+                    }
+
+                    .price-container {
+                        height: 100%;
+                        width: 100%;
+
+
+                        .minus,
+                        .plus,
+                        input {
+                            width: 50px;
+                            height: 50px;
+                            font-size: 20px;
+                        }
+
+
+                    }
+
+                    .reserve-button {
+                        margin-top: 10px;
+                        font-size: 20px;
+                    }
+                }
+            }
+
+            .nav_links_placeholder {
+
+                .nav_links {
+                    width: fit-content;
+                    align-items: center;
+                }
+            }
+
+
+
+            footer {
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                gap: 20px;
+
+                .footer_nav-links_placeholder,
+                .footer_social-links_placeholder {
+                    margin: 0;
+                }
+
+                ul {
+                    gap: 15px;
+                    width: fit-content;
+                }
+
+                .footer_nav-links {
+                    a {
+                        font-size: 18px;
+                        text-wrap: nowrap;
+
+                    }
+                }
+
+                .footer_social-link {
+                    a svg {
+                        width: 25px;
+                    }
+                }
+
+                .footer_copy-rights_placeholder {
+                    margin: 0;
+
+                    .copy-rights {
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+
+        @media screen and (min-width: 1024px) and (max-width: 1199px) {
+
+            header {
+                margin: 40px;
+            }
+
+            .nav_links_placeholder ul {
+                width: 100% !important;
+            }
+
+            .nav_links {
+                text-align: start;
+                width: 100% !important;
+                padding: 0;
+                font-size: 1.35rem;
+
+                .nav-link {
+                    width: 100% !important;
+
+                    a {
+                        font-size: 1.35rem
+                    }
+                }
+            }   
+
+            .login_button{
+                font-size: 1.34rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .container {
+                gap: 30px;
+                width: 90%;
+
+                height: auto;
+
+                .image-container {
+                    width: 90%;
+                    margin-right: 0;
+
+                    img {
+                        width: 100%;
+                       
+                        object-fit: cover;
+                    }
+                }
+
+
+                .details-container {
+                    width: 100%;
+                    padding: 10px;
+
+                    p {
+                        font-size: 1.5rem;
+                    }
+
+                    .amenities-section {
+                        .section-title{
+                            font-size: 2rem;
+                        }
+                        .amenities {
+                            font-size: 18px;
+                            gap: 0;
+                            flex-direction: column;
+                        }
+                    }
+
+                    .price-container {
+                        height: 100%;
+                        width: 100%;
+                        gap: 30px;
+
+                        .roomPrice{
+                            font-size: 2rem;
+                            margin-right: 3rem;
+                        }
+
+                        .minus,
+                        .plus,
+                        input {
+                            width: 60px;
+                            height: 60px;
+                            font-size: 1.65rem;
+                        }
+
+
+                    }
+
+                    .reserve-button {
+                        margin-top: 10px;
+                        font-size: 2rem;
+                        margin: 4px;
+                    }
+                }
+            }
+
+            footer {
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                gap: 20px;
+
+                .footer_nav-links_placeholder,
+                .footer_social-links_placeholder {
+                    margin: 0;
+                }
+
+                ul {
+                    gap: 20px;
+                    width: fit-content;
+                }
+
+                .footer_nav-links {
+                    a {
+                        font-size: 1.24rem;
+                        text-wrap: nowrap;
+
+                    }
+                }
+
+                .footer_social-link {
+                    a svg {
+                        width: 40px;
+                    }
+                }
+
+                .footer_copy-rights_placeholder {
+                    margin: 0;
+
+                    .copy-rights {
+                        font-size: 1.25rem;
+                    }
+                }
+            }
+        }
+
+        footer {
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            gap: 20px;
+
+            .footer_nav-links_placeholder,
+            .footer_social-links_placeholder {
+                margin: 0;
+            }
+
+            ul {
+                gap: 20px;
+                width: fit-content;
+            }
+
+            .footer_nav-links {
+                a {
+                    font-size: 1.24rem;
+                    text-wrap: nowrap;
+
+                }
+            }
+
+            .footer_social-link {
+                a svg {
+                    width: 40px;
+                }
+            }
+
+            .footer_copy-rights_placeholder {
+                margin: 0;
+
+                .copy-rights {
+                    font-size: 1.25rem;
+                }
+            }
+        }
+
+        .container {
+            gap: 20px;
+            width: 90%;
+
+            height: auto;
+
+            .image-container {
+
+
+                img {
+                    object-fit: cover;
+                }
+            }
+
+
+            .details-container {
+                width: 100%;
+                padding: 10px;
+
+                p {
+                    font-size: 1.85rem;
+                }
+
+                .amenities-section {
+
+                    .amenities {
+                        font-size: 18px;
+                        gap: 0;
+                        flex-direction: column;
+                    }
+                }
+
+                .price-container {
+                    height: 100%;
+                    width: 100%;
+
+
+                    .minus,
+                    .plus,
+                    input {
+                        width: 50px;
+                        height: 50px;
+                        font-size: 20px;
+                    }
+
+
+                }
+
+                .reserve-button {
+                    margin-top: 10px;
+                    font-size: 20px;
+                }
+            }
+        }
+    
+    </style>
+</head>
+
+<body>
+    <div class="mobile_header">
+        <svg width="32px" height="32px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"
+            transform="rotate(0)">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+                <path d="M4 6H20M4 12H20M4 18H20" stroke="black" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+            </g>
+        </svg>
+    </div>
+    <header class="mobile-header">
+        <div class="logo_placeholder">
+            <img src="/imgs/logo.png" alt="logo" />
+            <img src="/icons/close.svg" alt="close" class="closeImage" />
+        </div>
+        <div class="nav_links_placeholder">
+            <ul class="nav_links">
+                <li class="nav_link">
+                    <a href="/mycity-homepage"><span>Home</span></a>
+                </li>
+                <li class="nav_link">
+                    <a href="/Entertainment/home"><span>Entertainment</span></a>
+                </li>
+                <li class="nav_link">
+                    <a href="homePage"><span>Shopping</span></a>
+                </li>
+                <li class="nav_link">
+                    <a href="/tourism"><span>Tourism</span></a>
+                </li>
+
+                <li class="nav_link">
+                    <a href="/beauty"><span>Pay Bills</span></a>
+                </li>
+                <li class="nav_link active">
+                    <a th:href="@{/ex}"><span>Hotels</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="login-button_placeholder">
+            <button class="login_button"><a href="">Sign Up</a></button>
+        </div>
+    </header>
+
+    <h1 style="text-align: center; margin-top: 20px;">Reservation Successful!</h1>
+
+    <!-- Reservation Details Container (Flex Layout with Image on Left and Details on Right) -->
+    <div class="container">
+        <!-- Left: Room Image -->
+        <div class="image-container">
+            <img th:src="'data:image/jpeg;base64,' + ${reservation.primaryRoomImageBase64}" alt="Room Image">
+        </div>
+
+        <!-- Right: Reservation Details -->
+        <div class="details-container">
+            <!-- Room Details -->
+            <p><strong>Room Type:</strong> <span th:text="${reservation.roomType}"></span></p>
+            <p><strong>Max-Guests:</strong> <span th:text="${reservation.maxGuests}"></span></p>
+            <p><strong>Check-in Date:</strong> <span th:text="${reservation.checkinDate}"></span></p>
+            <p><strong>Check-out Date:</strong> <span th:text="${reservation.checkoutDate}"></span></p>
+
+            <!-- Amenities Section -->
+            <div class="amenities-section">
+                <h2 class="section-title">Amenities:</h2>
+                <ul class="amenities">
+                    <li th:each="amenity : ${reservation.amenities}">
+                        <img th:src="@{${amenity.name == 'Bed' ? '/icons/bed.svg' : 
+                                         amenity.name == 'Smart TV' ? '/icons/tv.svg' : 
+                                         amenity.name == 'Parking' ? '/icons/parking.svg' : 
+                                         amenity.name == 'No Smoking' ? '/icons/nosmoke.svg' : 
+                                         amenity.name == 'Shower' ? '/icons/shower.svg' : 
+                                         amenity.name == 'City View' ? '/icons/city.svg' : 
+                                         amenity.name == 'Free Wi-Fi' ? '/icons/wifi.svg' :
+                                         amenity.name == '24/7 Room Service' ? '/icons/room.svg' :
+                                         amenity.name == 'Private Dining Experiences' ? '/icons/dining.svg' :
+                                         '/icons/filterorange.svg'}}" th:alt="${amenity.name + ' Icon'}" class="icons">
+                        <p th:text="${amenity.name}"></p>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Price Section with Quantity Adjustment -->
+            <div class="price-container">
+                <p class="roomPrice">₹ <span id="price" th:text="${reservation.price}"></span></p>
+                <button class="minus">-</button>
+                <input type="number" id="quantity" value="1" min="1" class="quantity-input">
+                <button class="plus">+</button>
+            </div>
+
+            <!-- <p>Room count is: <span th:text="${roomCount}"></span></p> -->
+
+            <!-- <p id="availability-status" style="font-weight: bold;"></p> -->
+
+            <!-- Reserve Button -->
+            <div style="display: flex; gap: 5px;">
+
+                <button type="submit" class="reserve-button">Reserve</button> <!-- Reserve button -->
+
+
+                <button class="reserve-button">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+    <footer>
+        <div class="footer_nav-links_placeholder">
+            <ul class="footer_nav-links">
+                <li class="footer_nav-link"><a href="/about">About</a></li>
+                <li class="footer_nav-link"><a href="/contact">Contact</a></li>
+                <li class="footer_nav-link"><a href="">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer_social-links_placeholder">
+            <ul class="footer_social-links">
+                <li class="footer_social-link"><a href="#">
+                        <svg fill="white" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="24px"
+                            height="24px" viewBox="0 0 14.906 32">
+                            <path
+                                d="M14.874,11.167 L14.262,14.207 C14.062,15.208 13.100,15.992 12.072,15.992 L10.000,15.992 L10.000,30.000 C10.000,31.104 9.159,32.000 8.049,32.000 L5.030,32.000 C3.920,32.000 3.017,31.102 3.017,29.999 L3.017,15.992 L2.011,15.992 C0.901,15.992 -0.002,15.095 -0.002,13.991 L-0.002,10.990 C-0.002,9.887 0.901,8.989 2.011,8.989 L3.017,8.989 L3.017,6.003 C3.017,2.716 5.693,0.041 8.994,0.013 C9.015,0.012 9.033,0.001 9.055,0.001 L13.081,0.001 C13.636,0.001 14.000,0.448 14.000,1.000 L14.000,6.000 C14.000,6.553 13.636,7.004 13.081,7.004 L10.061,7.004 L10.060,8.989 L13.079,8.989 C13.645,8.989 14.167,9.228 14.509,9.644 C14.852,10.059 14.985,10.615 14.874,11.167 ZM9.092,10.990 C9.078,10.991 9.067,10.998 9.053,10.998 L9.053,10.998 C8.497,10.997 8.046,10.549 8.047,9.997 L8.047,9.990 C8.047,9.990 8.047,9.990 8.047,9.990 C8.047,9.990 8.047,9.990 8.047,9.990 L8.049,6.003 C8.049,5.450 8.499,5.003 9.055,5.003 L12.074,5.003 L12.074,2.002 L9.094,2.002 C9.077,2.002 9.063,2.011 9.045,2.011 C6.831,2.011 5.030,3.802 5.030,6.003 L5.030,10.005 C5.030,10.558 4.579,11.006 4.023,11.006 C3.996,11.006 3.973,10.992 3.946,10.990 L2.011,10.990 L2.011,13.991 L4.023,13.991 C4.579,13.991 5.030,14.439 5.030,14.992 C5.030,15.044 5.008,15.088 5.000,15.138 L5.000,30.000 L8.049,29.999 L8.049,15.002 C8.049,14.998 8.047,14.995 8.047,14.992 C8.047,14.439 8.497,13.991 9.053,13.991 L12.072,13.991 C12.145,13.991 12.275,13.886 12.288,13.816 L12.857,10.990 L9.092,10.990 Z" />
+                        </svg>
+                    </a></li>
+                <li class="footer_social-link"><a href="#">
+                        <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
+                                fill="white" />
+                            <path
+                                d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                                fill="white" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
+                                fill="white" />
+                        </svg>
+                    </a></li>
+                <li class="footer_social-link"><a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white"
+                            class="bi bi-twitter-x" viewBox="0 0 16 16">
+                            <path
+                                d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+                        </svg>
+                    </a></li>
+                <li class="footer_social-link"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="footer_copy-rights_placeholder">
+            <p class="copy-rights">Copyright © 2024 MyCity. All rights reserved.</p>
+        </div>
+    </footer>
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            const priceElement = document.getElementById("price");
+            const quantityInput = document.getElementById("quantity");
+            const pricePerNight = parseFloat(priceElement.textContent);
+            const availabilityStatus = document.getElementById("availability-status");
+
+            // Injecting roomCount using Thymeleaf and ensuring it's an integer
+            const availableRooms = 0; // Set a fallback value if Thymeleaf fails to inject the value
+
+            const minusButton = document.querySelector(".minus");
+            const plusButton = document.querySelector(".plus");
+
+            // Initial availability check
+            checkAvailability(parseInt(quantityInput.value));
+
+            minusButton.addEventListener("click", function () {
+                let quantity = parseInt(quantityInput.value);
+                if (quantity > 1) {
+                    quantity--;
+                    quantityInput.value = quantity;
+                    updatePrice(quantity);
+                    checkAvailability(quantity);
+                }
+            });
+
+            plusButton.addEventListener("click", function () {
+                let quantity = parseInt(quantityInput.value);
+                quantity++;
+
+                // Check if quantity exceeds available rooms
+                if (quantity > availableRooms) {
+                    availabilityStatus.textContent = "Not enough rooms available!";
+                    availabilityStatus.style.color = "red";
+                    plusButton.disabled = true;  // Disable the plus button
+                } else {
+                    quantityInput.value = quantity;
+                    updatePrice(quantity);
+                    checkAvailability(quantity);
+                }
+            });
+
+            function updatePrice(quantity) {
+                const totalPrice = pricePerNight * quantity;
+                priceElement.textContent = totalPrice.toFixed(2);
+            }
+
+            function checkAvailability(quantity) {
+                if (quantity > availableRooms) {
+                    availabilityStatus.textContent = "Not enough rooms available!";
+                    availabilityStatus.style.color = "red";
+                    plusButton.disabled = true;  // Disable the plus button
+                } else {
+                    availabilityStatus.textContent = "Rooms available: " + (availableRooms - quantity);
+                    availabilityStatus.style.color = "green";
+                    plusButton.disabled = false; // Re-enable the plus button
+                }
+            }
+        });
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const priceElement = document.getElementById('price');
+            const quantityInput = document.getElementById('quantity');
+            const originalPrice = parseFloat(priceElement.innerText);
+
+            document.querySelector('.plus').addEventListener('click', () => {
+                quantityInput.value = parseInt(quantityInput.value) + 1;
+                priceElement.innerText = (originalPrice * quantityInput.value).toFixed(2);
+            });
+
+            document.querySelector('.minus').addEventListener('click', () => {
+                if (quantityInput.value > 1) {
+                    quantityInput.value = parseInt(quantityInput.value) - 1;
+                    priceElement.innerText = (originalPrice * quantityInput.value).toFixed(2);
+                }
+            });
+        });
+
+        const hamburger = document.querySelector(".mobile_header");
+        const closebtn = document.querySelector('.closeImage');
+
+        const navbar = document.querySelector(".mobile-header");
+        function toggleNavbar() {
+            navbar.classList.toggle('active');
+            closebtn.classList.toggle('active');
+
+        }
+
+        hamburger.addEventListener("click", toggleNavbar);
+        closebtn.addEventListener("click", toggleNavbar);
+
+    </script>
+
+
+
+</body>
+
+</html>

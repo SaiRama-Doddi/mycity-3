@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add/Edit Room</title>
+    <link rel="stylesheet" th:href="@{/CSS/Styles.css}">
+</head>
+<body>
+  
+    
+    <form th:action="@{/room}" th:object="${room}" method="POST" style="width: 100%;">
+        <h1 th:text="${room.roomId != null ? 'Edit Room' : 'Add Room'}"></h1>
+
+        <input type="hidden" th:field="*{roomId}">
+        <label for="roomType">Room Type:</label>
+        <input type="text" id="roomType" th:field="*{roomType}" required  class="form-control">
+        <br><br>
+
+        <label for="pricePerNight">Price Per Night:</label>
+        <input type="number" id="pricePerNight" th:field="*{pricePerNight}" required>
+        <br><br>
+
+        <label for="maxGuests">Max Guests:</label>
+        <input type="number" id="maxGuests" th:field="*{maxGuests}" required>
+        <br><br>
+        
+        <label for="roomCount">Number of Rooms:</label>
+        <input type="number" id="roomCount" th:field="*{roomCount}" required min="1">
+        <br><br>
+        
+        <label for="isAvailable">Available:</label>
+        <input type="checkbox" id="isAvailable" th:field="*{isAvailable}">
+        <br><br>
+
+        <label for="hotel">Hotel:</label>
+        <select id="hotel" name="hotelId" required>
+       <option value="" disabled selected>Select a hotel</option>
+       <option th:each="hotel : ${hotels}" th:value="${hotel.hotelId}" th:text="${hotel.name}"></option>
+       <option value="0">None</option>
+       </select>
+
+
+
+        <!-- Amenities Selection -->
+        <label for="amenities">Amenities:</label>
+        <select id="amenities" th:field="*{amenities}" multiple required>
+
+            <option th:each="amenity : ${amenities}" th:value="${amenity.amenityId}" th:text="${amenity.name}"></option>
+        </select>
+        <br><br>
+
+
+
+        <label for="city">City:</label>
+<select id="city" name="cityId" required>
+    <option value="" disabled selected>Select a city</option>
+    <option th:each="city : ${cities}" th:value="${city.cityId}" th:text="${city.name}"></option>
+</select>
+
+
+        
+        <button type="submit" style="margin-top: 30px;">Save Room</button>
+    </form>
+
+    <a href="/rooms">Back to Room List</a>
+</body>
+</html>

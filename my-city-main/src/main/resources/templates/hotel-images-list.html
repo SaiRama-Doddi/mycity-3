@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hotel Images</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/CSS/Styles.css}">
+</head>
+<body>
+<div class="container mt-4" style="display: block;">
+ 
+    <h1>Hotel Images</h1>
+    <a href="/hotel-images/add" class="btn btn-primary mb-3">Add New Image</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Hotel ID</th>
+                <th>Image ID</th>
+                <th>Hotel Image</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="image : ${imageList}">
+                <td th:text="${image.hotel.hotelId}">Hotel ID</td>
+                <td th:text="${image.hotelImageId}">Image ID</td>
+                <td>
+                    <img th:src="@{/hotel-images/display(id=${image.hotelImageId})}" alt="Hotel Image" width="100" height="100">
+                </td>
+                <td th:text="${#dates.format(image.createdAt, 'yyyy-MM-dd HH:mm:ss')}">Created At</td>
+                <td>
+                    <a th:href="@{/hotel-images/delete(id=${image.hotelImageId})}" 
+                       class="btn btn-danger btn-sm" 
+                       onclick="return confirm('Are you sure you want to delete this image?');">Delete</a>
+                    <a th:href="@{/hotel-images/updating/{id}(id=${image.hotelImageId})}" 
+                       class="btn btn-warning btn-sm">Edit</a>
+                </td>
+                
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

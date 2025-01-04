@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <title>Entertainment - Film News</title>
+  <link rel="stylesheet" href="/CSS/entertainment_styles.css" />
+</head>
+ 
+<body class="filmnews-page text-white">
+ 
+  <!-- Navbar -->
+  <div class="w-full topbar z-[999]">
+    <nav class="navbar flex justify-between text-white items-center mx-[3rem]">
+      <div class="navlinks-container flex h-[100%] items-center pl-8">
+        <p class="navlink" id="home-link">
+            <a href="/Entertainment/home" class="hover:text-white">Home</a>
+        </p>
+        <p class="navlink" id="movies-link">
+            <a href="/Entertainment/Movies" class="hover:text-white">Movies</a>
+        </p>
+        <p class="navlink" id="musics-link">
+            <a href="/Entertainment/MyMusic" class="hover:text-white">Music</a>
+        </p>
+        <p class="navlink" id="shortfilms-link">
+            <a href="/Entertainment/ShortFilms" class="hover:text-white">Short Films</a>
+        </p>
+        <p class="navlink" id="filmnews-link">
+            <a href="/Entertainment/FilmNews" class="hover:text-white">Film News</a>
+        </p>
+    </div>
+ 
+      <div class="SearchBar pr-10">
+        <div class="searchInput flex w-[160px] gap-[10px] p-[10px] border-[3px] rounded-[13px] border-liteOrange mt-3 cursor-pointer">
+          <label for="searchbar"><img src="/icons/search.svg" alt="search Icon" class="w-[25px]" /></label>
+          <input type="text" placeholder="Search" id="searchbar"
+            class="searchbar bg-transparent w-full placeholder-gray-500 placeholder:font-bold focus:outline-none transition" />
+        </div>
+      </div>
+    </nav>
+  </div>
+ 
+  <!-- Carousel Section -->
+  <div class="carousel" id="carousel"></div>
+ 
+  <!-- Latest News Section -->
+  <div class="latestNews-section px-[4rem] mb-[3rem]" style="margin-top: 30px;">
+    <div class="flex gap-3 items-center mb-[3rem]">
+      <img src="/icons/fire.png" alt="Fire icon" width="50" />
+      <h1 class="title1">Latest News</h1>
+    </div>
+    <div id="news-container"></div>
+  </div>
+ 
+  <!-- Footer Section -->
+  <div class="bg-[#F37022] px-[2rem] py-[1rem] flex flex-col gap-[1rem] text-white Footer">
+    <h1 class="text-[40px] font-bold font-montserrat">Subscribe For Newsletter</h1>
+    <div class="flex justify-between gap-[2rem] items-center">
+      <form id="newsletterForm" class="flex gap-[2rem]">
+        <input type="mail" name="mail" id="mail" placeholder="Enter Your Mail"
+          class="px-3 content-center rounded-xl w-[495px] h-[72px] placeholder:text-[#666666] font-medium border-[0.26px] border-[#666666] text-black" />
+        <input type="submit" value="Submit"
+          class="w-[205px] h-[72px] bg-transparent text-[30px] font-bold border-[2px] border-white rounded-xl hover:scale-[1.05]" />
+      </form>
+      <div class="socials flex gap-[38px]" id="socialMediaContainer"></div>
+    </div>
+    <div class="flex justify-between">
+      <div class="flex justify-between w-[40%]">
+        <a href="#" class="font-poppins font-medium text-[24px]">About Us</a>
+        <a href="#" class="font-poppins font-medium text-[24px]">Contact Us</a>
+      </div>
+      <p class="font-poppins font-medium text-[24px]">Copyright @ Myango 2016</p>
+    </div>
+  </div>
+ 
+  <script src="/js/navbar.js"></script>
+  <script>
+    const url = 'https://news-api14.p.rapidapi.com/v2/trendings?topic=movies&language=en&country=In&limit=50';
+    const options = {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-key': '08456fa3ffmsh52ece0c5170f698p17bad9jsn4e4ebc382293',
+        'x-rapidapi-host': 'news-api14.p.rapidapi.com'
+      }
+    };
+ 
+    async function fetchNews() {
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        const articles = data.data || [];
+ 
+        if (articles.length === 0) return console.error('No articles found.');
+ 
+        setupNewsCards(articles.slice(0, 8));
+        setupCarousel(articles.slice(0, 5));
+      } catch (error) {
+        console.error('Error fetching the news:', error);
+      }
+    }
+ 
+   
+    const truncateText = (text, maxLength) => {
+        if (text.length > maxLength) {
+            return text.slice(0, maxLength) + '...';
+        }
+        return text;
+    };
+ 
+ 
+   
+ 
+ 
+    function setupNewsCards(articles) {
+    const newsContainer = document.getElementById('news-container');
+   
+    articles.forEach(article => {
+        const newsCard = document.createElement('div');
+        newsCard.classList.add('news-card', 'p-4', 'rounded', 'shadow-lg', 'mb-4');
+       
+        // Ensure the excerpt has at least 8-10 lines of content
+        let content = article.excerpt || "Content not available. Please check back later.";
+        let fullContent = content;
+ 
+        // Repeat or extend content if it's too short
+        while (fullContent.split(' ').length < 100) { // Adjust word count as needed to approximate 8-10 lines
+            fullContent += " " + content;
+        }
+ 
+        newsCard.innerHTML = `
+            <img src="${article.thumbnail || 'https://via.placeholder.com/300'}" alt="${article.title}" class="w-full h-[180px] object-cover rounded-t-md" />
+            <h3 class="text-l mt-2">${truncateText(article.title, 50)}</h3>
+ 
+            <a href="film-data.html?url=${encodeURIComponent(article.url)}">
+                <button class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">Read more</button>
+            </a>`;
+ 
+        newsContainer.appendChild(newsCard);
+    });
+}
+ 
+ 
+/* function setupNewsCards(articles) {
+  const newsContainer = document.getElementById('news-container');
+  articles.forEach(article => {
+    const newsCard = document.createElement('div');
+    newsCard.classList.add('news-card', 'p-4', 'rounded', 'shadow-lg', 'mb-4');
+    newsCard.innerHTML = `
+  <img src="${article.thumbnail || 'https://via.placeholder.com/300'}" alt="${article.title}" class="w-full h-[180px] object-cover rounded-t-md" />
+  <h3 class="text-l mt-2">${truncateText(article.title, 50)}</h3>
+  <a href="film-data.html?url=${encodeURIComponent(article.url)}">
+    <button class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">Read more</button>
+  </a>`;
+ 
+    newsContainer.appendChild(newsCard);
+  });
+}  */
+ 
+ 
+/*     function setupCarousel(articles) {
+      const carousel = document.getElementById('carousel');
+      let currentIndex = 0;
+      carousel.innerHTML = articles.map((article, index) => `
+        <div class="carousel-slide" style="opacity: ${index === 0 ? 1 : 0};">
+          <a href="${article.url}" target="_blank">
+            <img src="${article.thumbnail || 'https://via.placeholder.com/800x400'}" alt="${article.title}" />
+          </a>
+          <div class="carousel-content">
+            <h2>${article.title}</h2>
+          </div>
+        </div>`).join('');
+ 
+      const slides = carousel.querySelectorAll('.carousel-slide');
+      setInterval(() => {
+        slides[currentIndex].style.opacity = 0;
+        currentIndex = (currentIndex + 1) % slides.length;
+        slides[currentIndex].style.opacity = 1;
+      }, 3000);
+    } */
+    function setupCarousel(articles) {
+      const carousel = document.getElementById('carousel');
+      let currentIndex = 0;
+ 
+      carousel.innerHTML = articles.map((article, index) => `
+      <div class="carousel-slide" style="opacity: ${index === 0 ? 1 : 0}; z-index: ${index === 0 ? 1 : 0};">
+        <a href="${article.url}" target="_blank">
+          <img src="${article.thumbnail || 'https://via.placeholder.com/800x400'}" alt="${article.title}" />
+        </a>
+        <div class="carousel-content">
+          <h2>${article.title}</h2>
+        </div>
+      </div>
+    `).join('');
+ 
+      const slides = carousel.querySelectorAll('.carousel-slide');
+      setInterval(() => {
+        // Reset the current slide's opacity and z-index
+        slides[currentIndex].style.opacity = 0;
+        slides[currentIndex].style.zIndex = 0;
+ 
+        // Move to the next slide
+        currentIndex = (currentIndex + 1) % slides.length;
+ 
+        // Set the next slide's opacity to 1 and bring it to the front
+        slides[currentIndex].style.opacity = 1;
+        slides[currentIndex].style.zIndex = 1;
+      }, 3000);
+    }
+  // Fetch articles and initialize the carousel
+  fetch(url, options)
+    .then(response => response.json())
+    .then(data => {
+      setupCarousel(data.articles);
+    })
+    .catch(error => {
+      console.error('Error fetching articles:', error);
+    });
+ 
+    fetchNews();
+ 
+ 
+ 
+ 
+  </script>
+</body>
+ 
+</html>

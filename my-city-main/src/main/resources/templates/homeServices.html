@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/paybill_home.css}">
+    <style>
+        .category-btn.home {
+    background: var(--primary-color);
+    color: var(--white);
+}
+.category-btn.beauty {
+   background-color: white;
+   color: black;
+}
+.category-btn.beauty a{
+    text-decoration: none;
+    color: black;
+}
+    </style>
+</head>
+<body>
+    <div class="nav_header" id="myHeader">
+        <div class="mobile_header">
+            <svg width="32px" height="32px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"
+                transform="rotate(0)">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path d="M4 6H20M4 12H20M4 18H20" stroke="white" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </g>
+            </svg>
+        </div>
+    
+        <header class="mobile-header">
+          <div class="logo_placeholder">
+            <img src="/imgs/logo.png" alt="logo" />
+          </div>
+          <div class="nav_links_placeholder">
+            <ul class="nav_links">
+              <li class="nav_link">
+                <a href="/mycity-homepage"><span>Home</span></a>
+              </li>
+              <li class="nav_link">
+                <a href="/Entertainment/home"><span>Entertainment</span></a>
+              </li>
+              <li class="nav_link ">
+                <a href="shopping"><span>Shopping</span></a>
+              </li>
+              <li class="nav_link">
+                <a href="/Anakapalle-Tourism"><span>Tourism</span></a>
+              </li>
+      
+              <li class="nav_link active">
+                <a href="beauty"><span>Pay Bills</span></a>
+              </li>
+              <li class="nav_link">
+                <a href="hotels"><span>Hotels</span></a>
+              </li>
+            </ul>
+          </div>
+          <div class="login-button_placeholder">
+            <button class="login_button"><a href="">Sign Up</a></button>
+          </div>
+        </header>
+
+<section class="welcome-section">
+    <div class="banner-container">
+        <div class="banner-text">
+            <h1>HI<br>MyCity User!</h1>
+            <p>Home services at<br>your doorstep</p>
+            <button class="book-now-btn">BOOK NOW</button>
+        </div>
+        <div class="banner-images">
+            <div class="image-row">
+                <img src="/imgs/electricians.jpg" alt="electrician">
+                <img src="/imgs/full home cleaning.jpg" alt="Men's Salon">
+            </div>
+            <div class="image-row">
+                <img src="/imgs/tv.jpg" alt="AC Repair">
+                <img src="/imgs/gardeners.jpg" alt="General Repair">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="search-location-section">
+    <div class="location">
+        <button class="location-btn">
+            <i class="fas fa-map-marker-alt"></i> Visakhapatnam
+        </button>
+    </div>
+    <div class="search-location-section">
+        <div class="search-bar">
+            <input type="text" placeholder="Search services...">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="cart">
+            <i class="fas fa-shopping-cart cart-icon"></i>
+        </div>
+    </div></section>
+
+    <div class="con">
+        <section class="services-section">
+            <div class="service-category">
+                <div class="category-header">
+                    <h2>Our Services</h2>
+                </div>
+                  <div class="category-buttons">
+                    <button class="category-btn beauty">
+                        <a href="beauty"><i class="fas fa-spa"></i>
+                        Beauty</a> 
+                    </button>
+                   <button class="category-btn home">
+                        <i class="fas fa-home"></i>
+                        Home Services
+                    </button>
+                </div>
+            </div>
+          <br>
+          <br>
+          
+<hr>
+             
+            <div class="service-category">
+                <div class="category-header">
+                    <h3>Cleaning & pest control</h3>
+                    <a href="/paybillsCart" class="see-all">SEE ALL</a>
+                </div>
+                <div class="service-grid">
+                    <div class="service-card">
+                        <img src="/imgs/bathrooomcleaning.jpg" alt="Bathroom Cleaning">
+                        <h4>BATHROOM & KITCHEN CLEANING</h4>
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/full home cleaning.jpg" alt="Full House Cleaning">
+                        <h4>FULL HOME CLEANING</h4>
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/sofa carpet.jpg" alt="Full House Cleaning">
+                        <h4>SOFA CARPET CLEANING</h4>
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/painters.jpg" alt="Full House Cleaning">
+                        <h4>PAININGS</h4>
+                        
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/gardeners.jpg" alt="Full House Cleaning">
+                        <h4>GARDENING</h4>
+                        
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/electricians.jpg" alt="Carpet Cleaning">
+                        <h4>ELECTRICAL WORKS</h4>
+                        
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/pet.jpg" alt="Pest Control">
+                        <h4>COCKROACH AND GENERAL PEST CONTROL</h4>
+                        
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/water.jpg" alt="Full House Cleaning">
+                        <h4>WATERTANK CLEANING</h4>
+                        
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/drainageservice.jpg" alt="Carpet Cleaning">
+                        <h4>DRAINAGE CLEANING</h4>
+                        
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/CarpetCleaningPestControl-Services.jpg" alt="Pest Control">
+                        <h4>CARPET CLEANING</h4>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="service-category">
+                <div class="category-header">
+                    <h3>Appliances Services</h3>
+                    <a href="#" class="see-all">SEE ALL</a>
+                </div>
+                <div class="service-grid">
+                    <div class="service-card">
+                        <img src="/imgs/ac repair.jpg" alt="AC Repair">
+                        <h4>AC REPAIR & SERVICE</h4>
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/washing machine.jpg" alt="Washing Machine">
+                        <h4>Washing Machine Repair</h4>
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/geyser.jpg" alt="Geyser">
+                        <h4>Geyser Repair</h4>
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/water.jpg" alt="Water Purifier">
+                        <h4>Water Purifier Repair</h4>
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/tv.jpg" alt="Water Purifier">
+                        <h4>Telivison Repair</h4>
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/REFRIGIRATER.jpg" alt="Water Purifier">
+                        <h4>Refrigerater Repair</h4>
+                        
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/wifi service.jpg" alt="Geyser">
+                        <h4>wifi Repair</h4>
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/microwave.jpg" alt="Water Purifier">
+                        <h4>microwave Repair</h4>
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/dishwasher.jpg" alt="Water Purifier">
+                        <h4>dishwasher Repair</h4>
+                    </div>
+                    <div class="service-card">
+                        <img src="/imgs/inverter services.png" alt="Water Purifier">
+                        <h4>inverter Repair</h4>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-category">
+                <div class="category-header">
+                    <h3>Quick Services</h3>
+                    <a href="#" class="see-all">SEE ALL</a>
+                </div>
+                <div class="quick-services-wrapper">
+                    <div class="quick-services-scroll">
+                        <div class="quick-service-card">
+                            <img src="/imgs/tap rapair.jpg" alt="Tap Repair">
+                            <h4>Tap Repair</h4>
+                            <p>₹199</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                4.5 (200k)
+                            </div>
+                        </div>
+                        <div class="quick-service-card">
+                            <img src="/imgs/switchboard replacement.jpg" alt="Switch Repair">
+                            <h4>Switch Board Replacement</h4>
+                            <p>₹199</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                4.5 (150k)
+                            </div>
+                        </div>
+                        <div class="quick-service-card">
+                            <img src="/imgs/switch socket replacement.jpg" alt="Socket Repair">
+                            <h4>Socket Repair</h4>
+                            <p>₹199</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                4.5 (180k)
+                            </div>
+                        </div>
+                        <div class="quick-service-card">
+                            <img src="/imgs/mixer repair.jpg" alt="Fan Repair">
+                            <h4>mixer Repair</h4>
+                            <p>₹199</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                4.5 (120k)
+                            </div>
+                        </div>
+                        <div class="quick-service-card">
+                            <img src="/imgs/landline repair.jpg" alt="Fan Repair">
+                            <h4>landline Repair</h4>
+                            <p>₹199</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                4.5 (120k)
+                            </div>
+                        </div>
+                        <div class="quick-service-card">
+                            <img src="/imgs/coolerrepair.jpg" alt="Fan Repair">
+                            <h4>cooler Repair</h4>
+                            <p>₹199</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                4.5 (120k)
+                            </div>
+                        </div>
+                        <div class="quick-service-card">
+                            <img src="/imgs/watermotor repair.jpg" alt="Fan Repair">
+                            <h4>watermotor Repair</h4>
+                            <p>₹199</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                4.5 (120k)
+                            </div>
+                        </div>
+                        <div class="quick-service-card">
+                            <img src="/imgs/fan repair.jpg" alt="Fan Repair">
+                            <h4>Fan Repair</h4>
+                            <p>₹199</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                4.5 (120k)
+                            </div>
+                        </div>
+                        <div class="quick-service-card">
+                            <img src="/imgs/doorglassrepair.jpg" alt="Fan Repair">
+                            <h4>door glass Repair</h4>
+                            <p>₹199</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                4.5 (120k)
+                            </div>
+                        </div>
+                        <div class="quick-service-card">
+                            <img src="/imgs/doorlockrepair.jpg" alt="Fan Repair">
+                            <h4>door lock Repair</h4>
+                            <p>₹199</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                4.0 (100k)
+                            </div>
+                        </div>
+            
+                       
+                    </div>
+                </div>
+            
+        </section>
+    </div>
+</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        });
+    });
+
+//    // Handle search functionality
+// const searchInput = document.querySelector('.search-bar input');
+// const serviceCards = document.querySelectorAll('.service-card');
+
+// searchInput.addEventListener('input', (e) => {
+//     const searchTerm = e.target.value.toLowerCase();
+//     let isAnyCardVisible = false;
+
+//     serviceCards.forEach(card => {
+//         const title = card.querySelector('h4').textContent.toLowerCase();
+//         if (title.includes(searchTerm)) {
+//             card.style.display = 'flex'; // Or 'block' depending on your layout
+//             isAnyCardVisible = true;
+//         } else {
+//             card.style.display = 'none';
+//         }
+//     });
+
+    // Optionally show a "No results found" message if no cards match
+    const noResultsMessage = document.getElementById('no-results-message');
+    if (!noResultsMessage) {
+        const message = document.createElement('p');
+        message.id = 'no-results-message';
+        message.textContent = 'No services found.';
+        message.style.textAlign = 'center';
+        message.style.display = 'none'; 
+        searchInput.closest('.services-section').appendChild(message);
+    }
+
+    document.getElementById('no-results-message').style.display = isAnyCardVisible ? 'none' : 'block';
+});
+
+    // document.querySelectorAll('.see-all').forEach(button => {
+    //     button.addEventListener('click', (e) => {
+    //         e.preventDefault();
+    //         const category = e.target.closest('.service-category');
+    //         const grid = category.querySelector('.service-grid');
+    //         grid.classList.toggle('expanded');
+    //     });
+    // });
+
+    const bookNowBtn = document.querySelector('.book-now-btn');
+    bookNowBtn.addEventListener('click', () => {
+        alert('Booking feature will be implemented soon!');
+    });
+
+    document.getElementById('locationButton').addEventListener('click', function() {
+        const dropdown = document.getElementById('districtDropdown');
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+
+    window.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('districtDropdown');
+        if (!event.target.matches('#locationButton')) {
+            dropdown.style.display = 'none';
+        }
+    });
+
+    </script>
+</body>
+</html>
+
+

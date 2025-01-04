@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Amenity</title>
+    <link rel="stylesheet" th:href="@{/CSS/Styles.css}">
+</head>
+<body>
+ 
+
+
+
+
+
+
+    <div class="container" style="min-width: 100%;">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2>My<span>Site</span></h2>
+            </div>
+            <ul>
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="/songs">Songs</a></li>
+                <li><a href="#">Shopping</a></li>
+                <li class="active">
+                    <a href="/hotels-page">Hotels</a>
+                    <ul class="submenu">
+                        <li><a href="/hotels/rooms">Rooms</a></li>
+                        <li><a href="/amenities/add">Amenities</a></li>
+                        <li><a href="/city-page">Add City</a></li>
+                        <li><a href="/city-list">City List</a></li>
+                        <li><a href="/hoteladd">Add Hotel</a></li>
+                        <li><a href="/list">Hotel List</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Header -->
+                <div class="header">
+                    <div class="welcome">
+                        <h2 id="greeting" th:text="${greetingText + ','+ username}"></h2>
+                        <p>Here is what Happening In Your Store</p>
+                    </div>
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="user-icons">
+                        <i class="fas fa-bell"></i>
+                        <img src="profile.jpg" alt="User Profile" class="profile-pic">
+                    </div>
+                </div>
+    
+               
+                <div class="city-add">
+
+                    <h1>Add Amenity</h1>
+                    <form th:action="@{/amenities/save}" th:object="${amenity}" method="post">
+                        <input type="hidden" th:field="*{amenityId}">
+                        <label for="name">Amenity Name:</label><br>
+                        <input type="text" id="name" th:field="*{name}" required><br><br>
+                        
+                        <label for="description">Description:</label><br>
+                        <textarea id="description" th:field="*{description}" rows="4" cols="50" required></textarea><br><br>
+                        
+                        <button type="submit">Save</button>
+                    </form>
+                    <br>
+                    <a href="/amenities/list">Back to List</a>
+                    
+                    
+                    </div>
+                   
+    
+            </div>
+
+      
+    </div>
+
+
+
+    <script th:src="@{/JS/Script.js}"></script>
+</body>
+</html>

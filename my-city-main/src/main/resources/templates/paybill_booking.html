@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/home.css">
+    <link rel="stylesheet" href="/booking.css">
+    <style>
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .popup {
+            background: hsl(20, 7%, 16%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+        }
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .popup-header h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .popup-header .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+        .form-field {
+            margin-bottom: 15px;
+            color: white;
+        }
+        .form-field input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background: hsl(30, 17%, 98%);
+            color: rgb(8, 4, 4);
+        }
+        .otp-inputs {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .otp-inputs input {
+            width: 45px;
+            height: 45px;
+            text-align: center;
+            font-size: 18px;
+        }
+        .button {
+            background: #ff7f00;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .button:hover {
+            background: #ffa733;
+        }
+        .time-slot {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .time-slot button {
+            background: #2a2a2a;
+            color: white;
+            border: 2px solid #ff7f00;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .time-slot button.selected {
+            background: #ff7f00;
+            color: white;
+        }
+        .time-slot button:hover {
+            background: #ffa733;
+        }
+        .date-selection {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .date-item {
+            text-align: center;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .date-item.selected {
+            background: #ff7f00;
+            color: white;
+        }    </style>
+</head>
+<body>
+    <div class="nav_header" id="myHeader">
+        <div class="mobile_header">
+            <svg width="32px" height="32px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0)">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path d="M4 6H20M4 12H20M4 18H20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+            </svg>
+        </div>
+    
+        <header class="mobile-header">
+          <div class="logo_placeholder">
+            <img src="/logo.jpg" alt="logo" />
+          </div>
+          <div class="nav_links_placeholder">
+            <ul class="nav_links">
+              <li class="nav_link"><a href="/mycity-homepage"><span>Home</span></a></li>
+              <li class="nav_link"><a href="/entertainment"><span>Entertainment</span></a></li>
+              <li class="nav_link"><a href="/shopping"><span>Shopping</span></a></li>
+              <li class="nav_link"><a href="/tourism"><span>Tourism</span></a></li>
+              <li class="nav_link active"><a href="/beauty"><span>Pay Bills</span></a></li>
+              <li class="nav_link"><a href="/ex"><span>Hotels</span></a></li>
+            </ul>
+          </div>
+          <div class="login-button_placeholder">
+            <button class="login_button"><a href="">Sign Up</a></button>
+          </div>
+        </header>
+
+        <main class="container">
+            <div class="booking-container">
+                <div class="booking-form">
+                    <div class="form-group">
+                        <div class="input-with-icon">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" placeholder="Enter your number for confirmation">
+                            <i class="fas fa-edit edit-icon" id="editPhoneNumber"></i> 
+                        </div>
+                    </div>
+    
+                    <div class="form-group">
+                        <div class="input-with-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <input type="text" placeholder="No:123,street,Bangalore" readonly>
+                            <i class="fas fa-edit edit-icon"></i>
+                        </div>
+                    </div>
+                    <div class="popup-overlay" id="phonePopup">
+                        <div class="popup">
+                            <div class="popup-header">
+                                <h2>Edit Phone Number</h2>
+                                <button class="close-btn">&times;</button>
+                            </div>
+                            <div class="form-field">
+                                <input type="text" placeholder="Enter Phone Number" id="phoneInput" maxlength="10">
+                            </div>
+                            <button class="button">Get OTP</button>
+                            <div class="otp-inputs">
+                                <input type="text" maxlength="1">
+                                <input type="text" maxlength="1">
+                                <input type="text" maxlength="1">
+                                <input type="text" maxlength="1">
+                                <input type="text" maxlength="1">
+                                <input type="text" maxlength="1">
+                            </div>
+                            <button class="button" id="verifyOtp">Verify</button>                        </div>
+                    </div>
+                
+                    <div class="popup-overlay" id="slotPopup">
+                        <div class="popup">
+                            <div class="popup-header">
+                                <h2>Book a Slot</h2>
+                                <button class="close-btn">&times;</button>
+                            </div>
+                            <div class="date-selection">
+                                <div class="date-item">Fri<br><strong>06</strong></div>
+                                <div class="date-item">Sat<br><strong>07</strong></div>
+                                <div class="date-item">Sun<br><strong>08</strong></div>
+                                <div class="date-item">Mon<br><strong>09</strong></div>
+                                <div class="date-item">Tue<br><strong>10</strong></div>
+                            </div>
+                            <div class="time-slot">
+                                <button>07:00 AM</button>
+                                <button>08:00 AM</button>
+                                <button>09:00 AM</button>
+                                <button>10:00 AM</button>
+                                <button>11:00 AM</button>
+                                <button>12:00 PM</button>
+                                <button>01:00 PM</button>
+                                <button>02:00 PM</button>
+                                <button>03:00 PM</button>
+                                <button>04:00 PM</button>
+                                <button>05:00 PM</button>
+                                <button>06:00 PM</button>
+                                <button>07:00 PM</button>
+                            </div>
+                            <button class="button" id="doneSlot">Done</button>
+                        </div>
+                    </div>
+    
+                    <div class="form-group">
+                        <div class="input-with-icon">
+                            <i class="fas fa-clock"></i>
+                            <button class="slot-button">Book Your Slot</button>
+                        </div>
+                    </div>
+    
+                    <div class="form-group">
+                        <div class="payment-method">
+                            <i class="fas fa-credit-card"></i>
+                            <button class="pay-button">Pay ₹ 548</button>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="payment-summary">
+                    <div class="service-item">
+                        <span>Full arms, under arms & full legs waxing</span>
+                        <div class="quantity-control">
+                            <button class="minus">-</button>
+                            <span class="quantity">01</span>
+                            <button class="plus">+</button>
+                        </div>
+                        <span class="price">₹499</span>
+                    </div>
+    
+                    <h2>Payment Summary</h2>
+                    <div class="summary-item">
+                        <span>Item Total</span>
+                        <span>₹499</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Taxes and Fees</span>
+                        <span>₹49</span>
+                    </div>
+                    <div class="summary-item total">
+                        <span>Total</span>
+                        <span>₹548</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    <script>
+class AddressPopup {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        const popupHTML = `
+            <div class="popup-overlay" id="addressPopup">
+                <div class="popup">
+                    <button class="close-btn">&times;</button>
+                    <form class="popup-form" id="addressForm">
+                        <div class="form-field">
+                            <input type="text" id="flatNo" placeholder="Flat No" required>
+                            <span class="error-message">Please enter flat number</span>
+                        </div>
+                        <div class="form-field">
+                            <input type="text" id="streetName" placeholder="Street Name" required>
+                            <span class="error-message">Please enter street name</span>
+                        </div>
+                        <div class="form-field">
+                            <select id="city" required>
+                                <option value="">Select City</option>
+                                <option value="bangalore">Bangalore</option>
+                                <option value="mumbai">Mumbai</option>
+                                <option value="delhi">Delhi</option>
+                            </select>
+                            <span class="error-message">Please select a city</span>
+                        </div>
+                        <div class="form-field">
+                            <select id="state" required>
+                                <option value="">Select State</option>
+                                <option value="karnataka">Karnataka</option>
+                                <option value="maharashtra">Maharashtra</option>
+                                <option value="delhi">Delhi</option>
+                            </select>
+                            <span class="error-message">Please select a state</span>
+                        </div>
+                        <div class="form-field">
+                            <input type="text" id="pincode" placeholder="Pincode" pattern="[0-9]{6}" required>
+                            <span class="error-message">Please enter valid 6-digit pincode</span>
+                        </div>
+                        <button type="submit" class="submit-btn">Submit</button>
+                    </form>
+                </div>
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', popupHTML);
+        this.popup = document.getElementById('addressPopup');
+        this.form = document.getElementById('addressForm');
+        this.closeBtn = this.popup.querySelector('.close-btn');
+        this.addressInput = document.querySelector('.fa-map-marker-alt').parentElement.querySelector('input[type="text"]');
+
+        this.closeBtn.addEventListener('click', () => this.hide());
+        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+        this.setupValidation();
+    }
+
+    show() {
+        this.popup.style.display = 'flex';
+    }
+
+    hide() {
+        this.popup.style.display = 'none';
+        this.resetForm();
+    }
+
+    setupValidation() {
+        const fields = this.form.querySelectorAll('input, select');
+        fields.forEach(field => {
+            field.addEventListener('input', () => this.validateField(field));
+            field.addEventListener('blur', () => this.validateField(field));
+        });
+    }
+
+    validateField(field) {
+        const fieldContainer = field.parentElement;
+        const errorMessage = fieldContainer.querySelector('.error-message');
+
+        if (!field.value) {
+            fieldContainer.classList.add('error');
+            errorMessage.style.display = 'block';
+            return false;
+        }
+
+        if (field.id === 'pincode' && !/^[0-9]{6}$/.test(field.value)) {
+            fieldContainer.classList.add('error');
+            errorMessage.style.display = 'block';
+            return false;
+        }
+
+        fieldContainer.classList.remove('error');
+        errorMessage.style.display = 'none';
+        return true;
+    }
+
+    validateForm() {
+        const fields = this.form.querySelectorAll('input, select');
+        let isValid = true;
+
+        fields.forEach(field => {
+            if (!this.validateField(field)) {
+                isValid = false;
+            }
+        });
+
+        return isValid;
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+
+        if (!this.validateForm()) {
+            return;
+        }
+
+        const address = `${this.form.flatNo.value}, ${this.form.streetName.value}, ${this.form.city.value}, ${this.form.state.value} - ${this.form.pincode.value}`;
+        this.addressInput.value = address;
+        this.hide();
+    }
+
+    resetForm() {
+        this.form.reset();
+        const errorFields = this.form.querySelectorAll('.form-field.error');
+        errorFields.forEach(field => {
+            field.classList.remove('error');
+            field.querySelector('.error-message').style.display = 'none';
+        });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const addressPopup = new AddressPopup();
+
+    const locationInput = document.querySelector('.input-with-icon .fa-map-marker-alt').parentElement;
+    const locationEditIcon = locationInput.querySelector('.edit-icon');
+    locationEditIcon.addEventListener('click', () => {
+        addressPopup.show();
+    });
+
+    const minusBtn = document.querySelector('.minus');
+    const plusBtn = document.querySelector('.plus');
+    const quantitySpan = document.querySelector('.quantity');
+    let quantity = 1;
+
+    minusBtn.addEventListener('click', () => {
+        if (quantity > 1) {
+            quantity--;
+            quantitySpan.textContent = quantity;
+        }
+    });
+
+    plusBtn.addEventListener('click', () => {
+        quantity++;
+        quantitySpan.textContent = quantity;
+    });
+
+    const updatePrice = () => {
+        const totalPrice = (itemPrice * quantity) * (1 + taxRate);
+        document.querySelector('.total-price').textContent = `Total: $${totalPrice.toFixed(2)}`;
+    };
+
+    quantitySpan.textContent = quantity;
+    updatePrice();
+});   
+ </script>
+</body>
+</html>

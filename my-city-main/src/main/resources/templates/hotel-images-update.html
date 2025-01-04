@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Hotel Image</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Edit Hotel Image</h1>
+    <form th:action="@{/hotel-images/update}" method="POST" enctype="multipart/form-data" th:object="${image}">
+        <input type="hidden" th:field="*{hotelImageId}" />
+        
+        <div class="mb-3">
+            <label for="hotelId" class="form-label">Hotel ID</label>
+            <select class="form-control" id="hotelId" name="hotelId" required>
+                <option value="" disabled selected>Select a Hotel</option>
+                <option th:each="hotel : ${hotels}" 
+                        th:value="${hotel.hotelId}" 
+                        th:text="${hotel.hotelId}" 
+                        th:selected="${image.hotel.hotelId == hotel.hotelId}">
+                </option>
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <label for="image" class="form-label">Upload Image</label>
+            <input type="file" id="image" name="image" class="form-control">
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Current Image:</label>
+            <img th:src="'data:image/png;base64,' + ${base64Image}" alt="Current Hotel Image" class="img-fluid" style="max-width: 200px;">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+    
+    <a href="/hotel-images" class="btn btn-secondary mt-3">Back to List</a>
+</div>
+</body>
+</html>

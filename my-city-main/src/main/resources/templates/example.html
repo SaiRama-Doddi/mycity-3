@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Management</title>
+    <style>
+        /* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    background-color: #f7f8fc;
+}
+
+/* Container Layout */
+.container {
+    display: flex;
+    width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: rgba(243, 112, 34, 1);
+
+    color: white;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    overflow-x: auto;
+}
+
+.sidebar .logo {
+    margin-left: 10px;
+    margin-bottom: 30px;
+}
+
+.sidebar .logo h2 {
+    font-size: 24px;
+   
+}
+
+.sidebar .logo span {
+    color: white;
+    font-weight: bold;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+.sidebar ul li.active {
+    background-color: white;
+    border-radius: 5px;
+    color: rgba(243, 112, 34, 1);
+
+    a{
+        color: rgba(243, 112, 34, 1);
+        font-weight: bold;
+    }
+}
+
+
+
+
+/* Main Content */
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    width: calc(100% - 250px);
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.header .welcome h2 {
+    margin: 0;
+}
+
+.header .welcome p {
+    margin: 0;
+    font-size: 14px;
+    color: #888;
+}
+
+.header .search-bar {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.header .search-bar input {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+.header .search-bar i {
+    position: absolute;
+    right: 10px;
+    color: #888;
+}
+
+.header .user-icons {
+    display: flex;
+    align-items: center;
+}
+
+.header .user-icons i {
+    font-size: 20px;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.header .profile-pic {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid orange;
+}
+
+/* Dashboard Cards */
+.dashboard-cards {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.dashboard-cards .card {
+    background-color: white;
+    padding: 20px;
+    flex: 1;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-cards .card h3 {
+    margin: 0 0 10px;
+}
+
+.dashboard-cards .card h2 {
+    margin: 0;
+    color: rgba(243, 112, 34, 1);
+}
+
+/* Sections */
+.section-content {
+    display: flex;
+    gap: 20px;
+}
+
+.section {
+    background-color: white;
+    padding: 20px;
+    flex: 1;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.section img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.section.upload button {
+    padding: 10px 20px;
+    background-color:rgba(243, 112, 34, 1);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/*songs */
+
+.song-details {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.song-details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.song-details table thead {
+    background-color:rgba(243, 112, 34, 1);
+    color: white;
+}
+
+.song-details table th,
+.song-details table td {
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.song-details table th {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.song-details table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.song-details table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.song-details table tbody td {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .sidebar ul {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .song-details table th,
+    .song-details table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+}
+
+.sidebar ul .submenu {
+    margin-top: 5px;
+    margin-left: 20px;
+    display: none;
+    list-style-type: circle; /* Differentiating the submenu */
+}
+
+.sidebar ul li:hover .submenu {
+    display: block;
+}
+
+/* city form */
+
+
+h1, h2 {
+    text-align: center;
+    color: #444;
+}
+
+form {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 500px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+form input[type="text"],
+form input[type="hidden"],
+form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: rgba(243, 112, 34, 1);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form button:hover {
+    background-color: rgba(243, 112, 34, 1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table th,
+table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color:rgba(243, 112, 34, 1);
+    color: #fff;
+    text-transform: uppercase;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+table a {
+    color: red;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+table a:hover {
+    color: rgba(243, 112, 34, 1);
+    text-decoration: underline;
+}
+
+.city-add{
+    display: block;
+    width: 100%;
+}
+
+.city-list{
+    display: block;
+    width: 100%;
+}
+    </style>
+</head>
+<body>
+
+   
+    <div class="container" style="min-width: 100%;">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2>My<span>Site</span></h2>
+            </div>
+            <ul>
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="/songs">Songs</a></li>
+                <li><a href="#">Shopping</a></li>
+                <li class="active">
+                    <a href="/hotels-page">Hotels</a>
+                    <ul class="submenu">
+                        <li><a href="/hotels/rooms">Rooms</a></li>
+                        <li><a href="/amenities/add">Amenities</a></li>
+                        <li><a href="/city-page">Add City</a></li>
+                        <li><a href="/city-list">City List</a></li>
+                        <li><a href="/hotels-page">Add Hotel</a></li>
+                        <li><a href="/list">Hotel List</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="welcome">
+                    <h2 id="greeting" th:text="${greetingText + ','+ username}"></h2>
+                    <p>Here is what Happening In Your Store</p>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="user-icons">
+                    <i class="fas fa-bell"></i>
+                    <img src="profile.jpg" alt="User Profile" class="profile-pic">
+                </div>
+            </div>
+
+           
+            <div class="city-add">
+
+  
+                <h1>Add or Update City</h1>
+<form th:action="@{/savecity}" method="post" th:object="${city}">
+    <input type="hidden" name="cityId" th:value="*{cityId}" />
+    <label for="name">City Name:</label>
+    <input type="text" id="name" name="name" th:value="*{name}" required>
+    <br>
+    <label for="state">State:</label>
+    <input type="text" id="state" name="state" th:value="*{state}" required>
+    <br>
+    <label for="country">Country:</label>
+    <input type="text" id="country" name="country" th:value="*{country}" required>
+    <br>
+    <button type="submit">Save</button>
+</form>
+
+            </div>
+
+        </div>
+    </div>
+
+
+ 
+
+   
+    <script th:src="@{/JS/Script.js}"></script>
+   
+</body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Options</title>
+    <link rel="stylesheet" href="/all/styles.css">
+</head>
+<body>
+
+    <div class="content-container">
+        <!-- UPI Payment Option -->
+        <div class="payment-option" id="upi-section">
+            <div class="upi-label">
+                <label><input type="radio" name="payment" value="upi" onclick="showPaymentOptions('upi')"><img src="upi.svg"> UPI</img></label>
+            </div>
+            <div id="upiChoices" class="upi-options" style="display:none;">
+                <p id="chooseOption">Choose an option</p>
+                <div class="upi-group">
+                    <label><input type="radio" name="upiChoice" value="gpay"> G Pay</label>
+                    <label><input type="radio" name="upiChoice" value="phonepe"> Phone Pe</label>
+                    <label><input type="radio" name="upiChoice" value="paytm"> PayTm</label>
+                    <label><input type="radio" name="upiChoice" value="cred"> Cred</label>
+                </div>
+                <button class="continue-button" onclick="validateSelection('UPI', 'upiChoice')">Continue</button>
+                <button class="cancel-button" onclick="cancelPayment('upi')">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Wallet Payment Option -->
+        <div class="payment-option" id="wallet-section">
+            <div class="wallet-label">
+                <label><input type="radio" name="payment" value="wallet" onclick="showPaymentOptions('wallet')"><img src="wallet.svg"> Wallet</img></label>
+            </div>
+            <div id="walletChoices" class="wallet-options" style="display:none;">
+                <p id="chooseWalletOption">Choose an option</p>
+                <div class="wallet-group">
+                    <label><input type="radio" name="walletChoice" value="gpay"> G Pay</label>
+                    <label><input type="radio" name="walletChoice" value="phonepe"> Phone Pe</label>
+                    <label><input type="radio" name="walletChoice" value="paytm"> PayTm</label>
+                    <label><input type="radio" name="walletChoice" value="cred"> Cred</label>
+                </div>
+                <button class="continue-button" onclick="validateSelection('Wallet', 'walletChoice')">Continue</button>
+                <button class="cancel-button" onclick="cancelPayment('wallet')">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Credit Card / Debit Card Payment Option -->
+        <div class="payment-option" id="credit-debit-section">
+            <label><input type="radio" name="payment" value="credit-debit" onclick="showPaymentOptions('credit-debit')"><img src="card.svg"> Credit Card / Debit Card</img></label>
+        </div>
+        <div id="credit-card-form" style="display:none;">
+            <div class="input-container">
+                <input type="text" id="card-number" placeholder="Card number" required class="card-input" maxlength="19" oninput="formatCardNumber()" pattern="\d{16}" title="Card number should only contain 16 digits" />
+                <input type="text" id="expiry-date" placeholder="MM/YY" required class="expiry-input" maxlength="5" oninput="validateExpiryDate()">
+                <input type="text" id="cvv" placeholder="CVV" required class="cvv-input" maxlength="3" oninput="validateCVV()">
+            </div>
+            <button type="button" class="continue-button" onclick="validateCreditCardForm()">Continue</button>
+            <button type="button" class="cancel-button" onclick="cancelPayment('credit-debit')">Cancel</button>
+        </div>
+
+        <!-- Net Banking Payment Option -->
+        <div class="payment-option" id="net-banking-section">
+            <label><input type="radio" name="payment" value="netbanking" onclick="showPaymentOptions('netbanking')"><img src="net banking.svg"> Net Banking</img></label>
+        </div>
+        <div id="net-banking-options" style="display:none;">
+            <div class="container">
+                <p id="chooseOption">Choose Your Bank</p>
+                <div class="dropdown">
+                    <!-- Custom prompt to select a bank -->
+                    <select id="bank-select" onchange="validateBankSelection()">
+                        <option value="">Select Your Bank</option>
+                        <option value="ALLAHABAD BANK">ALLAHABAD BANK</option>
+                        <option value="ANDHRA BANK">ANDHRA BANK</option>
+                        <option value="BANK OF BARODA">BANK OF BARODA</option>
+                        <option value="UCO BANK">UCO BANK</option>
+                        <option value="UNION BANK OF INDIA">UNION BANK OF INDIA</option>
+                        <option value="BANK OF INDIA">BANK OF INDIA</option>
+                        <option value="BANDHAN BANK LIMITED">BANDHAN BANK LIMITED</option>
+                        <option value="CANARA BANK">CANARA BANK</option>
+                        <option value="GRAMIN VIKASH BANK">GRAMIN VIKASH BANK</option>
+                        <option value="CORPORATION BANK">CORPORATION BANK</option>
+                        <option value="INDIAN BANK">INDIAN BANK</option>
+                        <option value="INDIAN OVERSEAS BANK">INDIAN OVERSEAS BANK</option>
+                        <option value="ORIENTAL BANK OF COMMERCE">ORIENTAL BANK OF COMMERCE</option>
+                        <option value="PUNJAB AND SIND BANK">PUNJAB AND SIND BANK</option>
+                        <option value="PUNJAB NATIONAL BANK">PUNJAB NATIONAL BANK</option>
+                        <option value="RESERVE BANK OF INDIA">RESERVE BANK OF INDIA</option>
+                        <option value="SOUTH INDIAN BANK">SOUTH INDIAN BANK</option>
+                        <option value="UNITED BANK OF INDIA">UNITED BANK OF INDIA</option>
+                        <option value="CENTRAL BANK OF INDIA">CENTRAL BANK OF INDIA</option>
+                        <option value="VIJAYA BANK">VIJAYA BANK</option>
+                        <option value="DENA BANK">DENA BANK</option>
+                        <option value="BHARATIYA MAHILA BANK LIMITED">BHARATIYA MAHILA BANK LIMITED</option>
+                        <option value="FEDERAL BANK LTD">FEDERAL BANK LTD</option>
+                        <option value="HDFC BANK LTD">HDFC BANK LTD</option>
+                        <option value="ICICI BANK LTD">ICICI BANK LTD</option>
+                        <option value="IDBI BANK LTD">IDBI BANK LTD</option>
+                        <option value="PAYTM BANK">PAYTM BANK</option>
+                        <option value="FINO PAYMENT BANK">FINO PAYMENT BANK</option>
+                        <option value="INDUSIND BANK LTD">INDUSIND BANK LTD</option>
+                        <option value="KARNATAKA BANK LTD">KARNATAKA BANK LTD</option>
+                        <option value="KOTAK MAHINDRA BANK">KOTAK MAHINDRA BANK</option>
+                        <option value="YES BANK LTD">YES BANK LTD</option>
+                        <option value="SYNDICATE BANK">SYNDICATE BANK</option>
+                        <option value="BANK OF MAHARASHTRA">BANK OF MAHARASHTRA</option>
+                    </select>
+                    <!--<div class="radio-buttons">
+                        <label><input type="radio" name="bank" value="HDFC"> HDFC</label>
+                        <label><input type="radio" name="bank" value="Axis Bank"> Axis Bank</label>
+                        <label><input type="radio" name="bank" value="ICICI"> ICICI</label>
+                        <label><input type="radio" name="bank" value="SBI"> SBI</label>
+                        Add other bank options here
+                    </div>-->
+                </div>
+                <button class="continue-button" onclick="validateNetBankingSelection()">Continue</button>
+                <button class="cancel-button" onclick="cancelPayment('netbanking')">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Cash On Delivery Option -->
+        <div class="payment-option" id="cod-section">
+            <label><input type="radio" name="payment" value="cod" onclick="showPaymentOptions('cod')"><img src="cod.svg"> Cash On Delivery</img></label>
+        </div>
+        <div id="cod-continue" style="display:none;">
+            <button class="continue-button" onclick="continuePayment('Cash On Delivery')">Continue</button>
+            <button class="cancel-button" onclick="cancelPayment('cod')">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+       // Function to show the selected payment option and hide others
+       function showPaymentOptions(option) {
+        // Hide all payment options
+        document.getElementById('upiChoices').style.display = 'none';
+        document.getElementById('walletChoices').style.display = 'none';
+        document.getElementById('credit-card-form').style.display = 'none';
+        document.getElementById('net-banking-options').style.display = 'none';
+        document.getElementById('cod-continue').style.display = 'none';
+        // Show the selected payment option
+        if (option === 'upi') {
+            document.getElementById('upiChoices').style.display = 'block';
+        } else if (option === 'wallet') {
+            document.getElementById('walletChoices').style.display = 'block';
+        } else if (option === 'credit-debit') {
+            document.getElementById('credit-card-form').style.display = 'block';
+        } else if (option === 'netbanking') {
+            document.getElementById('net-banking-options').style.display = 'block';
+        } else if (option === 'cod') {
+            // For COD, show the continue and cancel buttons
+            document.getElementById('cod-continue').style.display = 'block';
+            document.getElementById('cod-cancel').style.display = 'block';
+        }
+    }
+    // Function to cancel the selected payment option and reset the form
+    function cancelPayment(option) {
+        if (option === 'upi') {
+            // Clear the UPI options
+            document.getElementById('upiChoices').style.display = 'none';
+            const upiChoices = document.querySelectorAll('input[name="upiChoice"]');
+            upiChoices.forEach(choice => choice.checked = false); // Reset UPI choices
+            } else if (option === 'wallet') {
+                const walletChoices = document.querySelectorAll('input[name="walletChoice"]');
+                walletChoices.forEach(choice => choice.checked = false);
+                document.getElementById('walletChoices').style.display = 'none';
+            } else if (option === 'credit-debit') {
+                document.getElementById('card-number').value = '';
+                document.getElementById('expiry-date').value = '';
+                document.getElementById('cvv').value = '';
+                document.getElementById('credit-card-form').style.display = 'none';
+            } else if (option === 'netbanking') {
+                document.getElementById('net-banking-options').style.display = 'none';
+            } else if (option === 'cod') {
+                document.getElementById('cod-continue').style.display = 'none';
+            }
+            // Reset the selected payment option
+            const selectedPayment = document.querySelector(`input[name="payment"]:checked`);
+            if (selectedPayment) {
+                selectedPayment.checked = false;
+            }
+        }
+        function validateSelection(method, choiceName) {
+    const selectedOption = document.querySelector(`input[name="${choiceName}"]:checked`);
+    if (!selectedOption) {
+        alert(`Please choose an option for ${method} payment.`);
+        return;
+    }
+    alert(`Proceeding with ${selectedOption.value} ${method} payment`);
+    cancelPayment(method.toLowerCase());
+}
+
+function formatCardNumber() {
+    const cardNumberInput = document.getElementById('card-number');
+    const cardNumber = cardNumberInput.value.replace(/\s+/g, '').replace(/[^0-9]/g, '');
+    cardNumberInput.value = cardNumber.match(/.{1,4}/g)?.join(' ') || '';
+}
+
+function validateExpiryDate() {
+    const expiryInput = document.getElementById('expiry-date');
+    let value = expiryInput.value.replace(/[^0-9|]/g, ''); // Allow only numbers and "|"
+    if (value.length > 2 && value[2] !== '|') {
+        value = value.slice(0, 2) + '/' + value.slice(2);
+    }
+    expiryInput.value = value;
+    const [month, year] = value.split('|');
+    if (month && month.length === 2 && (parseInt(month) < 1 || parseInt(month) > 12)) {
+        alert('Invalid month. Please enter a value between 01 and 12.');
+        expiryInput.value = '';
+        return;
+    }
+    if (year && (year.length > 2 || parseInt(year) < 22)) {
+        expiryInput.setCustomValidity('Invalid year. Enter a value of 22 or higher.');
+        return;
+    } else {
+        expiryInput.setCustomValidity('');
+    }
+}
+
+function validateCVV() {
+    const cvvInput = document.getElementById('cvv');
+    const cvv = cvvInput.value.replace(/[^0-9]/g, '');
+    cvvInput.value = cvv;
+    if (cvv !== cvvInput.value) {
+        alert('CVV should contain only digits.');
+    }
+}
+function validateCreditCardForm() {
+    const cardNumber = document.getElementById('card-number').value.replace(/\s+/g, '');
+    const expiryDate = document.getElementById('expiry-date').value;
+    const cvv = document.getElementById('cvv').value;
+
+    if (cardNumber.length !== 16) {
+        alert('Card number must be 16 digits.');
+        return;
+    }
+    if (!/^(0[1-9]|1[0-2])\/[0-9]{2}$/.test(expiryDate)) {
+        alert('Invalid expiry date format. Use MM/YY format.');
+        return;
+    }
+    if (cvv.length !== 3) {
+        alert('CVV must be 3 digits.');
+        return;
+    }
+
+    // Proceed with payment
+    continuePayment('credit-debit');
+}
+
+function continuePayment(method) {
+    if (method === 'cash-on-delivery') {
+        alert('You have chosen Cash on Delivery. Your order will be shipped, and payment will be collected at the time of delivery.');
+    } else if (method === 'credit-debit') {
+        // Use a timeout to ensure the alert completes before resetting the form and closing the dropdown
+        alert('Payment successfully added using Credit/Debit Card.');
+        setTimeout(() => {
+            resetCardPaymentForm();
+            closeDropdown('credit-card-dropdown');
+        }, 0); // Ensure the dropdown closes after the alert
+    }
+}
+
+function resetCardPaymentForm() {
+    // Clear card form fields
+    const cardNumberField = document.getElementById('card-number');
+    const expiryDateField = document.getElementById('expiry-date');
+    const cvvField = document.getElementById('cvv');
+
+    if (cardNumberField) cardNumberField.value = '';
+    if (expiryDateField) expiryDateField.value = '';
+    if (cvvField) cvvField.value = '';
+
+    // Hide the credit card form
+    const form = document.getElementById('credit-card-form');
+    if (form) form.style.display = 'none';
+
+    // Uncheck the credit/debit card radio button
+    const radioButton = document.querySelector('input[value="credit-debit"]');
+    if (radioButton) radioButton.checked = false;
+}
+
+function closeDropdown(dropdownId) {
+    const dropdown = document.getElementById(dropdownId);
+    if (dropdown) {
+        dropdown.style.display = 'none';
+    }
+}
+
+// Reset form fields when opening the credit/debit card option
+function openCreditCardForm() {
+    resetCardPaymentForm(); // Clear the form fields each time it's reopened
+
+    // Show the credit card form
+    const form = document.getElementById('credit-card-form');
+    if (form) form.style.display = 'block';
+
+    // Show the dropdown
+    const dropdown = document.getElementById('credit-card-dropdown');
+    if (dropdown) dropdown.style.display = 'block';
+}
+
+// Example usage based on the selected payment method
+function handleContinueButtonClick() {
+    const selectedMethod = document.querySelector('input[name="payment-method"]:checked')?.value;
+
+    if (!selectedMethod) {
+        alert('Please select a payment method.');
+        return;
+    }
+
+    continuePayment(selectedMethod);
+}
+
+
+            
+            function validateNetBankingSelection() {
+                const bankSelect = document.getElementById('bank-select');
+                const selectedBank = bankSelect.value;
+                const bankRadio = document.querySelector('input[name="bank"]:checked');
+                
+                // Case 1: Prevent using radio buttons if a dropdown option is selected
+                if (selectedBank && selectedBank !== "Select Your Bank") {
+                    const radios = document.querySelectorAll('input[name="bank"]');
+                    radios.forEach(radio => (radio.disabled = true));
+                    if (bankRadio) {
+                        alert("You cannot select a radio button after choosing a bank from the dropdown.");
+                        bankSelect.value = "Select Your Bank"; // Reset dropdown to default value
+                        radios.forEach(radio => (radio.disabled = false)); // Enable radios
+                        return;
+                    }
+                } else {
+                    
+                    // Enable radio buttons if dropdown is reset
+                    const radios = document.querySelectorAll('input[name="bank"]');
+                    radios.forEach(radio => (radio.disabled = false));
+                }
+                
+                
+                // Case 2: Prevent using dropdown if a radio button is selected
+                if (bankRadio) {
+                    if (selectedBank && selectedBank !== "Select Your Bank") {
+                        alert("You cannot select from the dropdown after choosing a radio button.");
+                        bankRadio.checked = false; // Uncheck the selected radio button
+                        bankSelect.value = "Select Your Bank"; // Reset dropdown
+                        return;
+                    }
+                    bankSelect.disabled = true; // Disable dropdown if a radio button is selected
+                    } else {
+                        bankSelect.disabled = false; // Enable dropdown if no radio button is selected
+                        }
+                        // Case 3: Check if no valid option is selected
+                        if (!bankRadio && (!selectedBank || selectedBank === "Select Your Bank")) {
+                            alert("Please select a valid bank option.");
+                            return;
+                        }
+                        // Proceed with the selected option
+                        const bankChoice = selectedBank && selectedBank !== "Select Your Bank" ? selectedBank : bankRadio.value;
+                        alert(`Proceeding with ${bankChoice} Net Banking payment`);
+                        cancelPayment("netbanking");
+                        
+                        
+                        // Reset form after proceeding with payment
+                        resetBankSelection();
+            }
+            function resetBankSelection() {
+                const bankSelect = document.getElementById('bank-select');
+                const radios = document.querySelectorAll('input[name="bank"]');
+                // Reset the dropdown to "Select Your Bank"
+                bankSelect.value = "Select Your Bank";
+                // Uncheck all radio buttons and re-enable them
+                radios.forEach(radio => {
+                radio.checked = false;
+                radio.disabled = false; 
+                // Re-enable radio buttons if previously disabled
+                });
+                // Ensure the dropdown is enabled after payment closes
+                bankSelect.disabled = false; // Make sure the dropdown is enabled after payment
+                            
+                // Set the dropdown value to "Select Your Bank" explicitly
+                bankSelect.value = "Select Your Bank"; // Ensure this explicitly resets to default text
+            }
+            // Function to handle the action when the user chooses Net Banking
+            function chooseNetBanking() {
+                const bankSelect = document.getElementById('bank-select');
+                // Ensure dropdown is reset when user selects Net Banking
+                // Set dropdown to default value if not already
+                if (bankSelect.value !== "Select Your Bank") {
+                    bankSelect.value = "Select Your Bank";
+                }
+                const radios = document.querySelectorAll('input[name=""]');
+                radios.forEach(radio => radio.disabled = false); // Enable radio buttons again
+                // Enable dropdown and reset it
+                bankSelect.disabled = false;
+                // Ensure dropdown shows "Select Your Bank" and does not get empty
+                if (!bankSelect.value || bankSelect.value === "") {
+                    bankSelect.value = "Select Your Bank"; // Correct any empty value
+                }
+            }
+            function continuePayment(method) {
+                if (method === 'cash-on-delivery') {
+                // Show the confirmation alert for COD
+                alert("You have chosen Cash on Delivery. Your order will be shipped, and payment will be collected at the time of delivery.");
+                // After the alert is confirmed, reset COD-related actions
+                setTimeout(function() {
+                // Hide the COD continue button
+                document.getElementById('cod-continue').style.display = 'none';
+                document.querySelector('input[value="cod"]').checked = false; // Uncheck COD radio button
+                // Optional confirmation message for COD processing
+                alert("Your order will be processed for delivery. Thank you.");
+                // Call resetCODForm to prepare the form for future use
+                resetCODForm();
+            }, 100); // Timeout added to ensure actions occur after the alert box is closed
+            } else if (method === 'credit-debit') {
+            // Show the confirmation alert for Credit/Debit Card
+            alert("Payment successfully added using Credit/Debit Card.");
+            resetCardPaymentForm(); 
+            // Reset the card payment form
+            } else {
+                alert("Invalid payment method selected.");
+            }
+        }
+        // Example function to trigger payment options for COD
+        function handleCODContinue() {
+            continuePayment('cash-on-delivery'); // Passing the correct method for COD
+        }
+        // Example function for resetting the COD form
+        function resetCODForm() {
+        // Reset any necessary fields for future use of the COD form
+        console.log("COD form reset.");
+    }
+     // Example function for resetting the card payment form
+     function resetCardPaymentForm() {
+        // Reset any necessary fields for future use of the card form
+        console.log("Credit/Debit card form reset.");
+    }
+    // Example function for resetting the card payment form
+    function resetCardPaymentForm() {
+        // Reset the card payment fields
+        console.log("Credit/Debit card form reset.");
+    }
+    function resetCODForm() {
+        // Reset COD form: uncheck COD radio and show the continue button again
+        document.querySelector('input[value="cod"]').checked = false;
+        document.getElementById('cod-continue').style.display = 'inline'; // Show the COD continue button again
+        }
+        function validateCreditCardForm() {
+            const cardNumber = document.getElementById('card-number').value.replace(/\s+/g, '');
+            const expiryDate = document.getElementById('expiry-date').value;
+            const cvv = document.getElementById('cvv').value;
+            if (cardNumber.length !== 16) return alert('Card number must be 16 digits.');
+            if (!/^(0[1-9]|1[0-2])\/[0-9]{2}$/.test(expiryDate)) return alert('Invalid expiry date format.');
+            if (cvv.length !== 3) return alert('CVV must be 3 digits.');
+            // Proceed with payment
+            continuePayment('credit-debit'); 
+            // Correct method call for credit/debit
+        }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home Page</title>
+    <link rel="stylesheet" th:href="@{/CSS/Styles.css}">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <h2>My<span>Site</span></h2>
+            </div>
+            <ul>
+                <li class="active"><a href="#">Dashboard</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="/songs">Songs</a></li>
+                <li><a href="#">Shopping</a></li>
+                <li>
+                    <li><a href="/hoteladd">Add Hotel</a></li>
+                   
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="welcome">
+                    <h2 id="greeting" th:text="${greetingText + ','+ username}"></h2>
+                    <p>Here is what Happening In Your Store</p>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="user-icons">
+                    <i class="fas fa-bell"></i>
+                    <img src="profile.jpg" alt="User Profile" class="profile-pic">
+                </div>
+            </div>
+
+            <!-- Dashboard Cards -->
+            <div class="dashboard-cards">
+                <div class="card">
+                    <h3>Total Movies</h3>
+                    <h2>250</h2>
+                    <p>⬆ 7.5%</p>
+                </div>
+                <div class="card">
+                    <h3>Total Songs</h3>
+                    <h2>120</h2>
+                    <p>⬆ 3.2%</p>
+                </div>
+                <div class="card">
+                    <h3>Recent Uploads</h3>
+                    <h2>20</h2>
+                    <p>⬇ 0.5%</p>
+                </div>
+                <div class="card">
+                    <h3>Total Subscribers</h3>
+                    <h2>100</h2>
+                    <p>⬆ 7.3%</p>
+                </div>
+            </div>
+
+            <!-- Additional Sections -->
+            <div class="section-content">
+                <div class="section">
+                    <h3>Top Movies</h3>
+                    <img src="images/Property 1=Rectangle 118.png" alt="Movie">
+                </div>
+                <div class="section">
+                    <h3>Top Albums</h3>
+                    <img src="images/Property 1=Rectangle 119.png" alt="Album">
+                </div>
+                <div class="section">
+                    <h3>Top Hotels</h3>
+                    <img src="images/Component 14.png" alt="Hotel">
+                </div>
+               <!--  <div class="section upload">
+                    <h3>Uploads</h3>
+                    <button>Upload Files</button>
+                </div> -->
+            </div>
+
+            
+        </div>
+    </div>
+    <script th:src="@{/JS/Script.js}"></script>
+</body>
+</html>

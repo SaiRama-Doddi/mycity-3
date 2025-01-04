@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Page</title>
+
+  <style>
+    
+      body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f9f9f9;
+    }
+
+    .navbar-brand,
+    .nav-link,
+    .btn-orange {
+      color: white;
+    }
+
+    .navbar {
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-orange {
+      background-color: #FF5722;
+      color: #fff;
+      border: none;
+    }
+
+    .btn-orange:hover {
+      background-color: #e64a19;
+    }
+
+    .icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+
+    .sticky {
+      position: fixed;
+      width: 100%;
+      z-index: 100;
+      /* Make sure it appears above the video */
+    }
+
+    header {
+      background-color: rgb(6, 6, 6);
+      /* Add transparency for better video visibility */
+      display: flex;
+      flex-direction: row;
+      height: 60px;
+      margin: 20px 80px 30px 80px;
+      justify-content: space-around;
+      align-items: center;
+      border-radius: 25px;
+      position: relative;
+      z-index: 100;
+
+      /* Ensure header is above video */
+    }
+
+    .mobile_header {
+      display: none;
+    }
+
+    .logo_placeholder {
+      color: whitesmoke;
+      width: auto;
+    }
+
+    .logo_placeholder img {
+      width: 80px;
+      height: 55px;
+    }
+
+    .nav_links_placeholder ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-content: space-evenly;
+    width: 800px !important;
+    list-style: none;
+}
+  .nav_link { 
+    padding: 10px;
+    transition: all 0.2s ease-in-out;
+    }
+
+    .nav_link a {
+      text-decoration: none;
+      color: whitesmoke;
+    }
+
+    .nav_link:hover {
+      border-bottom: 2px solid #f5640a;
+      color: #f5640a;
+    }
+
+    .nav_link:hover a {
+      color: #f5640a;
+    }
+
+    .nav_link.active {
+      border-bottom: 2px solid #f5640a;
+      color: #f5640a;
+    }
+
+    .nav_link.active a {
+      color: #f5640a;
+    }
+
+    .login_button {
+      padding: 10px 15px;
+      border-radius: 15px;
+      border: 2px solid #f5640a;
+      background-color: #f5640a;
+      cursor: pointer;
+    }
+
+    .login_button a {
+      text-decoration: none;
+      color: whitesmoke;
+    }
+
+    .shop-now {
+      background-color: #ff6c00;
+      color: #fff;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .product-container {
+      display: flex;
+      margin: 20px;
+      gap: 20px;
+    }
+
+    .left-section {
+      flex: 1;
+      text-align: center;
+    }
+
+    .main-image-container {
+      width: 100%;
+      height: 400px;
+      background-color: #f4f4f4;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    #main-product-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .thumbnails {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .thumbnails img {
+      width: 80px;
+      height: 70px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+      object-fit: cover;
+    }
+
+    .thumbnails img:hover {
+      border-color: #ff6c00;
+    }
+
+    .rating {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    /* Right Section */
+    .right-section {
+      flex: 1.5;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .right-section h1 {
+      font-size: 24px;
+      color: #333;
+    }
+
+    .subtitle {
+      color: #888;
+      margin: 5px 0 10px;
+    }
+
+    .deal-tag {
+      background-color: #ff6c00;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+
+    .price-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .special-price {
+      font-size: 24px;
+      color: #ff6c00;
+    }
+
+    .original-price {
+      text-decoration: line-through;
+      color: #888;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .buttons button {
+      padding: 10px 15px;
+      font-size: 16px;
+      margin-right: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .buy-now {
+      background-color: #ff6c00;
+      color: white;
+    }
+
+    .add-to-cart {
+      background-color: #ddd;
+    }
+
+    /* Offers Section */
+    .offers-section h3 {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .offers-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .offers-section ul li {
+      margin: 5px 0;
+    }
+
+    /* Delivery Section */
+    .delivery-section h3 {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #f14242;
+    }
+
+    .delivery-section p {
+      color: rgb(67, 139, 121);
+
+    }
+
+    .delivery-check input {
+      padding: 8px;
+      width: 200px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .delivery-check button {
+      padding: 8px 12px;
+      background-color: #ff6c00;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: 20px;
+      padding: 10px;
+      text-align: center;
+      background-color: #f4f4f4;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .buttons button {
+      padding: 10px 15px;
+      font-size: 16px;
+      margin-right: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .buy-now {
+      background-color: #ff6c00;
+      color: white;
+    }
+
+    .add-to-cart {
+      background-color: #ddd;
+    }
+
+    .tabs-container {
+      margin: 20px;
+    }
+
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .tab-btn {
+      padding: 10px 20px;
+      cursor: pointer;
+      background-color: #f4f4f4;
+      border: none;
+      outline: none;
+    }
+
+    .tab-btn.active {
+      background-color: #fff;
+      border-bottom: 2px solid #ff6c00;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    #more-offers {
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    #more-offers.hidden {
+      opacity: 0;
+    }
+
+    .similar-products {
+      margin-top: 20px;
+    }
+
+    .similar-products h3 {
+      margin-bottom: 15px;
+      color: #ef5b5b;
+    }
+
+    .similar-products .product-card {
+      background: white;
+      padding: 10px;
+      border: 1px solid rgb(244, 179, 179);
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+    }
+
+    .product-card {
+      background: white;
+      padding: 10px;
+      border: 4px red;
+      text-align: center;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border: red 3px;
+    }
+
+    footer {
+      margin-top: 20px;
+      padding: 10px;
+      text-align: center;
+      background-color: #f4f4f4;
+    }
+
+    .review-section {
+      font-family: Arial, sans-serif;
+      color: #333;
+      margin: 20px;
+    }
+
+    .review-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .overall-rating {
+      text-align: center;
+    }
+
+    .overall-rating h2 {
+      font-size: 2em;
+      margin: 0;
+      color: #f39c12;
+    }
+
+    .rating-bars {
+      flex-grow: 1;
+    }
+
+    .rating-bar {
+      display: flex;
+      align-items: center;
+      margin: 5px 0;
+    }
+
+    .rating-bar span {
+      width: 30px;
+    }
+
+    .bar {
+      background: #eee;
+      height: 10px;
+      flex-grow: 1;
+      margin-left: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+    }
+
+    .fill-5 {
+      width: 80%;
+      background: #27ae60;
+    }
+
+    .fill-4 {
+      width: 60%;
+      background: #2ecc71;
+    }
+
+    .fill-3 {
+      width: 40%;
+      background: #f1c40f;
+    }
+
+    .fill-2 {
+      width: 20%;
+      background: #e67e22;
+    }
+
+    .fill-1 {
+      width: 10%;
+      background: #e74c3c;
+    }
+
+    .category-ratings {
+      display: flex;
+      gap: 10px;
+    }
+
+    .category {
+      text-align: center;
+    }
+
+    .category span {
+      font-size: 1.2em;
+      color: #16a085;
+    }
+
+    .review-list {
+      margin-top: 20px;
+    }
+
+    .review {
+      display: flex;
+      align-items: flex-start;
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+    }
+
+    .review-rating {
+      font-size: 1.2em;
+      color: #f39c12;
+      margin-right: 10px;
+    }
+
+    .review-text p {
+      margin: 0 0 5px;
+    }
+
+    .review-text span {
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    /* product search location, filters style */
+    /* Dropdown column */
+    .dropdown-column {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      /* Space between left and right content */
+      gap: 10px;
+      /* Small gap between the left and right sections */
+      padding: 8px 25px;
+      /* Reduced padding for smaller box size */
+      /* background-color: #fefefee3;
+        border: 1px solid #ddd;*/
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 10px;
+      width: 90%;
+      /* Ensures the box is responsive */
+      margin: auto;
+      /* Increased margin-left to push the box further to the right */
+    }
+
+    /* Left section inside dropdown-column (select city) */
+    .dropdown-column .left {
+      flex: 1;
+      display: flex;
+    }
+
+    /* Adjusting the right section to make it more compact */
+    .dropdown-column .right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      /* Small gap between the search bar, filter icon, and add card icon */
+      max-width: 400px;
+      /* Limit the width of the right section for better alignment */
+    }
+
+    /* Search Box Styles */
+    .search-box {
+      position: relative;
+      width: 300px;
+      border: 1px solid #f0831e;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      background-color: #fff;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 40px 10px 10px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      background-color: transparent;
+    }
+
+    /* Placeholder text style */
+    .search-box input::placeholder {
+      color: #f0831e;
+      /* Orange placeholder color */
+    }
+
+    .search-box img {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    /* Button styles for icons */
+    .filters-icon,
+    .add-card-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .filters-icon img,
+    .add-card-icon img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .filters-icon:hover img,
+    .add-card-icon:hover img {
+      transform: scale(1.1);
+      opacity: 0.8;
+    }
+
+    .filters-icon:active img,
+    .add-card-icon:active img {
+      transform: scale(0.9);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .dropdown-column {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .dropdown-column .left,
+      .dropdown-column .right {
+        width: 100%;
+        /* Full width for both sections on small screens */
+      }
+
+      .right-container {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
+      .search-box {
+        width: 100%;
+      }
+
+      .filters-icon,
+      .add-card-icon {
+        justify-content: center;
+        margin-left: 0;
+      }
+    }
+
+    /* Dropdown Wrapper */
+    .dropdown-wrapper {
+      display: flex;
+      align-items: center;
+      position: relative;
+      width: 70%;
+    }
+
+    .dropdown-icon {
+      position: absolute;
+      left: 10px;
+      z-index: 1;
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      /* Ensures the image fits inside the given width and height */
+    }
+
+    /* Style for the select input */
+    select {
+      padding-left: 30px;
+      /* Adds space to the left to accommodate the icon */
+      width: 40%;
+      height: 40px;
+      border-radius: 8px;
+      border: 1px solid #ff6c00;
+      font-size: 16px;
+      background-color: #ff6c00;
+
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    /* Focus state for the select input */
+    select:focus {
+      outline: none;
+      border-color: #ff6c00;
+      /* Optional: Highlight the border on focus */
+      background-color: #faf4ef;
+    }
+    .review-images {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between images and button */
+    margin-top: 20px; /* Space above the images section */
+}
+
+.review-images img {
+    width: 80px; 
+    height: 80px;
+    object-fit: cover; 
+    border-radius: 5px; 
+    border: 1px solid #ddd; 
+    cursor: pointer; 
+}
+
+.rate-now-btn {
+    margin-left: auto; 
+    padding: 10px 20px; 
+    background-color: #ff6200; 
+    color: #fff; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 14px; 
+    transition: background-color 0.3s ease; 
+}
+
+.rate-now-btn:hover {
+    background-color: #f58e4e; 
+}
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: black;
+    height: 80px;
+    align-items: center;
+    margin-top: 30px;
+    
+    max-width: 100%; 
+}
+
+footer ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    list-style: none;
+    width: 250px;
+}
+
+footer li a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+footer li a:hover,
+footer li a.active {
+    color: orange;
+}
+
+footer p {
+    color: white;
+}
+
+
+
+  </style>
+</head>
+<body>
+  <div class="nav_header" id="myHeader">
+    <div class="mobile_header">
+        <svg width="32px" height="32px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"
+            transform="rotate(0)">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+                <path d="M4 6H20M4 12H20M4 18H20" stroke="white" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+            </g>
+        </svg>
+    </div>
+
+    <header class="mobile-header">
+      <div class="logo_placeholder">
+        <img src="/logo.jpg" alt="logo" />
+        <img src="/icons/close.svg" alt="close" class="closeImage"/>
+      </div>
+      <div class="nav_links_placeholder">
+        <ul class="nav_links">
+          <li class="nav_link">
+            <a href="/"><span>Home</span></a>
+          </li>
+          <li class="nav_link">
+            <a href="/entertainment"><span>Entertainment</span></a>
+          </li>
+          <li class="nav_link active">
+            <a href="/shop.html"><span>Shopping</span></a>
+          </li>
+          <li class="nav_link">
+            <a href="/Anakapalle-Tourism"><span>Tourism</span></a>
+          </li>
+  
+          <li class="nav_link">
+            <a href="/paybills"><span>Pay Bills</span></a>
+          </li>
+          <li class="nav_link">
+            <a href="/hotels"><span>Hotels</span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="login-button_placeholder">
+        <button class="login_button"><a href="">Sign Up</a></button>
+      </div>
+    </header>
+    
+      <!-- Dropdown Column -->
+      <div class="dropdown-column">
+        <div class="left">
+          <div class="dropdown-wrapper">
+            <img src="/Location.png" alt="City Icon" class="dropdown-icon" />
+  
+            <select>
+              <option value="">Select a City</option>
+              <option value="alluri-sitharama-raju">
+                Alluri Sitharama Raju
+              </option>
+              <option value="anakapalli">Anakapalli</option>
+              <option value="ananthapuramu">Ananthapuramu</option>
+              <option value="annamayya">Annamayya</option>
+              <option value="bapatla">Bapatla</option>
+              <option value="chittoor">Chittoor</option>
+              <option value="dr-b-r-ambedkar-konaseema">
+                Dr. B.R. Ambedkar Konaseema
+              </option>
+              <option value="east-godavari">East Godavari</option>
+              <option value="eluru">Eluru</option>
+              <option value="guntur">Guntur</option>
+              <option value="kakinada">Kakinada</option>
+              <option value="krishna">Krishna</option>
+              <option value="kurnool">Kurnool</option>
+              <option value="nandyal">Nandyal</option>
+              <option value="ntr">Ntr</option>
+              <option value="palnadu">Palnadu</option>
+              <option value="parvathipuram-manyam">Parvathipuram Manyam</option>
+              <option value="prakasam">Prakasam</option>
+              <option value="sri-potti-sriramulu-nellore">
+                Sri Potti Sriramulu Nellore
+              </option>
+              <option value="sri-sathya-sai">Sri Sathya Sai</option>
+              <option value="srikakulam">Srikakulam</option>
+              <option value="tirupati">Tirupati</option>
+              <option value="visakhapatnam">Visakhapatnam</option>
+              <option value="vizianagaram">Vizianagaram</option>
+              <option value="west-godavari">West Godavari</option>
+              <option value="ysr">Y.S.R.</option>
+            </select>
+          </div>
+        </div>
+  
+        <!-- Search Bar -->
+        <div class="right">
+          <div class="search-box">
+            <input type="text" placeholder="Search..." />
+            <img src="/search.png" alt="Search" />
+          </div>
+         <a href="/cart12.html"><div class="add-card-icon">
+            <img src="/Shopping Cart.png" alt="Add Card" />
+          </div></a> 
+        </div>
+      </div>
+    </div>
+
+  <div class="product-container" >
+    <div class="left-section" >
+      <!-- <div class="main-image-container" th:each="product : ${products}">
+    <img id="main-product-image" src="/shirtimages/uspasoftoxford1.webp" alt="Main Product">
+          <img th:src="@{/products/image/{id}(id=${product.productId})}" 
+                     alt="Product Image" style="width: 100px; height: 100px;">
+      </div> -->
+      <div class="main-image-container">
+        <img th:src="@{/products/image/{id}(id=${product.productId})}" 
+             alt="Product Image" id="main-product-image" style="width: 300px; height: 300px;">
+      </div>
+      <div class="thumbnails">
+        <img src="/shirtimages/uspasoftoxford1.webp" alt="Thumbnail 1" onclick="changeMainImage('/shirtimages/uspasoftoxford1.webp')">
+        <img src="/shirtimages/uspasoftoxford2.webp" alt="Thumbnail 2" onclick="changeMainImage('/shirtimages/uspasoftoxford2.webp')">
+        <img src="/shirtimages/uspasoftoxford3.webp" alt="Thumbnail 3" onclick="changeMainImage('/shirtimages/uspasoftoxford3.webp')">
+        <img src="/shirtimages/uspasoftoxford1.webp" alt="Thumbnail 4" onclick="changeMainImage('/shirtimages/uspasoftoxford1.webp')">
+        <img src="/shirtimages/uspasoftoxford2.webp" alt="Thumbnail 4" onclick="changeMainImage('/shirtimages/uspasoftoxford2.webp')">
+
+      </div>
+      <div class="rating">
+        <span>⭐⭐⭐⭐☆</span> <span class="rating-count">(3,521 reviews)</span>
+      </div>
+    </div>
+
+    <div class="right-section">
+      <h1 th:text="${product.name}"></h1>
+      <p class="subtitle">(Cotton Shirt)</p>
+      <span class="deal-tag">Limited Time Deal</span>
+      <div class="price-section">
+        <span class="special-price" th:text="'₹'+ ${product.price}"></span>
+        <span class="original-price">₹7,999</span>
+      </div>
+      <div class="buttons">
+        <a href="/us summery.html"> <button class="buy-now">Buy Now</button></a>
+         <button class="add-to-cart">Add to Cart</button>
+       </div>
+      <div class="offers-section">
+        <h3>Available Offers</h3>
+        <ul id="offer-list">
+          <li>5% Cashback on Flipkart Axis Bank Credit Card T&C</li>
+          <li>Get extra 35% off (price inclusive of cashback/coupon) T&C</li>
+          <li>Extra 10% Off on Combo–shirt and phants - Jul'24 T&C</li>
+          <li>Flat ₹1,000 off  with 500 supercoins T&C</li>
+        </ul>
+        <a href="#" id="more-offers" onclick="showMoreOffers()">View 3 more offers</a>
+        <ul id="more-offers-list" style="display: none;">
+          <li>5% Cashback on Flipkart Axis Bank Credit Card T&C</li>
+          <li> Flat ₹1,000 off on Hotel bookings with 500 supercoins T&c</li>
+          <li>Flat ₹500 off  with 500 supercoins T&C</li>
+        </ul>
+      </div>
+      <div class="delivery-section">
+        <h3>Delivery</h3>
+        <div class="delivery-check">
+          <input type="text" placeholder="Enter Your pincode">
+          <button>Check</button>
+        </div>
+        <p class="delivery-details">Get delivery in one day <span class="free"></span> <span class="delivery-cost"></span></p>
+      </div>
+
+     
+    </div>
+  </div>
+
+  <div class="tabs-container">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="openTab('highlights')">More Info</button>
+      <button class="tab-btn" onclick="openTab('specifications')">Specifications</button>
+      <button class="tab-btn" onclick="openTab('reviews')">Reviews</button>
+    </div>
+    <div id="highlights" class="tab-content active">
+      <h3>Highlights</h3>
+      <ul>
+        <li>100% Cotton Fabric</li>
+        <li>Relaxed fit material with perfect stitching</li>
+        <li>Colors guarenteed for 100 wash cycles</li>
+        <li>More than 1M+ ordered this product</li>
+      </ul>
+      <h3>Seller:</h3>
+      <ul>
+        <li style="color: #e67e22; font-weight: bold;">TBL ONLINE</li>
+        <li>7Day's service center return/replacement</li>
+        <li>GST invoice available</li>
+      </ul>
+
+
+    </div>
+    <div id="specifications" class="tab-content">
+      <h3>Specifications</h3>
+      <ul>
+        <li>Type : cotton full hands</li>
+        <li>colors guarenteed Up to 1 yaer</li>
+        <li>Material: Cotton</li>
+        <li>Best Fabric</li>
+      </ul>
+    </div>
+    <div id="reviews" class="tab-content">
+    <div class="review-section">
+  <div class="review-header">
+    <div class="overall-rating">
+      <h2>4.1 ★</h2>
+      <p>Reviews & Ratings</p>
+      <p>2.4K</p>
+    </div>
+    <div class="rating-bars">
+      <div class="rating-bar">
+        <span>5★</span>
+        <div class="bar"><div class="fill fill-5"></div></div>
+      </div>
+      <div class="rating-bar">
+        <span>4★</span>
+        <div class="bar"><div class="fill fill-4"></div></div>
+      </div>
+      <div class="rating-bar">
+        <span>3★</span>
+        <div class="bar"><div class="fill fill-3"></div></div>
+      </div>
+      <div class="rating-bar">
+        <span>2★</span>
+        <div class="bar"><div class="fill fill-2"></div></div>
+      </div>
+      <div class="rating-bar">
+        <span>1★</span>
+        <div class="bar"><div class="fill fill-1"></div></div>
+      </div>
+    </div>
+    <div class="category-ratings">
+      <div class="category">
+        <p>Fit and Finish</p>
+        <span>3.8</span>
+      </div>
+      <div class="category">
+        <p>Material</p>
+        <span>4.1</span>
+      </div>
+      <div class="category">
+        <p>Colors</p>
+        <span>3.8</span>
+      </div>
+      <div class="category">
+        <p>Design</p>
+        <span>4.2</span>
+      </div>
+    </div>
+  </div>
+  <div class="review-images">
+    <img src="/shirtimages/uspasoftoxford1.webp" alt="Review Image 1">
+    <img src="/shirtimages/uspasoftoxford2.webp" alt="Review Image 2">
+    <img src="/shirtimages/uspasoftoxford3.webp" alt="Review Image 3">
+    <img src="/shirtimages/uspasoftoxford1.webp" alt="Review Image 4">
+    <button class="rate-now-btn">Rate Now</button>
+</div>
+
+
+  <div class="review-list">
+    <div class="review">
+      <div class="review-rating">4.1★</div>
+      <div class="review-text">
+        <p>Product is good</p>
+        <span>- Farhat Khan</span>
+      </div>
+    </div>
+    <div class="review">
+      <div class="review-rating">3.8★</div>
+      <div class="review-text">
+        <p>Best fit for me and product is also</p>
+        <span>- Ashwini</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+  </div>
+
+  <div class="similar-products">
+    <h3>You Might Also Like</h3>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="/shirtimages/ketch1.1.webp" alt="Related Product 1">
+        <p>KETCH</p>
+        <span class="price">₹2,499</span>
+      </div>
+      <div class="product-card">
+        <img src="/shirtimages/ketch1.2.jpg" alt="Related Product 2">
+        <p>TONES</p>
+        <span class="price">₹1,899</span>
+      </div>
+      <div class="product-card">
+        <img src="/shirtimages/uspasoftoxford1.webp" alt="Related Product 3">
+        <p>US POLO</p>
+        <span class="price">₹3,299</span>
+      </div>
+      <div class="product-card">
+        <img src="/shirtimages/ketch1.1.webp" alt="Related Product 1">
+        <p>KETCH</p>
+        <span class="price">₹2,499</span>
+      </div>
+      <div class="product-card">
+        <img src="/shirtimages/tones1.2.webp" alt="Related Product 2">
+        <p>TONES</p>
+        <span class="price">₹1,899</span>
+      </div>
+      <div class="product-card">
+        <img src="/shirtimages/uspasoftoxford1.webp" alt="Related Product 3">
+        <p>US POLO</p>
+        <span class="price">₹3,299</span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer_nav-links_placeholder" hx-boost="true">
+        <ul class="footer_nav-links">
+            <li class="footer_nav-link"><a href="/about">About</a></li>
+            <li class="footer_nav-link"><a href="/contact">Contact</a></li>
+            <li class="footer_nav-link"><a href="">Privacy Policy</a></li>
+        </ul>
+    </div>
+    <div class="footer_social-links_placeholder">
+        <ul class="footer_social-links">
+            <li class="footer_social-link"><a href="#">
+                    <svg fill="white" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="24px"
+                        height="24px" viewBox="0 0 14.906 32">
+                        <path
+                            d="M14.874,11.167 L14.262,14.207 C14.062,15.208 13.100,15.992 12.072,15.992 L10.000,15.992 L10.000,30.000 C10.000,31.104 9.159,32.000 8.049,32.000 L5.030,32.000 C3.920,32.000 3.017,31.102 3.017,29.999 L3.017,15.992 L2.011,15.992 C0.901,15.992 -0.002,15.095 -0.002,13.991 L-0.002,10.990 C-0.002,9.887 0.901,8.989 2.011,8.989 L3.017,8.989 L3.017,6.003 C3.017,2.716 5.693,0.041 8.994,0.013 C9.015,0.012 9.033,0.001 9.055,0.001 L13.081,0.001 C13.636,0.001 14.000,0.448 14.000,1.000 L14.000,6.000 C14.000,6.553 13.636,7.004 13.081,7.004 L10.061,7.004 L10.060,8.989 L13.079,8.989 C13.645,8.989 14.167,9.228 14.509,9.644 C14.852,10.059 14.985,10.615 14.874,11.167 ZM9.092,10.990 C9.078,10.991 9.067,10.998 9.053,10.998 L9.053,10.998 C8.497,10.997 8.046,10.549 8.047,9.997 L8.047,9.990 C8.047,9.990 8.047,9.990 8.047,9.990 C8.047,9.990 8.047,9.990 8.047,9.990 L8.049,6.003 C8.049,5.450 8.499,5.003 9.055,5.003 L12.074,5.003 L12.074,2.002 L9.094,2.002 C9.077,2.002 9.063,2.011 9.045,2.011 C6.831,2.011 5.030,3.802 5.030,6.003 L5.030,10.005 C5.030,10.558 4.579,11.006 4.023,11.006 C3.996,11.006 3.973,10.992 3.946,10.990 L2.011,10.990 L2.011,13.991 L4.023,13.991 C4.579,13.991 5.030,14.439 5.030,14.992 C5.030,15.044 5.008,15.088 5.000,15.138 L5.000,30.000 L8.049,29.999 L8.049,15.002 C8.049,14.998 8.047,14.995 8.047,14.992 C8.047,14.439 8.497,13.991 9.053,13.991 L12.072,13.991 C12.145,13.991 12.275,13.886 12.288,13.816 L12.857,10.990 L9.092,10.990 Z" />
+                    </svg>
+                </a></li>
+            <li class="footer_social-link"><a href="#">
+                    <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
+                            fill="white" />
+                        <path
+                            d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                            fill="white" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
+                            fill="white" />
+                    </svg>
+                </a></li>
+            <li class="footer_social-link"><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white"
+                        class="bi bi-twitter-x" viewBox="0 0 16 16">
+                        <path
+                            d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+                    </svg>
+                </a></li>
+            <li class="footer_social-link"><a href="#"></a></li>
+        </ul>
+    </div>
+    <div class="footer_copy-rights_placeholder">
+        <p class="copy-rights">Copyright © 2024 MyCity. All rights reserved.</p>
+    </div>
+</footer>
+
+  <script>
+    let images = ['/shirtimages/uspasoftoxford1.webp', '/shirtimages/uspasoftoxford2.webp', '/shirtimages/uspasoftoxford3.webp', '/shirtimages/uspasoftoxford1.webp'];
+    let currentIndex = 0;
+    
+    function changeMainImage(imageSrc) {
+      document.getElementById('main-product-image').src = imageSrc;
+      currentIndex = images.indexOf(imageSrc);
+    }
+    
+    function autoSlide() {
+      currentIndex = (currentIndex + 1) % images.length;
+      document.getElementById('main-product-image').src = images[currentIndex];
+    }
+    
+    setInterval(autoSlide, 3000);
+    
+    function openTab(tabId) {
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => tab.classList.remove('active'));
+    
+      document.getElementById(tabId).classList.add('active');
+    
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+    
+      event.target.classList.add('active');
+    }
+    
+    const pincodeToDistrict = {
+      "110001": "New Delhi",
+      "400001": "Mumbai",
+      "560001": "Bengaluru",
+      "533309": "East Godavari"
+    };
+    
+    function getDistrictFromPincode(pincode) {
+      return pincodeToDistrict[pincode] || "District Not Found";
+    }
+    
+    const pincodeInput = document.querySelector('.delivery-check input');
+    const deliveryDetails = document.querySelector('.delivery-details');
+    const deliveryButton = document.querySelector('.delivery-check button');
+    
+    deliveryButton.addEventListener('click', () => {
+      const enteredPincode = pincodeInput.value;
+      const districtName = getDistrictFromPincode(enteredPincode);
+    
+      deliveryDetails.textContent = `Delivery available for your location ${districtName} `;
+    });
+    function showMoreOffers() {
+      var moreOffersList = document.getElementById("more-offers-list");
+      moreOffersList.style.display = "block";
+      document.getElementById("more-offers").style.display = "none"; 
+    }  </script>
+    <script>
+      let cartCount = 0; // Initialize cart count
+
+document.getElementById('add-to-cart').addEventListener('click', () => {
+    cartCount++; // Increment cart count
+    document.getElementById('cart-count').textContent = cartCount; // Update cart count display
+});
+    </script>
+</body>
+</html>

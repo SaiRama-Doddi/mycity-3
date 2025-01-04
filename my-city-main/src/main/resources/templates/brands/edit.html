@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>edit</title>
+    <link rel="stylesheet" href="/css/Styles2.css">
+  </head>
+  <body>
+    <div class="sidebar">
+        <div class="logo">
+            <h2>My<span>Site</span></h2>
+        </div>
+        <ul>
+            <li><a href="/">Dashboard</a></li>
+            <li><a href="#">Movies</a></li>
+            <li><a href="/artists">Music</a>
+                <ul class="submenu">
+                    <li><a href="/artists">Artists</a></li>
+                    <li><a href="category">Category</a></li>
+                    <li><a th:href="@{/products}">Product</a></li>
+                    <li><a href="/city-list">City List</a></li>
+                    <li><a href="/hotels-page">Add Hotel</a></li>
+                    <li><a href="/list">Hotel List</a></li>
+                </ul>
+            </li>
+            <li class="active">
+                <a href="/hotels-page">Shopping</a>
+                <ul class="submenu">
+                    <li><a th:href="@{/shopping-brands}">Brands</a></li>
+                    <li><a href="@{/category}">Category</a></li>
+                    <li><a href="/city-page">Product</a></li>
+                    <li><a href="/city-list">City List</a></li>
+                    <li><a href="/hotels-page">Add Hotel</a></li>
+                    <li><a href="/list">Hotel List</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Hotels</a></li>
+
+        </ul>
+    </div>
+
+    <!-- Topbar -->
+    <div class="topbar">
+        <img src="images/logo.png" alt="" width="70px">
+        <input type="text" placeholder="Search...">
+        <button>Search</button>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <h2>Edit Brand</h2>
+
+            <form method="post" th:object="${brandDto}">
+                <div class="form-group">
+                    <label for="name">Brand Id</label>
+                    <div class="col-sm-8">
+                        <input class="form-control-plaintext" readonly th:value="${brandDto.brandId}">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Name</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" th:field="${brandDto.name}">
+                    <p th:if="${#fields.hasErrors('name')}"
+                        th:errorclass="text-danger"
+                        th:errors="${brandDto.name}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Description</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" th:field="${brandDto.description}">
+                    <p th:if="${#fields.hasErrors('description')}"
+                        th:errorclass="text-danger"
+                        th:errors="${brandDto.description}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Country</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" th:field="${brandDto.country}">
+                    <p th:if="${#fields.hasErrors('country')}"
+                        th:errorclass="text-danger"
+                        th:errors="${brandDto.country}"></p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="offset-sm-4 col-sm-4 d-grid">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                    <div class="col-sm-4 d-grid">
+                        <a class="btn btn-outline-primary" href="/brands" role="button">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+  </body>
+</html>

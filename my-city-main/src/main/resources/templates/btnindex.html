@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Room Listings</title>
+ <style>
+    /* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: #f3f4f6;
+    padding: 2rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #111827;
+    margin-bottom: 2rem;
+}
+
+/* Filter buttons */
+.filter-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.filter-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #f3f4f6;
+    color: #4b5563;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-btn:hover {
+    background-color: #e5e7eb;
+}
+
+.filter-btn.active {
+    background-color: #2563eb;
+    color: white;
+}
+
+/* Rooms grid */
+.rooms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Room card */
+.room-card {
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.room-card[data-room-type="single"].hide,
+.room-card[data-room-type="double"].hide {
+    display: none;
+}
+
+.room-image {
+    position: relative;
+    height: 200px;
+}
+
+.room-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.discount-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #2563eb;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+}
+
+.room-details {
+    padding: 1rem;
+}
+
+.guest-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.icon {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.hotel-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.hotel-info h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.see-more {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.see-more:hover {
+    color: #1d4ed8;
+}
+
+.price-reserve {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.reserve-btn {
+    background: #2563eb;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.reserve-btn:hover {
+    background: #1d4ed8;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .rooms-grid {
+        grid-template-columns: 1fr;
+    }
+}
+ </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Available Rooms</h1>
+        
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="single">1 Bed</button>
+            <button class="filter-btn" data-filter="double">2 Bed</button>
+        </div>
+
+        <div class="rooms-grid">
+            <div class="room-card" data-room-type="single">
+                <div class="room-image">
+                    <img src="data:image/jpeg;base64,${room.primaryRoomImageBase64}" alt="Single Room">
+                    <span class="discount-badge">20% Off</span>
+                </div>
+                <div class="room-details">
+                    <div class="guest-info">
+                        <img src="/icons/bed.svg" alt="Bed" class="icon">
+                        <span>2 Guests</span>
+                    </div>
+                    <div class="hotel-info">
+                        <h3>Luxury Hotel</h3>
+                        <a href="#" class="see-more">
+                            See More
+                            <img src="/icons/arrowright.svg" alt="Arrow Right">
+                        </a>
+                    </div>
+                    <div class="price-reserve">
+                        <p class="price">$99</p>
+                        <a href="#" class="reserve-btn">Reserve</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="room-card" data-room-type="double">
+                <div class="room-image">
+                    <img src="data:image/jpeg;base64,${room.primaryRoomImageBase64}" alt="Double Room">
+                    <span class="discount-badge">20% Off</span>
+                </div>
+                <div class="room-details">
+                    <div class="guest-info">
+                        <img src="/icons/bed.svg" alt="Bed" class="icon">
+                        <span>4 Guests</span>
+                    </div>
+                    <div class="hotel-info">
+                        <h3>Luxury Hotel</h3>
+                        <a href="#" class="see-more">
+                            See More
+                            <img src="/icons/arrowright.svg" alt="Arrow Right">
+                        </a>
+                    </div>
+                    <div class="price-reserve">
+                        <p class="price">$149</p>
+                        <a href="#" class="reserve-btn">Reserve</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script >
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const roomCards = document.querySelectorAll('.room-card');
+    
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+    
+                const filterValue = button.getAttribute('data-filter');
+    
+                roomCards.forEach(card => {
+                    const roomType = card.getAttribute('data-room-type');
+                    
+                    if (filterValue === 'all') {
+                        card.classList.remove('hide');
+                    } else {
+                        if (roomType === filterValue) {
+                            card.classList.remove('hide');
+                        } else {
+                            card.classList.add('hide');
+                        }
+                    }
+                });
+            });
+        });
+    });</script>
+</body>
+</html>

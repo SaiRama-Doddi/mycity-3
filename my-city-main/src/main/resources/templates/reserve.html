@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reserve Room</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin: 10px 0;
+            font-size: 20px;
+        }
+
+        .room-details {
+            display: flex;
+            max-width: 900px;
+            margin: 10px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            height: 650px;
+        }
+
+        .room-image {
+            flex: 1;
+            max-width: 45%;
+            max-height: 480px;
+            object-fit: cover;
+            margin: 20px;
+            border-radius: 10px;
+        }
+
+        .details-section {
+            flex: 1;
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+           justify-content: space-evenly;
+            padding-left: 20px;
+        }
+
+        .details-section h2 {
+            margin: 0;
+            color: #555;
+            font-size: 18px;
+        }
+
+        .featureBox {
+         /*    background-color: #f9f9f9;
+            border: 1px solid #ddd; */
+            border-radius: 6px;
+            padding: 5px;
+            font-size: 12px;
+        }
+
+        .roomFeature {
+            display: flex;
+            align-items: center;
+           
+            padding-left: 10px;
+        }
+
+        .icons {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+        }
+
+        .roomPrice {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+            margin: 10px 0 0;
+        }
+
+        .price-container {
+            display: flex;
+            align-items: center;
+          
+        }
+
+        .price-container button {
+            background-color: #f37022;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            margin-left: 20px;
+        }
+
+        .price-container button:hover {
+            background-color: #f37022;
+        }
+
+        .price-container input {
+            width: 50px;
+            text-align: center;
+            margin: 0 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .reserveBtn {
+            background-color: #f37022;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            text-align: center;
+            transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+            width: 30%;
+            height: 40px;
+            font-weight: bold;
+          
+        }
+
+        .reserveBtn:hover {
+            background-color: #fff;
+            color: #f37022;
+            border: 1px solid #f37022;
+            transform: scale(1.05);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Room Reservation</h1>
+    <div class="room-details">
+        <!-- Image Section -->
+        <img class="room-image" th:src="'data:image/jpeg;base64,' + ${room.primaryRoomImageBase64}" alt="Room Image">
+        
+        <!-- Details Section -->
+        <div class="details-section">
+        
+            <!-- Room Features -->
+            <div class="featureBox">
+                <h2>Features</h2>
+                <div th:each="amenity : ${room.amenities}" class="roomFeature">
+                    <img th:src="@{${amenity.name == 'Bed' ? '/icons/bed.svg' : 
+                                     amenity.name == 'Smart TV' ? '/icons/tv.svg' : 
+                                     amenity.name == 'Parking' ? '/icons/parking.svg' : 
+                                     amenity.name == 'No Smoking' ? '/icons/nosmoke.svg' : 
+                                     amenity.name == 'Shower' ? '/icons/shower.svg' : 
+                                     amenity.name == 'City View' ? '/icons/city.svg' : 
+                                     amenity.name == 'Free Wi-Fi' ? '/icons/wifi.svg' :
+                                     amenity.name == '24/7 Room Service' ? '/icons/room.svg' :
+                                     amenity.name == 'Private Dining Experiences' ? '/icons/dining.svg' :
+                                     '/icons/filterorange.svg'}}"
+                         th:alt="${amenity.name + ' Icon'}" 
+                         class="icons">
+                    <p th:text="${amenity.name}"></p>
+                </div>
+    
+                <div class="roomFeature">
+                    <img src="/icons/bed.svg" alt="Bed Icon" class="icons">
+                    <p><span th:text="${room.maxGuests == 1 ? 'Single Bed' : 'Double Bed'}"></span></p>
+                </div>
+            </div>
+    
+            <!-- Selected Reservation Details -->
+            <div class="reservation-details">
+                <h2>Reservation Details</h2>
+                <p><strong>No of Persons:</strong> <span id="selectedPersons">1</span></p>
+                <p><strong>Check-in Date:</strong> <span id="selectedCheckinDate">Not selected</span></p>
+                <p><strong>Check-out Date:</strong> <span id="selectedCheckoutDate">Not selected</span></p>
+            </div>
+    
+            <!-- Price Section -->
+            <div>
+                <h2>Price</h2> 
+                <div class="price-container">
+                    <p class="roomPrice">₹ <span id="price" th:text="${room.pricePerNight}"></span></p>
+                    <button class="minus">-</button>
+                    <input type="number" id="quantity" value="1" min="1">
+                    <button class="plus">+</button>
+                </div>
+            </div>
+    
+            <!-- Reservation Button -->
+            <button class="reserveBtn" id="reserveButton">Reserve</button>
+        </div>
+    </div>
+    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const priceElement = document.getElementById("price");
+            const quantityInput = document.getElementById("quantity");
+            const pricePerNight = parseFloat(priceElement.textContent);
+
+            document.querySelector(".minus").addEventListener("click", function() {
+                let quantity = parseInt(quantityInput.value);
+                if (quantity > 1) {
+                    quantity--;
+                    quantityInput.value = quantity;
+                    updatePrice(quantity);
+                }
+            });
+
+            document.querySelector(".plus").addEventListener("click", function() {
+                let quantity = parseInt(quantityInput.value);
+                quantity++;
+                quantityInput.value = quantity;
+                updatePrice(quantity);
+            });
+
+            quantityInput.addEventListener("input", function() {
+                let quantity = parseInt(quantityInput.value) || 1;
+                if (quantity < 1) quantity = 1;
+                quantityInput.value = quantity;
+                updatePrice(quantity);
+            });
+
+            function updatePrice(quantity) {
+                const totalPrice = (pricePerNight * quantity).toFixed(2);
+                priceElement.textContent = totalPrice;
+            }
+        });
+    </script>
+</body>
+</html>

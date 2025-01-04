@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty Haven - Salon Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .service-card {
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .sticky-cart {
+            position: sticky;
+            top: 1rem;
+        }
+
+        .navbar-brand,
+        .nav-link,
+        .btn-orange {
+            color: white;
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-orange {
+            background-color: #FF5722;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-orange:hover {
+            background-color: #e64a19;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .sticky {
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+        }
+
+        header {
+            background-color: rgb(6, 6, 6);
+            display: flex;
+            flex-direction: row;
+            height: 60px;
+            margin: 20px 80px 30px 80px;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 25px;
+            position: relative;
+            z-index: 100;
+        }
+
+        .mobile_header {
+            display: none;
+        }
+
+        .logo_placeholder {
+            color: whitesmoke;
+            width: auto;
+        }
+
+        .logo_placeholder img {
+            width: 80px;
+            height: 55px;
+        }
+
+        .nav_links_placeholder ul {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            justify-content: space-evenly;
+            width: 800px !important;
+            list-style: none;
+        }
+
+        .nav_link {
+            padding: 10px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .nav_link a {
+            text-decoration: none;
+            color: #f8f7f5;
+        }
+
+        .nav_link:hover {
+            border-bottom: 2px solid #f5640a;
+            color: #f5640a;
+        }
+
+        .nav_link:hover a {
+            color: #f5640a;
+        }
+
+        .nav_link.active {
+            border-bottom: 2px solid #f5640a;
+            color: #f5640a;
+        }
+
+        .nav_link.active a {
+            color: #f5640a;
+        }
+
+        .login_button {
+            padding: 10px 15px;
+            border-radius: 15px;
+            border: 2px solid #f5640a;
+            background-color: #f5640a;
+            cursor: pointer;
+        }
+
+        .login_button a {
+            text-decoration: none;
+            color: whitesmoke;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="bg-black shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="logo_placeholder">
+                <img src="/imgs/logo.png" alt="Beauty Haven Logo" class="w-20 h-auto">
+                <!-- Adjust the width and height as needed -->
+            </div>
+            <div class="nav_links_placeholder">
+                <ul class="nav_links">
+                    <li class="nav_link"><a href="/mycity-homepage">Home</a></li>
+                    <li class="nav_link"><a href="/Entertainment/home">Entertainment</a></li>
+                    <li class="nav_link"><a href="shopping">Shopping</a></li>
+                    <li class="nav_link"><a href="/tourism">Tourism</a></li>
+                    <li class="nav_link active"><a href="beauty">Pay Bills</a></li>
+                    <li class="nav_link"><a href="hotels">Hotels</a></li>
+                </ul>
+            </div>
+            <div class="relative flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <span id="cart-count"
+                    class="absolute -top-2 -right-2 bg-rose-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hidden">0</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+                <div id="services-container" class="space-y-8">
+                </div>
+            </div>
+
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-md p-6 sticky-cart">
+                    <h2 class="text-2xl font-bold mb-4">Services In Your Cart</h2>
+                    <div id="cart-items" class="space-y-4 mb-6">
+                        <p class="text-gray-500">No services selected</p>
+                    </div>
+                    <div class="border-t pt-4">
+                        <div class="flex justify-between items-center font-bold">
+                            <span>Total</span>
+                            <span id="cart-total">$0</span>
+                        </div>
+                        <button id="book-appointment"
+                            class="w-full mt-4 bg-rose-600 text-white py-3 rounded-lg hover:bg-rose-700 transition">
+                            <a href="paybills_cart_payment"> Book Appointment</a>
+                        </button>
+                    </div>
+                    <div class="border-t mt-6 pt-6">
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">★★★★★</div>
+                            <span class="ml-2 text-gray-600">4.9/5</span>
+                        </div>
+                        <p class="text-sm text-gray-500">Based on 200+ reviews</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const categories = [
+            {
+                id: 'waxing',
+                name: 'Waxing',
+                description: 'Professional waxing services for all body parts'
+            },
+            {
+                id: 'facial',
+                name: 'Facial',
+                description: 'Rejuvenating facial treatments'
+            },
+            {
+                id: 'pedicure',
+                name: 'Pedicure & Manicure',
+                description: 'Luxurious hand and foot care treatments'
+            },
+            {
+                id: 'massage',
+                name: 'Massage',
+                description: 'Relaxing massage therapies'
+            },
+            {
+                id: 'haircare',
+                name: 'Hair Care',
+                description: 'Professional hair treatments'
+            }
+        ];
+
+        const services = [
+            {
+                id: 1,
+                category: 'waxing',
+                name: 'Full Body Waxing',
+                duration: '60 min',
+                price: 80,
+                description: 'Complete body waxing treatment',
+                image: 'https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=50&h=50&fit=crop'
+            },
+            {
+                id: 2,
+                category: 'waxing',
+                name: 'Leg Waxing',
+                duration: '30 min',
+                price: 45,
+                description: 'Full leg waxing treatment',
+                image: 'https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=50&h=50&fit=crop'
+            },
+            {
+                id: 3,
+                category: 'waxing',
+                name: 'Brazilian Wax',
+                duration: '45 min',
+                price: 65,
+                description: 'Professional brazilian waxing',
+                image: 'https://images.unsplash.com/photo-1560096269-94853a839233?w=50&h=50&fit=crop'
+            },
+            {
+                id: 4,
+                category: 'facial',
+                name: 'Deep Cleansing Facial',
+                duration: '45 min',
+                price: 650,
+                description: 'Deep cleansing and rejuvenating facial',
+                image: 'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=50&h=50&fit=crop'
+            },
+            {
+                id: 5,
+                category: 'facial',
+                name: 'Anti-Aging Facial',
+                duration: '60 min',
+                price: 85,
+                description: 'Premium anti-aging treatment',
+                image: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=50&h=50&fit=crop'
+            },
+            {
+                id: 6,
+                category: 'pedicure',
+                name: 'Luxury Pedicure',
+                duration: '50 min',
+                price: 55,
+                description: 'Relaxing foot treatment with massage',
+                image: 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=50&h=50&fit=crop'
+            },
+            {
+                id: 7,
+                category: 'pedicure',
+                name: 'Gel Manicure',
+                duration: '45 min',
+                price: 45,
+                description: 'Long-lasting gel polish manicure',
+                image: 'https://images.unsplash.com/photo-1519415387722-a1c3bbef716c?w=50&h=50&fit=crop'
+            },
+            {
+                id: 8,
+                category: 'massage',
+                name: 'Swedish Massage',
+                duration: '60 min',
+                price: 90,
+                description: 'Relaxing full body massage',
+                image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=50&h=50&fit=crop'
+            },
+            {
+                id: 9,
+                category: 'massage',
+                name: 'Deep Tissue Massage',
+                duration: '60 min',
+                price: 95,
+                description: 'Therapeutic deep tissue treatment',
+                image: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=50&h=50&fit=crop'
+            },
+            {
+                id: 10,
+                category: 'haircare',
+                name: 'Hair Treatment',
+                duration: '45 min',
+                price: 70,
+                description: 'Deep conditioning treatment',
+                image: 'https://images.unsplash.com/photo-1560096369-a12c1d517cdb?w=50&h=50&fit=crop'
+            }
+        ];
+
+        let cart = [];
+
+        function createServiceCard(service) {
+            const quantity = cart.find(item => item.id === service.id)?.quantity || 0;
+            return `
+                <div class="service-card bg-white rounded-lg p-4 flex items-center justify-between" data-id="${service.id}">
+                    <div class="flex items-center">
+                        <img src="${service.image}" alt="${service.name}" class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h3 class="font-semibold text-lg">${service.name}</h3>
+                            <p class="text-gray-600">${service.duration}</p>
+                            <p class="text-sm text-gray-500">${service.description}</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xl font-bold text-rose-600">₹${service.price}</p>
+                        <div class="flex items-center mt-2">
+                            ${quantity > 0 ? `
+                                <button class="decrease px-2 py-1 text-rose-600 hover:bg-rose-50 rounded">-</button>
+                                <span class="quantity mx-2">${quantity}</span>
+                            ` : ''}
+                            <button class="increase px-2 py-1 text-rose-600 hover:bg-rose-50 rounded">+</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createCategorySection(category) {
+            const categoryServices = services.filter(service => service.category === category.id);
+            if (categoryServices.length === 0) return '';
+
+            return `
+                <section class="mb-8">
+                    <div class="mb-4">
+                        <h2 class="text-2xl font-bold text-rose-600">${category.name}</h2>
+                        <p class="text-gray-600 text-sm">${category.description}</p>
+                    </div>
+                    <div class="space-y-4">
+                        ${categoryServices.map(service => createServiceCard(service)).join('')}
+                    </div>
+                </section>
+            `;
+        }
+
+        function initializeServices() {
+            const container = document.getElementById('services-container');
+            container.innerHTML = categories.map(category => createCategorySection(category)).join('');
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-gray-500">No services selected</p>';
+                cartCount.classList.add('hidden');
+            } else {
+                cartCount.classList.remove('hidden');
+                cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span>${item.name}</span>
+                            ${item.quantity > 1 ? `<span class="text-gray-500 text-sm ml-2">x${item.quantity}</span>` : ''}
+                        </div>
+                        <span>₹${item.price * item.quantity}</span>
+                    </div>
+                `).join('');
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `₹${total}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeServices();
+
+            document.addEventListener('click', (e) => {
+                const serviceCard = e.target.closest('.service-card');
+                if (!serviceCard) return;
+
+                const serviceId = parseInt(serviceCard.dataset.id);
+                const service = services.find(s => s.id === serviceId);
+
+                if (e.target.classList.contains('increase')) {
+                    const existingItem = cart.find(item => item.id === serviceId);
+                    if (existingItem) {
+                        existingItem.quantity++;
+                    } else {
+                        cart.push({
+                            id: service.id,
+                            name: service.name,
+                            price: service.price,
+                            quantity: 1
+                        });
+                    }
+                }
+                else if (e.target.classList.contains('decrease')) {
+                    const existingItem = cart.find(item => item.id === serviceId);
+                    if (existingItem) {
+                        existingItem.quantity--;
+                        if (existingItem.quantity === 0) {
+                            cart = cart.filter(item => item.id !== serviceId);
+                        }
+                    }
+                }
+
+                serviceCard.querySelector('.text-right').innerHTML = `
+                    <p class="text-xl font-bold text-rose-600">₹${service.price}</p>
+                    <div class="flex items-center mt-2">
+                        ${cart.find(item => item.id === serviceId)?.quantity > 0 ? `
+                            <button class="decrease px-2 py-1 text-rose-600 hover:bg-rose-50 rounded">-</button>
+                            <span class="quantity mx-2">${cart.find(item => item.id === serviceId).quantity}</span>
+                        ` : ''}
+                        <button class="increase px-2 py-1 text-rose-600 hover:bg-rose-50 rounded">+</button>
+                    </div>
+                `;
+
+                updateCart();
+            });
+
+            document.getElementById('book-appointment').addEventListener('click', () => {
+                if (cart.length === 0) {
+                    alert('Please select at least one service');
+                    return;
+                }
+                alert('Thank you for booking! We will redirected to slot booking page.');
+            });
+        });
+    </script>
+</body>
+
+</html>

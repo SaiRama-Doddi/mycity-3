@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MyCity</title>
+    <link rel="shortcut icon" href="imgs/logo.png" type="image/x-icon">
+    <script src="https://unpkg.com/htmx.org@2.0.3"
+        integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq"
+        crossorigin="anonymous"></script>
+</head>
+
+<body hx-boost="false" data-email="[[${email}]]" style="    background: linear-gradient(to right, whitesmoke 80%, #f5640a 120%);
+">
+    <div class="nav_header" id="myHeader">
+        <header id="header">
+            <div class="left_side">
+                <div class="mobile_header">
+                    <svg width="32px" height="32px" viewBox="0 0 24.00 24.00" fill="none"
+                        xmlns="http://www.w3.org/2000/svg" transform="rotate(0)">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path d="M4 6H20M4 12H20M4 18H20" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                        </g>
+                    </svg>
+                </div>
+                <div class="logo_placeholder">
+                    <img src="/imgs/logo.png" alt="logo" />
+                </div>
+            </div>
+            <div class="nav_links_placeholder">
+                <ul class="nav_links">
+                    <li class="nav_link active">
+                        <a href="/mycity-homepage"><span>Home</span></a>
+                    </li>
+                    <li class="nav_link">
+                        <a href="/Entertainment/home" hx-boost="false"><span>Entertainment</span></a>
+                    </li>
+                    <li class="nav_link">
+                        <a href="/shopping" hx-boost="false"><span>Shopping</span></a>
+                    </li>
+                    <li class="nav_link">
+                        <a href="/tourism"><span>Tourism</span></a>
+                    </li>
+                    <li class="nav_link">
+                        <a href="/beauty" hx-boost="false"><span>Pay Bills</span></a>
+                    </li>
+                    <li class="nav_link">
+                        <a href="/hotels" hx-boost="false"><span>Hotels</span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="login-button_placeholder" id="loginPlaceholder">
+                <button class="login_button">
+                    <a href="/register" class="signup-btn">Sign Up</a>
+                </button>
+            </div>
+        </header>
+    </div>
+    <div class="carousel-container">
+        <!-- content -->
+        <div class="carousel-content">
+            <p class="title">IT’s TIME FOR NEW</p>
+            <p class="title-2">Adventures</p>
+        </div>
+
+        <!--    image carosoul fot city -->
+        <div class="image-slides desktop">
+            <img src="Img/Property 1=Default.png" alt="Image 1" />
+            <img src="Img/Property 1=Default (1).png" alt="Image 2" />
+            <img src="Img/Property 1=Default (2).png" alt="Image 3" />
+        </div>
+
+        <div class="image-slide mobileView">
+            <img src="Img/main3(mobile).png" alt="Image 1" />
+            <img src="Img/main3(mobile).png" alt="Image 2" />
+            <img src="Img/main3(mobile).png" alt="Image 3" />
+        </div>
+        <!--    image carosoul fot shopping -->
+        <div class="shop-hotdeals">
+            <div class="tabs-placeholder">
+                <button type="button" class="tab" onclick="show(event, 'shopping')" id="default"><svg width="16px"
+                        height="16px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path
+                                d="M18.5996 21.57C19.7042 21.57 20.5996 20.6746 20.5996 19.57C20.5996 18.4654 19.7042 17.57 18.5996 17.57C17.495 17.57 16.5996 18.4654 16.5996 19.57C16.5996 20.6746 17.495 21.57 18.5996 21.57Z"
+                                stroke="#F37022" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            </path>
+                            <path
+                                d="M8.59961 21.57C9.70418 21.57 10.5996 20.6746 10.5996 19.57C10.5996 18.4654 9.70418 17.57 8.59961 17.57C7.49504 17.57 6.59961 18.4654 6.59961 19.57C6.59961 20.6746 7.49504 21.57 8.59961 21.57Z"
+                                stroke="#F37022" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            </path>
+                            <path
+                                d="M2 3.55997C2 3.55997 6.64 3.49997 6 7.55997L5.31006 11.62C5.20774 12.1068 5.21778 12.6105 5.33954 13.0929C5.46129 13.5752 5.69152 14.0234 6.01263 14.4034C6.33375 14.7833 6.73733 15.0849 7.19263 15.2854C7.64793 15.4858 8.14294 15.5797 8.64001 15.56H16.64C17.7479 15.5271 18.8119 15.1196 19.6583 14.404C20.5046 13.6884 21.0834 12.7069 21.3 11.62L21.9901 7.50998C22.0993 7.0177 22.0939 6.50689 21.9744 6.017C21.8548 5.52712 21.6242 5.07126 21.3005 4.68467C20.9767 4.29807 20.5684 3.99107 20.1071 3.78739C19.6458 3.58371 19.1438 3.48881 18.64 3.50998H9.94"
+                                stroke="#F37022" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            </path>
+                        </g>
+                    </svg>
+                    <span>Shopping</span>
+                    <button type="button" class="tab" onclick="show(event, 'hotdeals')">
+                        <svg fill="whitesmoke" width="16px" height="16px" viewBox="0 0 32 32" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" stroke="#F37022">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path
+                                    d="M15.888 31.977c-7.539 0-12.887-5.228-12.887-12.431 0-3.824 2.293-7.944 2.39-8.116 0.199-0.354 0.59-0.547 0.998-0.502 0.404 0.052 0.736 0.343 0.84 0.736 0.006 0.024 0.624 2.336 1.44 3.62 0.548 0.864 1.104 1.475 1.729 1.899-0.423-1.833-0.747-4.591-0.22-7.421 1.448-7.768 7.562-9.627 7.824-9.701 0.337-0.097 0.695-0.010 0.951 0.223 0.256 0.235 0.373 0.586 0.307 0.927-0.010 0.054-1.020 5.493 1.123 10.127 0.195 0.421 0.466 0.91 0.758 1.399 0.083-0.672 0.212-1.386 0.41-2.080 0.786-2.749 2.819-3.688 2.904-3.726 0.339-0.154 0.735-0.104 1.027 0.126 0.292 0.231 0.433 0.603 0.365 0.969-0.011 0.068-0.294 1.938 1.298 4.592 1.438 2.396 1.852 3.949 1.852 6.928 0 7.203-5.514 12.43-13.111 12.43zM6.115 14.615c-0.549 1.385-1.115 3.226-1.115 4.931 0 6.044 4.506 10.43 10.887 10.43 6.438 0 11.11-4.386 11.11-10.431 0-2.611-0.323-3.822-1.567-5.899-0.832-1.386-1.243-2.633-1.439-3.625-0.198 0.321-0.382 0.712-0.516 1.184-0.61 2.131-0.456 4.623-0.454 4.649 0.029 0.446-0.242 0.859-0.664 1.008s-0.892 0.002-1.151-0.364c-0.075-0.107-1.854-2.624-2.637-4.32-1.628-3.518-1.601-7.323-1.434-9.514-1.648 0.96-4.177 3.104-4.989 7.466-0.791 4.244 0.746 8.488 0.762 8.529 0.133 0.346 0.063 0.739-0.181 1.018-0.245 0.277-0.622 0.4-0.986 0.313-0.124-0.030-2.938-0.762-4.761-3.634-0.325-0.514-0.617-1.137-0.864-1.742z">
+                                </path>
+                            </g>
+                        </svg>
+                        <span>Hot Deals</span></button>
+            </div>
+            <div class="tab-content" id="shopping">
+                <!-- Shopping content goes here -->
+                <div class="shopping_content">
+                    <img src="/Img/Group 3.png" alt="shopping_image">
+                    <a href="homePage"><button type="button" class="shop_now"><span> Shopping <img
+                                    src="/icons/arrowright.svg" alt=""></span></button></a>
+                </div>
+                <div class="shopping_content">
+                    <img src="/Img/shopping-2.png" alt="shopping_image">
+                    <a href="homePage"><button type="button" class="shop_now"><span> Shopping <img
+                                    src="/icons/arrowright.svg" alt=""></span></button></a>
+                </div>
+                <div class="shopping_content">
+                    <img src="/Img/shopping-3.png" alt="shopping_image">
+                    <a href="homePage"><button type="button" class="shop_now"><span> Shopping <img
+                                    src="/icons/arrowright.svg" alt=""></span></button></a>
+                </div>
+                <div class="shopping_dots">
+                    <span class="shopping_dot" onclick="currentSlide(1)"></span>
+                    <span class="shopping_dot" onclick="currentSlide(2)"></span>
+                    <span class="shopping_dot" onclick="currentSlide(3)"></span>
+                </div>
+            </div>
+            <div class="tab-content" id="hotdeals">
+                <div class="hotdeals_content">
+                    <img src="/Img/shopping-2.png" alt="hotdeals_image">
+                    <a href="homePage"><button type="button" class="shop_now"><span> Shopping <img
+                                    src="/icons/arrowright.svg" alt=""></span></button></a>
+                </div>
+                <div class="hotdeals_content">
+                    <img src="/Img/shopping-2.png" alt="hotdeals_image">
+                    <a href="homePage"><button type="button" class="shop_now"><span> Shopping <img
+                                    src="/icons/arrowright.svg" alt=""></span></button></a>
+                </div>
+                <div class="hotdeals_content">
+                    <img src="/Img/shopping-2.png" alt="hotdeals_image">
+                    <a href="homePage"><button type="button" class="shop_now"><span> Shopping <img
+                                    src="/icons/arrowright.svg" alt=""></span></button></a>
+                </div>
+                <div class="hotdeals_dots">
+                    <span class="hotdeals_dot" onclick="dealcurrentSlide(1)"></span>
+                    <span class="hotdeals_dot" onclick="dealcurrentSlide(2)"></span>
+                    <span class="hotdeals_dot" onclick="dealcurrentSlide(3)"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer_nav-links_placeholder" hx-boost="true">
+            <ul class="footer_nav-links">
+                <li class="footer_nav-link"><a href="/about">About</a></li>
+                <li class="footer_nav-link"><a href="/contact">Contact</a></li>
+                <li class="footer_nav-link"><a href="">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer_social-links_placeholder">
+            <ul class="footer_social-links">
+                <li class="footer_social-link"><a href="#">
+                        <svg fill="white" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="24px"
+                            height="24px" viewBox="0 0 14.906 32">
+                            <path
+                                d="M14.874,11.167 L14.262,14.207 C14.062,15.208 13.100,15.992 12.072,15.992 L10.000,15.992 L10.000,30.000 C10.000,31.104 9.159,32.000 8.049,32.000 L5.030,32.000 C3.920,32.000 3.017,31.102 3.017,29.999 L3.017,15.992 L2.011,15.992 C0.901,15.992 -0.002,15.095 -0.002,13.991 L-0.002,10.990 C-0.002,9.887 0.901,8.989 2.011,8.989 L3.017,8.989 L3.017,6.003 C3.017,2.716 5.693,0.041 8.994,0.013 C9.015,0.012 9.033,0.001 9.055,0.001 L13.081,0.001 C13.636,0.001 14.000,0.448 14.000,1.000 L14.000,6.000 C14.000,6.553 13.636,7.004 13.081,7.004 L10.061,7.004 L10.060,8.989 L13.079,8.989 C13.645,8.989 14.167,9.228 14.509,9.644 C14.852,10.059 14.985,10.615 14.874,11.167 ZM9.092,10.990 C9.078,10.991 9.067,10.998 9.053,10.998 L9.053,10.998 C8.497,10.997 8.046,10.549 8.047,9.997 L8.047,9.990 C8.047,9.990 8.047,9.990 8.047,9.990 C8.047,9.990 8.047,9.990 8.047,9.990 L8.049,6.003 C8.049,5.450 8.499,5.003 9.055,5.003 L12.074,5.003 L12.074,2.002 L9.094,2.002 C9.077,2.002 9.063,2.011 9.045,2.011 C6.831,2.011 5.030,3.802 5.030,6.003 L5.030,10.005 C5.030,10.558 4.579,11.006 4.023,11.006 C3.996,11.006 3.973,10.992 3.946,10.990 L2.011,10.990 L2.011,13.991 L4.023,13.991 C4.579,13.991 5.030,14.439 5.030,14.992 C5.030,15.044 5.008,15.088 5.000,15.138 L5.000,30.000 L8.049,29.999 L8.049,15.002 C8.049,14.998 8.047,14.995 8.047,14.992 C8.047,14.439 8.497,13.991 9.053,13.991 L12.072,13.991 C12.145,13.991 12.275,13.886 12.288,13.816 L12.857,10.990 L9.092,10.990 Z" />
+                        </svg>
+                    </a></li>
+                <li class="footer_social-link"><a href="#">
+                        <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
+                                fill="white" />
+                            <path
+                                d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                                fill="white" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
+                                fill="white" />
+                        </svg>
+                    </a></li>
+                <li class="footer_social-link"><a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white"
+                            class="bi bi-twitter-x" viewBox="0 0 16 16">
+                            <path
+                                d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+                        </svg>
+                    </a></li>
+                <li class="footer_social-link"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="footer_copy-rights_placeholder">
+            <p class="copy-rights">Copyright © 2024 MyCity. All rights reserved.</p>
+        </div>
+    </footer>
+    <script th:src="@{/JS/Script.js}"></script>
+    <script>
+        window.onload = function () {
+            createProfile();
+        };
+
+        document.addEventListener("DOMContentLoaded", function () {
+            createProfile();
+        })
+
+        document.body.addEventListener('htmx:afterSwap', function () {
+            console.log("HTMX:afterSwap")
+            createProfile()
+        });
+
+        function createProfile() {
+            const userName = "[[${name}]]" || null;
+            const userEmail = "[[${email}]]" || null;
+            const userMobile = "[[${mobile}]]" || null;
+            const userAddress = "[[${address}]]" || null;
+
+            console.log(userName, userEmail, userMobile, userAddress);
+
+            const placeholderDiv = document.querySelector(".login-button_placeholder");
+            if (userName && userEmail && placeholderDiv) {
+                // Create avatar HTML
+                const avatarHTML = `
+        <div class="user-profile">
+            <img src="/path/to/avatar.png" alt="Avatar" class="user-avatar" />
+            <span class="user-name">${userName}</span>
+        </div>
+    `;
+
+                // Replace content
+                placeholderDiv.innerHTML = avatarHTML;
+            }
+        }
+    </script>
+    <script>
+        /*This is for Exams Tab*/
+        function show(event, tabname) {
+            var i, tabcontent, tabbutton;
+            // Hide the tab content
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            // Remove the active class from all tab buttons
+            tabbutton = document.getElementsByClassName("tab");
+            for (i = 0; i < tabbutton.length; i++) {
+                tabbutton[i].className = tabbutton[i].className.replace(" active", "");
+            }
+            // Set the selected tab to active and display the content
+            document.getElementById(tabname).style.display = "block";
+            event.currentTarget.classList.add("active");
+        }
+
+        document.getElementById('default').click();
+
+        let slideIndex = 0;
+
+        function showSlides() {
+            let slides = document.querySelectorAll('.shopping_content');
+            let dots = document.querySelectorAll('.shopping_dot');
+
+            // Hide all slides
+            slides.forEach(slide => slide.style.display = 'none');
+
+            // Reset the dots to inactive
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            // Increment slide index
+            slideIndex++;
+
+            // Reset slideIndex if it exceeds the total number of slides
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+
+            // Display the current slide and activate the corresponding dot
+            slides[slideIndex - 1].style.display = 'block';
+            dots[slideIndex - 1].classList.add('active');
+
+            // Change slide every 3 seconds
+            setTimeout(showSlides, 2000);
+        }
+
+        // Show the specific slide when a dot is clicked
+        function currentSlide(n) {
+            let slides = document.querySelectorAll('.shopping_content');
+            let dots = document.querySelectorAll('.shopping_dot');
+
+            // Hide all slides
+            slides.forEach(slide => slide.style.display = 'none');
+
+            // Reset the dots to inactive
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            // Set the new active slide and dot
+            slides[n - 1].style.display = 'block';
+            dots[n - 1].classList.add('active');
+
+            // Update the global slide index
+            slideIndex = n;
+        }
+
+        // Initialize the slideshow
+        showSlides();
+
+        let dealsslideIndex = 0;
+
+        function dealshowSlides() {
+            let slides = document.querySelectorAll('.hotdeals_content');
+            let dots = document.querySelectorAll('.hotdeals_dot');
+
+            // Hide all slides
+            slides.forEach(slide => slide.style.display = 'none');
+
+            // Reset the dots to inactive
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            // Increment slide index
+            slideIndex++;
+
+            // Reset slideIndex if it exceeds the total number of slides
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+
+            // Display the current slide and activate the corresponding dot
+            slides[slideIndex - 1].style.display = 'block';
+            dots[slideIndex - 1].classList.add('active');
+
+            // Change slide every 3 seconds
+            setTimeout(dealshowSlides, 2000);
+        }
+
+        // Show the specific slide when a dot is clicked
+        function dealcurrentSlide(n) {
+            let slides = document.querySelectorAll('.hotdeals_content');
+            let dots = document.querySelectorAll('.hotdeals_dot');
+
+            // Hide all slides
+            slides.forEach(slide => slide.style.display = 'none');
+
+            // Reset the dots to inactive
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            // Set the new active slide and dot
+            slides[n - 1].style.display = 'block';
+            dots[n - 1].classList.add('active');
+
+            // Update the global slide index
+            slideIndex = n;
+        }
+
+        // Initialize the slideshow
+        dealshowSlides();
+
+        document.body.addEventListener('htmx:afterSwap', function () {
+            showSlides();
+            dealshowSlides();
+        });
+
+        /* JavaScript for the fade effect */
+        document.addEventListener('DOMContentLoaded', function () {
+            const images = document.querySelectorAll('.image-slides img');
+            let currentIndex = 0;
+
+            images[0].classList.add('active');
+
+            setInterval(() => {
+                images[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % images.length;
+                images[currentIndex].classList.add('active');
+            }, 3000);
+        });
+
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     const images = document.querySelectorAll('.image-slide img');
+        //     let currentIndex = 0;
+
+        //     images[0].classList.add('active');
+
+        //     setInterval(() => {
+        //         images[currentIndex].classList.remove('active');
+        //         currentIndex = (currentIndex + 1) % images.length;
+        //         images[currentIndex].classList.add('active');
+        //     }, 3000);
+        // });
+
+    </script>
+    <link rel="stylesheet" th:href="@{/CSS/TourismStyles.css}">
+    <script th:src="@{/JS/MobileNav.js}"></script>
+</body>
+
+</html>

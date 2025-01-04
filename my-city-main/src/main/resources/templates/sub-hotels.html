@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels</title>
+    <link rel="stylesheet" th:href="@{/CSS/hotelss.css}">
+    <style>
+        /* Style the modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index:1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* Close button */
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+    </style>
+
+<style>
+
+    /* footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: black;
+    height: 59px;
+    align-items: center;
+    padding-top: 10px;
+
+    ul{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        list-style: none;
+        width: 300px !important;
+
+        li{
+            a{
+                text-decoration: none;
+                color: whitesmoke;
+
+                
+                &:hover{
+                    color: orange;
+                }
+            
+                &.active{
+                    color: orange;
+                }
+            }
+        }
+    } 
+
+    p{
+        color: white;
+    }
+}  */
+.navbar-brand,
+    .nav-link,
+    .btn-orange {
+      color: white;
+    }
+
+    .navbar {
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-orange {
+      background-color: #FF5722;
+      color: #fff;
+      border: none;
+    }
+
+    .btn-orange:hover {
+      background-color: #e64a19;
+    }
+
+    .icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+
+    .sticky {
+      position: fixed;
+      width: 100%;
+      z-index: 100;
+      /* Make sure it appears above the video */
+    }
+
+    header {
+      background-color: rgb(6, 6, 6);
+      /* Add transparency for better video visibility */
+      display: flex;
+      flex-direction: row;
+      height: 60px;
+      margin: 20px 80px 30px 80px;
+      justify-content: space-around;
+      align-items: center;
+      border-radius: 25px;
+      position: relative;
+      z-index: 100;
+
+      /* Ensure header is above video */
+    }
+
+.mobile_header {
+      display: none;
+    }
+
+    .logo_placeholder {
+      color: whitesmoke;
+      width: auto;
+    }
+
+    .logo_placeholder img {
+      width: 80px;
+      height: 55px;
+    }
+
+    .nav_links_placeholder ul {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      justify-content: space-evenly;
+      width: 800px !important;
+      list-style: none;
+    }
+
+    .nav_link {
+      padding: 10px;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .nav_link a {
+      text-decoration: none;
+      color: whitesmoke;
+    }
+
+    .nav_link:hover {
+      border-bottom: 2px solid #f5640a;
+      color: #f5640a;
+    }
+
+    .nav_link:hover a {
+      color: #f5640a;
+    }
+
+    .nav_link.active {
+      border-bottom: 2px solid #f5640a;
+      color: #f5640a;
+    }
+
+    .nav_link.active a {
+      color: #f5640a;
+    }
+
+    .login_button {
+      padding: 10px 15px;
+      border-radius: 15px;
+      border: 2px solid #f5640a;
+      background-color: #f5640a;
+      cursor: pointer;
+    }
+
+    .login_button a {
+      text-decoration: none;
+      color: whitesmoke;
+    }
+
+        </style>
+   
+</head>
+
+<body>
+
+
+    <div class="hotelDetailsContainer">
+
+   
+       
+
+       <!--   <section class="hotel-images">
+            <img src="" alt="" id="mainimage">
+            <div class="side-images" id="side-image">
+            </div>
+        </section> -->
+
+       
+
+      <!-- Navbar Section -->
+
+      <section class="navbar-container">
+        <nav class="navBar">
+            <img src="/imgs/logo.png" alt="MyCity Logo" width="50px" class="cityLogo">
+            <div class="navItems">
+                <img src="/icons/close.svg" alt="cross icon"  class="cross">
+                <div class="navlinks">
+                    <a href="/mycity-homepage">Home</a>
+                    <a href="/Entertainment/home">Entertainment</a>
+                    <a href="shopping">Shopping</a>
+                    <a href="/tourism">Tourism</a>
+                    <a href="">Pay Bills</a>
+                    <a th:href="@{/ex}">Hotels</a>
+                </div>
+                <a class="booknow">
+                    Sign in
+                </a>
+            </div>
+            <img src="/icons/hamburger.svg" alt="hamburger icon" id="hamburger" class="active hamburger">
+        </nav>
+
+    </section>
+      <!-- <header class="mobile-header">
+        <div class="logo_placeholder">
+          <img src="/imgs/logo.png" alt="logo" />
+        </div>
+        <div class="nav_links_placeholder">
+          <ul class="nav_links">
+            <li class="nav_link">
+              <a href="/mycity-homepage"><span>Home</span></a>
+            </li>
+            <li class="nav_link">
+              <a href="/Entertainment/home"><span>Entertainment</span></a>
+            </li>
+            <li class="nav_link">
+              <a href="shopping"><span>Shopping</span></a>
+            </li>
+            <li class="nav_link">
+              <a href="/tourism"><span>Tourism</span></a>
+            </li>
+  
+            <li class="nav_link">
+              <a href="/beauty"><span>Pay Bills</span></a>
+            </li>
+            <li class="nav_link  active">
+              <a th:href="@{/ex}"><span>Hotels</span></a>
+            </li>
+          </ul>
+        </div>
+        <div class="login-button_placeholder">
+          <button class="login_button"><a href="">Sign Up</a></button>
+        </div>
+      </header> -->
+        <section class="hotel-images">
+            <!-- Main image -->
+            <img th:src="'data:image/jpeg;base64,' + ${relatedImages[0]?.hotelImageBase64}" alt="Main Image" id="mainimage">
+        
+            <!-- Side images -->
+            <div class="side-images" id="side-image">
+                <img th:each="image, iterStat : ${relatedImages}" 
+                     th:if="${iterStat.index > 0}" 
+                     th:src="'data:image/jpeg;base64,' + ${image.hotelImageBase64}" 
+                     alt="Hotel Image">
+            </div>
+        </section>
+        
+    
+
+        <section class="tabMenu">
+            <div class="registration">
+                <div class="roomsDetails">
+                  <!--   <p class="overview active">Overview & Amenities</p>
+                    <p class="booking ">Rooms & Accessiblity</p> -->
+                    <p class="overview active" onclick="toggleSection('overview')">Overview & Amenities</p>
+                    <p class="booking" onclick="toggleSection('accessibility')">Rooms & Accessibility</p>
+                </div>
+             
+               <!--  <a class="reserveNow" href="#" onclick="reserveHotel()">Reserve Now</a> -->
+
+            </div>
+            <hr class="tabline">
+        </section>
+
+        <section class="overview-Amenties active" id="overview">
+            <div class="hotelDetails">
+                <div class="headers" id="headers">
+                   
+                        <h1 class="hotelName2"   th:text="${hotel.name}"></h1>
+
+                        <div class="hotelDescBox">
+                            <p  class="hotelDesc" th:text="${hotel.description}"></p>
+
+
+                            <div class="highlights">
+                                <!-- Iterate through hotel amenities -->
+                                <div th:each="hotelAmenity : ${hotel.hotelAmenities}" class="featuresHighlights">
+                                    <img src="/icons/checkgreen.svg" alt="Check Green" class="CheckGreen">
+                                    <p class="feature" th:text="${hotelAmenity.amenity.name}"></p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                      
+                    
+                    
+                </div>
+
+                <div class="RatingBox">
+                    <div class="starBox">
+                        <p class="rating" th:text="${hotel.rating}"></p>
+                        <img src="/icons/star.svg" alt="star" class="star">
+                    </div>
+                   
+                </div>
+                
+
+                <a class="fullReview" href="">
+                    <p>See full reviews</p>
+                    <img src="/icons/arrowright.svg" alt="arrow right" class="arrowimg">
+                </a>
+
+                <div class="popularAmenities">
+                    <h2 class="title">Popular Amenities</h2>
+                    <div class="amenities-list">
+                        <div class="amenity-item" style="display: flex;gap:10px;margin-bottom: 10px;">
+                            <img src="/icons/circleorange.svg" alt="orange Circle">
+                            <p class="amentiy">Front desk [24-hours]</p>
+                        </div>
+                        <div class="amenity-item"  style="display: flex;gap:10px;margin-bottom: 10px;">
+                            <img src="/icons/circleorange.svg" alt="orange Circle">
+                            <p class="amentiy">Swimming Pool</p>
+                        </div>
+                        <div class="amenity-item" style="display: flex;gap:10px;margin-bottom: 10px;">
+                            <img src="/icons/circleorange.svg" alt="orange Circle">
+                            <p class="amentiy">Room service</p>
+                        </div>
+                        <div class="amenity-item" style="display: flex;gap:10px;margin-bottom: 10px;">
+                            <img src="/icons/circleorange.svg" alt="orange Circle">
+                            <p class="amentiy">Laundry service</p>
+                        </div>
+                        <div class="amenity-item" style="display: flex;gap:10px;margin-bottom: 10px;">
+                            <img src="/icons/circleorange.svg" alt="orange Circle">
+                            <p class="amentiy">Luggage storage</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+                <div class="locations">
+                    <div class="hotelmap">
+                        
+                        <iframe th:src="${hotel.mapSource}" 
+                                width="600" 
+                                height="450" 
+                                style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                <div class="locationDetails">
+                    <p class="hotelLocation" th:text="${hotel.address.addressLine1}"></p>
+                    <a href="#" class="view-larger-map" id="viewMapBtn">View larger map</a>
+                   <!--  <a href="#" class="seeMore">See More</a> -->
+                </div>
+                    </div>
+                    <div class="nearbyLocation">
+                            
+                    </div>
+<!-- Modal -->
+<div id="mapModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="closeModalBtn">&times;</span>
+        <iframe id="modalMap" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+</div>
+                </div> 
+        </section>
+
+        <section class="rooms-accessiblity" id="accessibility">
+            <h1 class="title" style="text-align: center;">Choose Your Rooms</h1>
+            <div class="rooms-details">
+                <section class="filter-container">
+                    <div class="filterbox">
+                        <label for="personCount" class="filter-title">No of Persons</label>
+                        <div class="numberInput">
+                            <button type="button" class="decreaseBtn" onclick="updatePersonCount(-1)">-</button>
+                            <input 
+                                type="text" 
+                                id="personCount" 
+                                name="person" 
+                                class="numberInputField" 
+                                value="1">
+                            <button type="button" class="increaseBtn" onclick="updatePersonCount(1)">+</button>
+                        </div>
+                    </div>
+                
+                    <div class="filterbox">
+                        <label for="checkinDate" class="filter-title">Check-in</label>
+                        <div class="dateInputWrapper">
+                            <input 
+                                type="date" 
+                                id="checkinDate" 
+                                name="checkin" 
+                                class="dateInputField filter-input" 
+                                placeholder="Select date">
+                        </div>
+                    </div>
+                    
+                
+                    <div class="filterbox">
+                        <label for="checkoutDate" class="filter-title">Check-out</label>
+                        <div class="dateInputWrapper">
+                            <input 
+                                type="date" 
+                                id="checkoutDate" 
+                                name="checkout" 
+                                class="dateInputField filter-input" 
+                                placeholder="Select date">
+                        </div>
+                    </div>
+                    
+                    <a class="searchbtn" id="reserveHotel">
+                        Reserve
+                    </a>
+                </section>
+                
+
+                <div class="filterBtns">
+                    <p class="filterbtn active" data-room-type="all">All</p>
+                    <p class="filterbtn" data-room-type="Single">1 Bed</p>
+                    <p class="filterbtn" data-room-type="Double">2 Bed</p>
+                </div>
+                
+                <div class="rooms-accessiblity active" id="roomDetailsBox">
+                    <th:block th:each="room : ${rooms}">
+                        <th:block th:if="${room.hotel != null} and (${room.hotel.hotelId} == ${hotel.hotelId})">
+                            <div class="roomdetail" th:data-room-type="${room.roomType}"  th:data-max-guests="${room.maxGuests}" style="overflow-x: auto;">
+                                <div class="rooms-details">
+                                    <img class="roomImage" th:src="'data:image/jpeg;base64,' + ${room.primaryRoomImageBase64}" alt="Room Image">
+                                    <p class="roomOffer">20% Off</p>
+                                </div>
+                                
+                                <div class="featureBox">
+
+                                    <div class="roomFeature" >
+                                        <div th:each="amenity : ${room.amenities}" style="display: flex;margin-bottom: 5px;">
+                                            <img th:src="@{${amenity.name == 'Bed' ? '/icons/bed.svg' : 
+                                                             amenity.name == 'Smart TV' ? '/icons/tv.svg' : 
+                                                             amenity.name == 'Parking' ? '/icons/parking.svg' : 
+                                                             amenity.name == 'No Smoking' ? '/icons/nosmoke.svg' : 
+                                                             amenity.name == 'Shower' ? '/icons/shower.svg' : 
+                                                             amenity.name == 'City View' ? '/icons/city.svg' : 
+                                                             amenity.name=='Free Wi-Fi'?'/icons/wifi.svg' :
+                                                             amenity.name=='24/7 Room Service'?'/icons/room.svg':
+                                                             amenity.name=='Parking'?'/icons/locationblack.svg':
+                                                             amenity.name=='Private Dining Experiences'?'/icons/dining.svg':
+                                                             '/icons/filterorange.svg'}}"
+                                                 th:alt="${amenity.name + ' Icon'}" 
+                                                 class="icons">
+                                            <p th:text="${amenity.name}"></p>
+
+                                            
+                                        </div>
+                                        <div class="roomFeature">
+                                            <img src="/icons/bed.svg" alt="tv" class="icons">
+                                            <p>
+                                                <span th:text="${room.maxGuests == 1 || room.maxGuests == 2 ? 'Single Bed' : 
+                                                (room.maxGuests >= 3 && room.maxGuests <= 6) ? 'Double Bed' : 
+                                                'Invalid Guests'}">
+                                                    </span>
+                                
+                                            </p>
+                                            
+                                        </div>
+                                    </div>                           
+                                    <p class="roomPrice">₹ <span th:text="${room.pricePerNight}"></span></p>
+                                   <!--  <a class="reserveBtn" 
+                                    th:href="@{'/reserve?roomId=' + ${room.roomId} + '&roomType=' + ${room.roomType} + '&price=' + ${room.pricePerNight} + '&maxGuests=' + ${room.maxGuests}}">
+                                    Reserve
+                                 </a> -->
+                                 <form th:action="@{/reserves}" method="post">
+                                    <input type="hidden" name="roomId" th:value="${room.roomId}">
+                                    <input type="hidden" name="roomType" th:value="${room.roomType}">
+                                    <input type="hidden" name="price" th:value="${room.pricePerNight}">
+                                    <input type="hidden" name="maxGuests" th:value="${room.maxGuests}">
+                                    <input type="hidden" id="hiddenCheckinDate" name="checkinDate">
+                                    <input type="hidden" id="hiddenCheckoutDate" name="checkoutDate">
+                                    <input type="hidden" id="roomCount" th:value="${room.roomCount}" />
+                                    <button type="submit" class="reserveBtn">Reserve</button>
+                                </form>                                   
+                                </div>
+                            </div>
+                        </th:block>
+                    </th:block>
+                </div>
+                
+                
+            </div>
+            
+
+            <section class="commonAreas"> 
+                <div class="accessibility">
+
+                </div>
+                <div class="commonarea">
+                    <!-- <h1>Common Areas</h1> -->
+
+
+                </div>
+
+            </section>
+    
+
+        </section>  
+
+      
+        <section class="hotelListContainer">
+            <div class="listTitle">
+                <h1>Explore Our Best List of Hotels!</h1>
+            </div>
+    
+            <div class="container" style="margin-top: 20px; max-width: 100%;">
+                <div class="hotellists" id="hotelsList1" style="width: 100%; gap: 0;">
+                    <div th:each="hotel : ${hotelsList1}" class="col-md-4 mb-2" style=" margin: 10px;">
+                        <a th:href="@{/sub-hotels(hotelId=${hotel.hotelId})}" style="text-decoration: none; color: inherit;">
+                            <div class="row g-0" id="sub">
+                                <div class="hotel-image">
+                                    <!-- Render hotel image if available -->
+                                    <img th:if="${hotel.primaryHotelImageBase64 != null}"
+                                         th:src="'data:image/jpeg;base64,' + ${hotel.primaryHotelImageBase64}"
+                                         alt="Hotel Image" 
+                                         style="width: 90%; height: 250px; object-fit: cover;">
+                                </div>
+                                
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                      <!--   <h5 class="card-title" th:text="${hotel.name}">Hotel Name</h5> -->
+                                        <p class="card-title" th:text="${#strings.length(hotel.name) > 10} ? ${#strings.substring(hotel.name,0,10) + '...'} : ${hotel.name}"></p>
+                                        
+                                        <p class="card-text" th:text="${hotel.address.addressLine2}">Hotel Description</p>
+                                        <p class="card-text">
+                                            <small class="text-muted">
+                                                Rating: <span class="rating-value" th:text="${hotel.rating}">4</span>
+                                                <span class="stars-container"></span>
+                                            </small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer_nav-links_placeholder">
+            <ul class="footer_nav-links">
+                <li class="footer_nav-link"><a href="/about">About</a></li>
+                <li class="footer_nav-link"><a href="/contact">Contact</a></li>
+                <li class="footer_nav-link"><a href="">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer_social-links_placeholder">
+            <ul class="footer_social-links">
+                <li class="footer_social-link"><a href="#">
+                        <svg fill="white" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="24px"
+                            height="24px" viewBox="0 0 14.906 32">
+                            <path
+                                d="M14.874,11.167 L14.262,14.207 C14.062,15.208 13.100,15.992 12.072,15.992 L10.000,15.992 L10.000,30.000 C10.000,31.104 9.159,32.000 8.049,32.000 L5.030,32.000 C3.920,32.000 3.017,31.102 3.017,29.999 L3.017,15.992 L2.011,15.992 C0.901,15.992 -0.002,15.095 -0.002,13.991 L-0.002,10.990 C-0.002,9.887 0.901,8.989 2.011,8.989 L3.017,8.989 L3.017,6.003 C3.017,2.716 5.693,0.041 8.994,0.013 C9.015,0.012 9.033,0.001 9.055,0.001 L13.081,0.001 C13.636,0.001 14.000,0.448 14.000,1.000 L14.000,6.000 C14.000,6.553 13.636,7.004 13.081,7.004 L10.061,7.004 L10.060,8.989 L13.079,8.989 C13.645,8.989 14.167,9.228 14.509,9.644 C14.852,10.059 14.985,10.615 14.874,11.167 ZM9.092,10.990 C9.078,10.991 9.067,10.998 9.053,10.998 L9.053,10.998 C8.497,10.997 8.046,10.549 8.047,9.997 L8.047,9.990 C8.047,9.990 8.047,9.990 8.047,9.990 C8.047,9.990 8.047,9.990 8.047,9.990 L8.049,6.003 C8.049,5.450 8.499,5.003 9.055,5.003 L12.074,5.003 L12.074,2.002 L9.094,2.002 C9.077,2.002 9.063,2.011 9.045,2.011 C6.831,2.011 5.030,3.802 5.030,6.003 L5.030,10.005 C5.030,10.558 4.579,11.006 4.023,11.006 C3.996,11.006 3.973,10.992 3.946,10.990 L2.011,10.990 L2.011,13.991 L4.023,13.991 C4.579,13.991 5.030,14.439 5.030,14.992 C5.030,15.044 5.008,15.088 5.000,15.138 L5.000,30.000 L8.049,29.999 L8.049,15.002 C8.049,14.998 8.047,14.995 8.047,14.992 C8.047,14.439 8.497,13.991 9.053,13.991 L12.072,13.991 C12.145,13.991 12.275,13.886 12.288,13.816 L12.857,10.990 L9.092,10.990 Z" />
+                        </svg>
+                    </a></li>
+                <li class="footer_social-link"><a href="#">
+                        <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
+                                fill="white" />
+                            <path
+                                d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                                fill="white" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
+                                fill="white" />
+                        </svg>
+                    </a></li>
+                <li class="footer_social-link"><a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white"
+                            class="bi bi-twitter-x" viewBox="0 0 16 16">
+                            <path
+                                d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+                        </svg>
+                    </a></li>
+                <li class="footer_social-link"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="footer_copy-rights_placeholder">
+            <p class="copy-rights">Copyright © 2024 MyCity. All rights reserved.</p>
+        </div>
+    </footer>
+    <script type="module" th:src="@{/JS/hotels.js}"></script>
+    <script>
+// Toggle between Overview and Accessibility tabs
+function toggleSection(section) {
+            const overviewTab = document.querySelector('.overview');
+            const bookingTab = document.querySelector('.booking');
+
+            if (section === 'overview') {
+                overviewTab.classList.add('active');
+                bookingTab.classList.remove('active');
+            } else if (section === 'accessibility') {
+                bookingTab.classList.add('active');
+                overviewTab.classList.remove('active');
+            }
+        }
+
+
+
+
+
+
+
+
+
+        function setMainImage(index) {
+            // Get the clicked image's src
+            const sideImages = document.querySelectorAll("#side-image img");
+            const clickedImageSrc = sideImages[index].getAttribute("src");
+            
+            // Update the main image's src
+            document.getElementById("mainimage").setAttribute("src", clickedImageSrc);
+        }
+
+
+        function toggleSection(sectionId) {
+    // Remove 'active' class from all tabs
+    document.querySelectorAll('.roomsDetails p').forEach(tab => tab.classList.remove('active'));
+
+    // Add 'active' class to the clicked tab
+    document.querySelector(`.${sectionId === 'overview' ? 'overview' : 'booking'}`).classList.add('active');
+
+    // Hide all sections
+    document.querySelectorAll('section').forEach(section => section.classList.remove('active'));
+
+    // Show the selected section
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.classList.add('active');
+    } else {
+        console.error(`Section with ID "${sectionId}" not found.`);
+    }
+}
+
+
+
+/* for filter section */
+
+function updatePersonCount(change) {
+    const inputField = document.getElementById('personCount');
+    let currentValue = parseInt(inputField.value) || 0;
+
+    // Adjust the value within valid bounds
+    let newValue = currentValue + change;
+    if (newValue < 1) newValue = 1; // Minimum 1 person
+    if (newValue > 10) newValue = 10; // Maximum 10 persons
+
+    inputField.value = newValue;
+}
+
+// Prevent non-numeric input
+document.getElementById('personCount').addEventListener('input', function (e) {
+    const value = e.target.value;
+    if (!/^\d*$/.test(value)) {
+        e.target.value = value.replace(/\D/g, ''); // Remove non-numeric characters
+    }
+});
+
+
+
+/* filtering room details */
+
+document.getElementById('reserveHotel').addEventListener('click', function () {
+    const personCount = document.getElementById('personCount').value;
+    const checkinDate = document.getElementById('checkinDate').value;
+    const checkoutDate = document.getElementById('checkoutDate').value;
+
+    const roomDetailsBox = document.getElementById('roomDetailsBox');
+    const allRooms = roomDetailsBox.querySelectorAll('.roomdetail');
+
+    if (!personCount || !checkinDate || !checkoutDate) {
+        // Display default room details
+        allRooms.forEach(room => {
+            room.style.display = "block"; // Show all rooms
+        });
+        return;
+    }
+
+    // Filter room details based on the number of persons
+    allRooms.forEach(room => {
+        const maxGuests = parseInt(room.getAttribute('data-max-guests')); // Add a data-max-guests attribute to roomdetail
+        const isWithinGuests = maxGuests >= parseInt(personCount);
+
+        if (isWithinGuests) {
+            room.style.display = "flex"; // Show matching rooms
+        } else {
+            room.style.display = "none"; // Hide rooms that don't match
+        }
+    });
+});
+
+let hamBurger = document.getElementById('hamburger');
+let navitems = document.querySelector('.navItems');
+let cross = document.querySelector('.cross');
+
+const toggleNabBar = () => {
+    hamBurger.classList.toggle('active');
+    navitems.classList.toggle('active');
+    cross.classList.toggle('active');
+}
+   
+hamBurger.addEventListener("click" , toggleNabBar);
+cross.addEventListener("click" , toggleNabBar);
+
+/* check-in validation */
+document.addEventListener('DOMContentLoaded', function () {
+    const checkinDateInput = document.getElementById('checkinDate');
+    const checkoutDateInput = document.getElementById('checkoutDate');
+
+    // Function to format a date as YYYY-MM-DD
+    function formatDate(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    // Set initial min date for check-in
+    const today = new Date();
+    checkinDateInput.setAttribute('min', formatDate(today));
+
+    // Update the min date for checkout when check-in is selected
+    checkinDateInput.addEventListener('change', function () {
+        const checkinDate = new Date(this.value);
+        if (isNaN(checkinDate.getTime())) return;
+
+        // Add 2 days to the check-in date for minimum checkout date
+        const minCheckoutDate = new Date(checkinDate);
+        minCheckoutDate.setDate(minCheckoutDate.getDate() + 2);
+
+        checkoutDateInput.setAttribute('min', formatDate(minCheckoutDate));
+        checkoutDateInput.value = ""; // Reset the checkout date if invalid
+    });
+});
+
+
+
+/* dynamic date population */
+
+document.querySelectorAll('.reserveBtn').forEach(button => {
+    button.addEventListener('click', function (event) {
+        const hiddenCheckin = button.closest('form').querySelector('#hiddenCheckinDate');
+        const hiddenCheckout = button.closest('form').querySelector('#hiddenCheckoutDate');
+        hiddenCheckin.value = document.getElementById('checkinDate').value;
+        hiddenCheckout.value = document.getElementById('checkoutDate').value;
+    });
+});
+
+
+
+/*
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Handle Person Dropdown
+    const personFilter = document.querySelector(".filterbox[data-type='Persons']");
+    const personDropdown = personFilter.querySelector(".dropdownContent");
+    const personSelectedText = personFilter.querySelector(".filter-input .selectedText");
+
+    personFilter.addEventListener("click", function (event) {
+        event.stopPropagation(); // Prevents closing dropdown immediately
+        personDropdown.classList.toggle("show");
+    });
+
+    personDropdown.querySelectorAll(".listItem input").forEach((input) => {
+        input.addEventListener("change", function () {
+            personSelectedText.textContent = input.labels[0].textContent;
+            personDropdown.classList.remove("show");
+        });
+    });
+
+    // Handle Check-in Date Picker
+    const checkinFilter = document.querySelector(".filterbox[data-type='Check-in'] .filter-input");
+    const checkinSelectedText = checkinFilter.querySelector(".selectedText");
+
+    checkinFilter.addEventListener("click", function (event) {
+        event.stopPropagation(); // Prevent dropdown conflicts
+
+        // Create visible date input
+        const checkinInput = document.createElement("input");
+        checkinInput.type = "date";
+        checkinInput.style.position = "absolute";
+        checkinInput.style.opacity = "2"; // Make input visible
+        checkinInput.style.zIndex = "1400"; // Ensure it's above other elements
+        document.body.appendChild(checkinInput);
+
+        // Position the date picker relative to the checkinFilter
+        const rect = checkinFilter.getBoundingClientRect();
+        checkinInput.style.left = ${rect.left}px;
+        checkinInput.style.top = ${rect.bottom + window.scrollY}px;
+
+        checkinInput.focus(); // Open date picker
+
+        // Handle date selection
+        checkinInput.addEventListener("change", function () {
+            if (checkinInput.value) {
+                checkinSelectedText.textContent = checkinInput.value;
+            }
+            document.body.removeChild(checkinInput); // Clean up
+        });
+
+        // Close date picker if clicked outside
+        checkinInput.addEventListener("blur", function () {
+            document.body.removeChild(checkinInput); // Clean up on blur
+        });
+    });
+
+    // Handle Check-out Date Picker
+    const checkoutFilter = document.querySelector(".filterbox[data-type='Check-out'] .filter-input");
+    const checkoutSelectedText = checkoutFilter.querySelector(".selectedText");
+
+    checkoutFilter.addEventListener("click", function (event) {
+        event.stopPropagation(); // Prevent dropdown conflicts
+
+        // Create visible date input
+        const checkoutInput = document.createElement("input");
+        checkoutInput.type = "date";
+        checkoutInput.style.position = "absolute";
+        checkoutInput.style.opacity = "1"; // Make input visible
+        checkoutInput.style.zIndex = "1000"; // Ensure it's above other elements
+        document.body.appendChild(checkoutInput);
+
+        // Position the date picker relative to the checkoutFilter
+        const rect = checkoutFilter.getBoundingClientRect();
+        checkoutInput.style.left = ${rect.left}px;
+        checkoutInput.style.top = ${rect.bottom + window.scrollY}px;
+
+        checkoutInput.focus(); // Open date picker
+
+        // Handle date selection
+        checkoutInput.addEventListener("change", function () {
+            if (checkoutInput.value) {
+                checkoutSelectedText.textContent = checkoutInput.value;
+            }
+            document.body.removeChild(checkoutInput); // Clean up
+        });
+
+        // Close date picker if clicked outside
+        checkoutInput.addEventListener("blur", function () {
+            document.body.removeChild(checkoutInput); // Clean up on blur
+        });
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", function (event) {
+        if (!personFilter.contains(event.target)) {
+            personDropdown.classList.remove("show");
+        }
+    });
+});
+*/
+
+/*
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize date pickers
+    const checkInPicker = new Datepicker(document.querySelector('.filterbox[data-type="Check-in"] .filter-input'), {
+        format: 'yyyy-mm-dd',
+        minDate: new Date(),
+        autohide: true,
+        todayHighlight: true
+    });
+
+    const checkOutPicker = new Datepicker(document.querySelector('.filterbox[data-type="Check-out"] .filter-input'), {
+        format: 'yyyy-mm-dd',
+        minDate: new Date(),
+        autohide: true,
+        todayHighlight: true
+    });
+
+    // Update selected text when dates are chosen
+    checkInPicker.element.addEventListener('changeDate', function(e) {
+        const selectedText = e.target.closest('.filterbox').querySelector('.selectedText');
+        selectedText.textContent = e.detail.date.toISOString().split('T')[0];
+        checkOutPicker.setMinDate(e.detail.date);
+    });
+
+    checkOutPicker.element.addEventListener('changeDate', function(e) {
+        const selectedText = e.target.closest('.filterbox').querySelector('.selectedText');
+        selectedText.textContent = e.detail.date.toISOString().split('T')[0];
+    });
+
+    // Handle person selection dropdown
+    const personDropdown = document.querySelector('.filterbox[data-type="Persons"]');
+    const personOptions = personDropdown.querySelectorAll('input[type="radio"]');
+    
+    personOptions.forEach(option => {
+        option.addEventListener('change', function() {
+            const selectedText = personDropdown.querySelector('.selectedText');
+            selectedText.textContent = this.parentElement.querySelector('label').textContent;
+        });
+    });
+});
+
+*/
+
+
+// Room filtering functionality
+/* 
+document.getElementById("reserveHotel").addEventListener("click", function() {
+    clearErrors();
+   
+    const personInput = document.querySelector('input[name="person"]:checked');
+    const checkInDate = document.querySelector('.filterbox[data-type="Check-in"] .selectedText').textContent;
+    const checkOutDate = document.querySelector('.filterbox[data-type="Check-out"] .selectedText').textContent;
+
+   
+    if (!validateInputs(personInput, checkInDate, checkOutDate)) {
+        return;
+    }
+
+    
+    showLoading();
+
+
+    const personCountMap = {
+        'one': '1',
+        'two': '2',
+        'four': '4',
+        'six': '6'
+    };
+    const personCount = personCountMap[personInput.id];
+
+    fetchAvailableRooms(personCount, checkInDate, checkOutDate)
+        .then(response => {
+            if (!response.success) {
+                throw new Error(response.message);
+            }
+            return response.data;
+        })
+        .then(handleRoomResults)
+        .catch(handleError)
+        .finally(hideLoading);
+}); */
+
+
+
+function reserveHotel() {
+            // Try to get the hotelId value from a hidden input
+            const hotelIdElement = document.getElementById('hotelId');
+            if (hotelIdElement) {
+                const hotelId = hotelIdElement.value;
+                console.log('Hotel ID:', hotelId);  // Check in the console if hotelId is correctly fetched
+                // Your reservation logic here, for example:
+                // window.location.href = sub-hotels?hotelId=${hotelId};
+            } else {
+                console.error('Hotel ID element not found');
+            }
+        }
+
+        // Alternatively, you can fetch hotelId from the URL query string
+        function reserveHotelFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const hotelId = urlParams.get('hotelId');
+            if (hotelId) {
+                console.log('Hotel ID from URL:', hotelId);  // Check in the console if hotelId is correctly fetched
+            } else {
+                console.error('Hotel ID not found in URL');
+            }
+        }
+
+        // Call the function when needed, for example on page load
+        reserveHotelFromURL();
+
+
+
+
+document.getElementById("reserveHotel").addEventListener("click", function() {
+    clearErrors();
+    
+    // Get and validate inputs
+    const hotelId = document.querySelector('input[name="hotelId"]').value; // Update based on your HTML
+    const personInput = document.querySelector('input[name="person"]:checked');
+    const checkInDate = document.querySelector('.filterbox[data-type="Check-in"] .selectedText').textContent;
+    const checkOutDate = document.querySelector('.filterbox[data-type="Check-out"] .selectedText').textContent;
+
+    if (!validateInputs(hotelId, personInput, checkInDate, checkOutDate)) {
+        return;
+    }
+
+    showLoading();
+
+    const personCount = personCountMap[personInput.id];
+
+    fetchAvailableRooms(hotelId, personCount, checkInDate, checkOutDate)
+        .then(handleRoomResults)
+        .catch(handleError)
+        .finally(hideLoading);
+});
+
+
+function validateInputs(hotelId, personInput, checkInDate, checkOutDate) {
+    if (!hotelId) {
+        showError("Please select a hotel");
+        return false;
+    }
+
+    if (!personInput) {
+        showError("Please select the number of persons");
+        return false;
+    }
+
+    if (checkInDate === 'Date' || checkOutDate === 'Date') {
+        showError("Please select both check-in and check-out dates");
+        return false;
+    }
+
+    if (!isValidDateRange(checkInDate, checkOutDate)) {
+        showError("Invalid date range selected");
+        return false;
+    }
+
+    return true;
+}
+
+function isValidDateRange(checkIn, checkOut) {
+    const checkInDate = new Date(checkIn);
+    const checkOutDate = new Date(checkOut);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return checkInDate >= today && checkOutDate > checkInDate;
+}
+
+/* function fetchAvailableRooms(personCount, checkInDate, checkOutDate) {
+    const params = new URLSearchParams({
+        personCount: personCount,
+        checkInDate: checkInDate,
+        checkOutDate: checkOutDate
+    });
+
+    return fetch(/rooms/availability?${params})
+        .then(response => response.json())
+        .catch(error => {
+            console.error('Network error:', error);
+            throw new Error('Failed to connect to the server');
+        });
+} */
+
+function fetchAvailableRooms(hotelId, personCount, checkInDate, checkOutDate) {
+    const params = new URLSearchParams({
+        hotelId: hotelId,
+        personCount: personCount,
+        checkInDate: checkInDate,
+        checkOutDate: checkOutDate
+    });
+
+    return fetch(`/rooms/availability?${params}`)
+        .then(response => response.json())
+        .catch(error => {
+            console.error('Network error:', error);
+            throw new Error('Failed to connect to the server');
+        });
+}
+
+
+function handleRoomResults(rooms) {
+    const roomDetailsBox = document.getElementById("roomDetailsBox");
+    const filteredRoomList = document.createElement('div');
+    filteredRoomList.id = 'filteredRoomList';
+    filteredRoomList.className = 'filtered-rooms';
+
+    if (!Array.isArray(rooms) || rooms.length === 0) {
+        filteredRoomList.innerHTML = `
+            <div class="no-rooms-message">
+                <p>No rooms available for the selected criteria.</p>
+            </div>
+        `;
+    } else {
+        rooms.forEach(room => {
+            filteredRoomList.innerHTML += `
+                <div class="roomdetail">
+                    <div class="room-detail">
+                        <img class="roomImage" src="data:image/jpeg;base64,${room.primaryRoomImageBase64}" alt="${room.roomType}">
+                    </div>
+                    <div class="featureBox">
+                        <div class="roomFeaturesBox">
+                            <div class="roomFeature">
+                                <p class="title">${room.roomType}</p>
+                            </div>
+                            <div class="roomFeature">
+                                <p class="roomPrice">$${room.pricePerNight}</p>
+                            </div>
+                            <div class="roomFeature">
+                                <p>Max Guests: ${room.maxGuests}</p>
+                            </div>
+                            <div class="roomFeature">
+                                <p>${room.isAvailable ? 'Available' : 'Not Available'}</p>
+                            </div>
+                            ${room.hotelName ? `
+                            <div class="roomFeature">
+                                <p>${room.hotelName}</p>
+                            </div>
+                            ` : ''}
+                        </div>
+                        <button class="reserveBtn" onclick="bookRoom(${room.roomId})">Book Now</button>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    // Replace original content with filtered results
+    roomDetailsBox.style.display = 'none';
+    roomDetailsBox.parentNode.insertBefore(filteredRoomList, roomDetailsBox.nextSibling);
+}
+
+function clearErrors() {
+    const existingError = document.querySelector('.error-message');
+    if (existingError) {
+        existingError.remove();
+    }
+}
+
+function showError(message) {
+    clearErrors();
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.textContent = message;
+    document.querySelector('.filtercontainer').appendChild(errorDiv);
+    setTimeout(() => errorDiv.remove(), 3000);
+}
+
+function handleError(error) {
+    console.error('Error:', error);
+    showError(error.message || 'An error occurred while fetching available rooms');
+}
+
+function showLoading() {
+    const loader = document.createElement('div');
+    loader.className = 'loader';
+    loader.innerHTML = '<div class="spinner"></div>';
+    document.querySelector('.rooms-details').appendChild(loader);
+}
+
+function hideLoading() {
+    const loader = document.querySelector('.loader');
+    if (loader) {
+        loader.remove();
+    }
+}
+
+function bookRoom(roomId) {
+    // Implement booking functionality
+    console.log(`Booking room ${roomId}`);
+    // Add your booking logic here
+}
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filterbtn');
+    const rooms = document.querySelectorAll('.roomdetail');
+
+    function filterRooms(filterValue) {
+        rooms.forEach(room => {
+            const roomType = room.getAttribute('data-room-type');
+            console.log('Room:', room);
+            console.log('Room type:', roomType);
+            console.log('Filter value:', filterValue);
+
+            if (filterValue === 'all') {
+                room.style.display = '';
+            } else {
+                // Convert both to same case for comparison
+                room.style.display = (roomType && roomType.toLowerCase() === filterValue.toLowerCase()) ? '' : 'none';
+            }
+        });
+    }
+
+    // Show all rooms initially
+    filterRooms('all');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Update active state
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+
+            // Get filter value and apply filtering
+            const filterValue = this.getAttribute('data-room-type');
+            filterRooms(filterValue);
+        });
+    });
+});
+
+
+//map
+document.getElementById("viewMapBtn").addEventListener("click", function(e) {
+    e.preventDefault();  // Prevent default link behavior
+    var modal = document.getElementById("mapModal");
+    var iframe = document.getElementById("modalMap");
+
+    // Set the iframe's source to the map link from the current page
+    iframe.src = document.querySelector("iframe").src;
+
+    // Show the modal
+    modal.style.display = "block";
+});
+
+document.getElementById("closeModalBtn").addEventListener("click", function() {
+    var modal = document.getElementById("mapModal");
+    var iframe = document.getElementById("modalMap");
+
+    // Close the modal and clear the iframe src to stop the map from continuing to load
+    modal.style.display = "none";
+    iframe.src = "";
+});
+
+</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,1034 @@
+<html>
+ <head>
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salon Service Page</title>
+   <style>
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: whitesmoke;
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+}
+header {
+    background-color: rgb(0, 0, 0); /* Add transparency for better video visibility */
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    margin: 20px 80px 0 80px;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 25px;
+    position: relative;
+    z-index: 100; /* Ensure header is above video */
+}
+
+.mobile_header {
+    display: none;
+}
+
+.logo_placeholder {
+    color: whitesmoke;
+    width: auto;
+}
+
+.logo_placeholder img {
+    width: 80px;
+    height: 55px;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-content: space-evenly;
+    width: 800px !important;
+    list-style: none;
+}
+
+.nav_link {
+    padding: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.nav_link a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.nav_link:hover {
+    border-bottom: 2px solid orange;
+    color: orange;
+}
+
+.nav_link:hover a {
+    color: orange;
+}
+
+.nav_link.active {
+    border-bottom: 2px solid orange;
+    color: orange;
+}
+
+.nav_link.active a {
+    color: orange;
+}
+
+.login_button {
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 2px solid #f5640a;
+    background-color: #f5640a;
+    cursor: pointer;
+}
+
+.login_button a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+
+.container {
+    display: flex;
+    margin: 20px;
+    width: 95%;
+}
+
+
+.left-section {
+    flex: 3;
+    padding: 20px;
+    background: #fff;
+    
+    margin-right: 20px;
+   
+    border-radius: 10px;
+    flex-wrap: wrap;
+    
+}
+
+.left-section h2 {
+    color: #f47c48;
+    margin-bottom: 20px;
+    font-size :60px;
+}
+
+.service {
+    flex: 3;
+    padding: 20px;
+    background: #fff;
+    margin-right: 20px;
+    width: 100%;
+    flex-wrap: wrap;
+  display: flex;
+}
+
+.service .details {
+    flex: 1;
+    border: none;
+}
+
+.service .details h3 {
+    margin: 0;
+}
+.service .details p {
+    font-weight: bold;
+    color: black;
+}
+
+
+.service .details .info {
+    font-size: 0.9rem;
+    color: black;
+    margin: 5px 0;
+}
+.service details img{
+    margin: 5px 0;
+
+}
+
+.service .details .price {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #000;
+}
+
+.service .add-button {
+    flex: 1;
+    text-align: right;
+    
+}
+.details button{
+    border: none;
+    background-color: transparent;
+    color: #f47c48;
+    cursor: pointer;
+}
+.service .add-button button {
+    background-color:white;
+    color:  #ff7849;
+    margin-right: 40px;
+    margin-top: -18px;
+    padding: 8px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: solid  #ff7849; 
+    
+}
+.service .add-button p{
+    margin-right: 30px;
+    color: gray;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 5px;
+}
+.details img{
+    background-color: #f47c48;
+    border-radius: 15px;
+    margin: 2px 10px 0px;
+}
+
+.right-section {
+    flex: 1;
+    padding: 10px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 250px;
+   
+    
+    
+  
+}
+
+.right-section .categories {
+    display: grid;
+    grid-template-columns: repeat(2, 3fr);
+    gap: 8px;
+    margin-bottom: 8px;
+   
+    
+    
+}
+
+.right-section .categories .category {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    cursor: pointer;
+   
+}
+
+.right-section .cart {
+    margin-top: 10px;
+}
+
+.right-section .cart h3 {
+    margin: 0 0 10px;
+}
+
+.right-section .cart .cart-item {
+    display: flex;
+   
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.right-section .cart .cart-item span {
+    font-size: 0.9rem;
+}
+
+.right-section .cart .view-cart {
+    background-color: #ff7849;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+
+.containerr {
+    max-width: 600px;
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    height: 400px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    margin-left: 10px;
+
+  }
+
+  h1 {
+    text-align: center;
+    color: #ff6f47;
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .service-item {
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: white;
+   
+  }
+
+  .service-item img {
+    max-width: 60%;
+    height: auto;
+    border-radius: 20px;
+    border: solid #ff6f47 ;
+
+  }
+
+  .service-item p {
+    margin: 10px 0 0;
+    font-weight: bold;
+    color: #333;
+    
+  }
+
+  .cart-section {
+    max-width: 600px;
+    width: 500px;
+    margin-top: 50px;
+    padding: 20px;
+    background-color: white;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    margin-left:-19px;
+  }
+
+  .cart-section p {
+    font-weight: bold;
+    margin: 10px 10px 10px;
+    color: #333;
+    margin-left: 50px;
+
+    
+   
+    
+  }
+  #quantity{
+    border: solid #ff6f47;
+    border-radius: 7px;
+    padding: 10px;
+  }
+
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+  }
+
+  .quantity-controls button {
+    padding: 5px 10px;
+    border: none;
+    background-color:white;
+    color:  #ff6f47;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: large;
+    
+   
+  }
+
+  .quantity-controls span {
+    font-weight: bold;
+  }
+
+  #cart {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 10px;
+    background-color: #ff6f47;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  #carta{
+    display: block;
+    width: auto;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 10px;
+    background-color: #ff6f47;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 38%;
+    height: auto;
+    font-weight: bold;
+    
+  }
+  /* Base Styles */
+ 
+.left-section {
+   
+    flex-wrap: wrap;
+    gap: 70px;
+    margin: 0 auto;
+   
+  }
+  
+  .service {
+    flex: 1 1 calc(25% - 16px); /* Four items per row */
+    border: 1px solid #ddd;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .service img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+ 
+  
+  /* Media Queries */
+  
+  /* For large screens (desktops, 1200px and up) */
+  @media (min-width: 1200px) {
+    .service {
+      flex: 1 1 calc(25% - 16px); /* Four items per row */
+    }
+  }
+  
+  /* For medium screens (tablets, 768px to 1199px) */
+  @media (max-width: 1199px) {
+    .service {
+      flex: 1 1 calc(33.33% - 16px); /* Three items per row */
+    }
+  }
+  
+  /* For small screens (mobile devices, 480px to 767px) */
+  @media (max-width: 767px) {
+    .service {
+      flex: 1 1 calc(50% - 16px); /* Two items per row */
+    }
+  
+    .service .details h3 {
+      font-size: 16px;
+    }
+  
+    .service .details .info {
+      font-size: 14px;
+    }
+  }
+  
+  /* For extra small screens (phones, below 480px) */
+  @media (max-width: 480px) {
+    .service {
+      flex: 1 1 100%; /* Full-width items */
+    }
+  
+    .service .details h3 {
+      font-size: 14px;
+    }
+  
+    .service .details .info {
+      font-size: 12px;
+    }
+  
+    .service .add-button button {
+      font-size: 12px;
+    }
+  }
+ 
+
+   </style>
+ </head>
+ <body>
+    <div class="nav_header" id="myHeader">
+        <div class="mobile_header">
+            <svg width="32px" height="32px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"
+                transform="rotate(0)">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path d="M4 6H20M4 12H20M4 18H20" stroke="white" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </g>
+            </svg>
+        </div>
+        <header id="header">
+            <div class="logo_placeholder">
+                <img src="/images/logo.jpg"logo" />
+            </div>
+            <div class="nav_links_placeholder">
+                <ul class="nav_links">
+                    <li class="nav_link ">
+                        <a href="/mycity-homepage"><span>Home</span></a>
+                    </li>
+                    <li class="nav_link">
+                        <a href="/Entertainment/home"><span>Entertainment</span></a>
+                    </li>
+                    <li class="nav_link">
+                        <a href="/shopping"><span>Shopping</span></a>
+                    </li>
+                    <li class="nav_link">
+                        <a href="/tourism"><span>Tourism</span></a>
+                    </li>
+                    <li class="nav_link active">
+                        <a href="/beauty"><span>Pay Bills</span></a>
+                    </li>
+                    <li class="nav_link">
+                        <a href="/hotels"><span>Hotels</span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="login-button_placeholder">
+                <button class="login_button">
+                    <a href="/register" class="signup-btn">Sign Up</a>
+                </button>
+            </div>
+        </header>
+
+    <div class="container">
+        <div class="left-section">
+            <h2>Waxing</h2>
+            
+            <div class="service">
+                
+                <div class="details">
+                    
+                    <h3> arms, underarms & full legs waxing</h3>
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 55 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/hand.png" alt="hand"><br>
+                    <button id="add-1">Add</button>
+
+                    <p>5 options</p>
+                </div>
+            </div>
+           
+            <div class="service">
+                <div class="details">
+                    <h3>Full Leg Wax</h3>
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/leg.png" alt="hello"><br>
+                    <button id="add-2">Add</button>
+
+                    <p>5 options</p>
+                   
+                </div>
+            </div>
+            
+
+            <div class="service">
+                <div class="details">
+                    <h3> arms, underarms & full legs waxing</h3>
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/hand.png" alt="hello"><br>
+                    <button id="add-3">Add</button>
+                    <p>5 options</p>
+                </div>
+            </div>
+
+            <div class="service">
+                <div class="details">
+                    <h3>Full Leg Wax</h3>
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/leg.png" alt="hello"><br>
+                    <button id="add-4">Add</button>                  
+                      <p>5 options</p>
+                </div>
+            </div>
+            <h2>Pedicure & manicure</h2>
+            <div class="service">
+                <div class="details">
+                    <h3> arms, underarms & full legs waxing</h3>     
+                                   <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/hand.png" alt="hello"><br>
+                    <button id="add-5">Add</button>
+                    <p>5 options</p>
+                </div>
+            </div>
+
+            <div class="service">
+                <div class="details">
+                    <h3>Full Leg Wax</h3>
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/leg.png" alt="hello"><br>
+                    <button id="add-6">Add</button>    
+                                    <p>5 options</p>
+                    
+                </div>
+            </div>
+
+            <div class="service">
+                <div class="details">
+                    <h3> arms, underarms & full legs waxing</h3>                  
+                      <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/hand.png" alt="hello"><br>
+                    <button id="add-7">Add</button>                    
+                    <p>5 options</p>
+                    
+                </div>
+            </div>
+            <div class="service">
+                <div class="details">
+                    <h3>Full Leg Wax</h3>
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/leg.png" alt="hello"><br>
+                    <button id="add-8">Add</button>                    
+                    <p>5 options</p>
+                    
+                </div>
+            </div>
+            <h2>Facial</h2>
+            <div class="service">
+                <div class="details">
+                    <h3> arms, underarms & full legs waxing</h3>                    
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/hand.png" alt="hello"><br>
+                    <button id="add-9">Add</button>                   
+                     <p>5 options</p>
+                    
+                </div>
+            </div>
+            <div class="service">
+                <div class="details">
+                    <h3>Full Leg Wax</h3>
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/leg.png" alt="hello"><br>
+                    <button id="add-10">Add</button>                    
+                    <p>5 options</p>
+                    
+                </div>
+            </div>
+            <div class="service">
+                <div class="details">
+                    <h3> arms, underarms & full legs waxing</h3>                    
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/hand.png" alt="hello"><br>
+                    <button id="add-11">Add</button>                    
+                    <p>5 options</p>
+                    
+                </div>
+            </div>
+
+            
+            <div class="service">
+                <div class="details">
+                    <h3>Full Leg Wax</h3>
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/leg.png" alt="hello"><br>
+                    <button id="add-12">Add</button>                    
+                    <p>5 options</p>
+                    
+                </div>
+            </div>
+            <h2>Cleanup</h2>
+            <div class="service">
+                <div class="details">
+                    <h3> arms, underarms & full legs waxing</h3>                    
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/hand.png" alt="hello"><br>
+                    <button id="add-13">Add</button>                    
+                    <p>5 options</p>
+                </div>
+            </div>
+
+            
+            <div class="service">
+                <div class="details">
+                    <h3>Full Leg Wax</h3>
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/leg.png" alt="hello"><br>
+                    <button id="add-14">Add</button>                    
+                    <p>5 options</p>
+                    
+                </div>
+            </div>
+
+            <div class="service">
+                <div class="details">
+                    <h3> arms, underarms & full legs waxing</h3>                    
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/hand.png" alt="hello"><br>
+                    <button id="add-15">Add</button>                    
+                    <p>5 options</p>
+                </div>
+            </div>
+
+            
+            <div class="service">
+                <div class="details">
+                    <h3>Full Leg Wax</h3>
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/leg.png" alt="hello"><br>
+                    <button id="add-16">Add</button>                    
+                    <p>5 options</p>
+                </div>
+            </div>
+            <h2>Threading & face waxing</h2>
+            <div class="service">
+                <div class="details">
+                    <h3> arms, underarms & full legs waxing</h3>                    
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/hand.png" alt="hello"><br>
+                    <button id="add-17">Add</button>                    
+                    <p>5 options</p>
+                </div>
+            </div>
+            
+            <div class="service">
+                <div class="details">
+                    <h3>Full Leg Wax</h3>
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/leg.png" alt="hello"><br>
+                    <button id="add-18">Add</button>                    
+                    <p>5 options</p>
+                </div>
+            </div>
+
+            <div class="service">
+                <div class="details">
+                    <h3> arms, underarms & full legs waxing</h3>                    
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/hand.png" alt="hello"><br>
+                    <button id="add-19">Add</button>                    
+                    <p>5 options</p>
+                </div>
+            </div>
+
+            
+            <div class="service">
+                <div class="details">
+                    <h3>Full Leg Wax</h3>
+                    <p class="info"><img src="/images/Star 2.png">4.5 (123K) Reviews | 45 Mins</p>
+                    <p class="price">Starts at &#8377;499</p>
+                    <button>View details</button>
+                </div>
+                <div class="add-button">
+                    <img src="/images/leg.png" alt="hello"><br>
+                    <button id="add-20">Add</button>                    
+                    <p>5 options</p>
+                </div>
+            </div>
+        
+
+        </div>
+        <div class="containerr">
+            <h1>Salon for Women</h1>
+        
+            <div class="service-grid">
+              <div class="service-item">
+                <img src="/images/legg.png" alt="Waxing">
+                <p>Waxing</p>
+              </div>
+              <div class="service-item">
+                <img src="/images/toe.png" alt="Pedicure & Manicure">
+                <p>Pedicure & Manicure</p>
+              </div>
+              <div class="service-item">
+                <img src="/images/facial.png" alt="Facial">
+                <p>Facial</p>
+              </div>
+              <div class="service-item">
+                <img src="/images/clean up.png" alt="Clean Up">
+                <p>Clean Up</p>
+              </div>
+              <div class="service-item">
+                <img src="/images/threading.png" alt="Threading & Face Waxing">
+                <p>Threading & Face Waxing</p>
+              </div>
+            </div>
+            <div class="cart-section">
+              
+                <div class="quantity-controls">
+                  <p>Total services in your cart</p> <br>
+                 
+                </div>
+                <button id="cart">cart</button>
+               
+               
+              </div>
+             <div>
+               <a href="/cartpayment.html"> <button id="carta">Book Oppointment</button></a>
+             </div>
+
+
+
+
+
+
+
+            
+          </div>
+       
+      </div>
+    </div>
+    </div>
+    <script>
+
+const products = [
+  {
+    id: 1,
+    
+    name: "arms, underarms & full legs waxing",
+    price: 499,
+  },
+  {
+    id: 2,
+    name: "Full Leg Wax",
+    price: 499,
+  },
+  {
+    id: 3,
+    name: "arms, underarms & full legs waxing",
+    price: 499,
+  },
+  {
+    id: 4,
+    name: "Full Leg Wax",
+    price: 499,
+  },
+  {
+    id: 5,
+    name: "arms, underarms & full legs waxing",
+    price: 499,
+  },
+  {
+    id: 6,
+    name: "Full Leg Wax",
+    price: 499,
+  },
+  {
+    id: 7,
+    name: "arms, underarms & full legs waxing",
+    price: 499,
+  },
+  {
+    id: 8,
+    name: "Full Leg Wax",
+    price: 499,
+  },
+  {
+    id: 9,
+    name: "arms, underarms & full legs waxing",
+    price: 499,
+  },
+  {
+    id: 10,
+    name: "Full Leg Wax",
+    price: 499,
+  },
+  {
+    id: 11,
+    name: "arms, underarms & full legs waxing",
+    price: 499,
+  },
+  {
+    id: 12,
+    name: "Full Leg Wax",
+    price: 499,
+  },
+  {
+    id: 13,
+    name: "arms, underarms & full legs waxing",
+    price: 499,
+  },
+  {
+    id: 14,
+    name: "Full Leg Wax",
+    price: 499,
+  },
+  {
+    id: 15,
+    name: "arms, underarms & full legs waxing",
+    price: 499,
+  },
+  {
+    id: 16,
+    name: "Full Leg Wax",
+    price: 499,
+  },
+  {
+    id: 17,
+    name: "arms, underarms & full legs waxing",
+    price: 499,
+  },
+  {
+    id: 18,
+    name: "Full Leg Wax",
+    price: 499,
+  },
+  {
+    id: 19,
+    name: "arms, underarms & full legs waxing",
+    price: 499,
+  },
+  {
+    id: 20,
+    name: "Full Leg Wax",
+    price: 499,
+  },
+  
+];
+
+
+let cart = [];
+
+
+
+// Function to add a product to the cart
+function addToCart(productId) {
+  const product = products.find((p) => p.id === productId);
+  if (product) {
+    const existingProduct = cart.find((item) => item.id === productId);
+    if (existingProduct) {
+      existingProduct.quantity += 1;
+    } else {
+      cart.push({ ...product, quantity: 1 });
+    }
+    updateCartUI();
+  }
+}
+
+// Function to update the cart UI
+function updateCartUI() {
+  const cartContainer = document.getElementById("cart");
+  cartContainer.innerHTML = ""; // Clear existing cart items
+
+  cart.forEach((item) => {
+    const cartItem = document.createElement("div");
+    cartItem.textContent = `${item.name} - ₹${item.price} x ${item.quantity}`;
+    cartContainer.appendChild(cartItem);
+  });
+
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalDisplay = document.createElement("div");
+  totalDisplay.textContent = `Total: ₹${total}`;
+  cartContainer.appendChild(totalDisplay);
+}
+
+// Add event listeners to the "Add" buttons
+document.addEventListener("DOMContentLoaded", () => {
+  products.forEach((product) => {
+    const addButton = document.getElementById(`add-${product.id}`);
+    if (addButton) {
+      addButton.addEventListener("click", () => addToCart(product.id));
+    }
+  });
+});
+
+
+
+
+
+
+
+    </script>
+        
+    
+
+  
+ </body>
+
+</html>

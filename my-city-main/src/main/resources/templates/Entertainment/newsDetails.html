@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entertainment - Film News Detial</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="w-full topbar z-[999]">    
+        <nav class="navbar flex justify-between text-white items-center mx-[3rem]">
+            <div class="navlinks-container flex h-[100%] items-center pl-8">
+                <p class="navlink" id="home-link">
+                    <a href="../src/home.html" class="hover:text-white">Home</a>
+                </p>
+                <p class="navlink" id="movies-link">
+                    <a href="../src/movies.html" class="hover:text-white">Movies</a>
+                </p>
+                <p class="navlink" id="musics-link">
+                    <a href="../src/Mymusic.html" class="hover:text-white">Music</a>
+                </p>
+                <p class="navlink" id="shortfilms-link">
+                    <a href="../src/telugu.html" class="hover:text-white">Short Films</a>
+                </p>
+                <p class="navlink" id="filmnews-link">
+                    <a href="../src/fil.html" class="hover:text-white">Film News</a>
+                </p>
+            </div>
+            <!-- Search Bar -->
+            <div class="SearchBar pr-10">
+                <div class="searchInput flex w-[160px] gap-[10px] p-[10px] border-[3px] rounded-[13px] border-liteOrange mt-3 cursor-pointer" onclick="searchExpand(event)">
+                    <label for="searchbar">
+                        <img src="../src/assets/icons/search.svg" alt="search Icon" class="w-[25px]"/>
+                    </label>
+                    <input type="text" placeholder="Search" id="searchbar" class="searchbar bg-transparent w-full placeholder-gray-500 placeholder:font-bold focus:outline-none transition"/>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+    <div class='filmNewsDetail-page mt-[3rem] mb-[3rem]'>
+        <div class='newsDetails flex px-[4rem] gap-[1rem]'>
+            <div id="main-content" class='main-content bg-[#202020DB] w-[889px] rounded-[20px] flex flex-col py-3 px-2'></div>
+            <div id="side-content" class="side-content text-white w-[38%] flex flex-col max-h-full gap-[1rem]"></div>
+        </div>
+    </div>
+
+
+    <script  type="module" src="./assets/js/filmnewsdetails.js"></script> 
+    <script src="./assets/js/navbar.js"></script>
+</body>
+</html>

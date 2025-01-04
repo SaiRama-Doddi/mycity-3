@@ -1,0 +1,325 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.cdnfonts.com/css/helvetica-neue-55');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poetsen+One&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* SETTERS */
+
+body{
+    background-color: black;
+    color: white;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-family: 'Poppins';
+    transition: all 200ms ;
+    user-select: none;
+  }
+  
+  .scrollbarhide::-webkit-scrollbar{
+    display: none;
+  }
+  .scrollbarhide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+
+/* NAVBAR */
+
+.navlink {
+    transition: background-color 600ms ease-in; 
+    height: 82px;
+    font-size: 20px;
+    font-weight: 400;
+    padding-top: 34px;
+  }
+
+.navlinks-container a::after{
+    content: "";
+    background: black;
+    width: 21px; 
+    height: 20px;
+    position: absolute;
+    bottom: -20px;
+    left: 50%; 
+    transform: translateX(-50%); 
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%); 
+    
+}
+
+.navlinks-container a{
+    position: relative;
+
+}
+.search-expand{
+    width: 350px;
+}
+
+
+
+
+/* REUSED STYLES */
+
+
+.text-scroll{
+    animation: scroll 8s linear infinite;
+}
+
+.text-scroll:hover{
+    animation-play-state: paused;
+}
+
+.see-all{
+    position: relative;
+}
+.see-all::after{
+    position: absolute;
+    content: " ";
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 1.5px;
+    background-color: white;
+    transform: translateY(-7px);
+    transition: width 200ms ease-in;    
+}
+
+.see-all:hover::after{
+    width: 100%;
+}
+
+
+
+
+.controls .scalable{
+    transition: all 150ms ease-in;
+}
+.controls .scalable:hover{
+        scale: 1.3;
+       
+}
+
+.musics-hero .coverblur{
+    background: linear-gradient(to right, rgb(0, 0, 0),transparent,transparent, rgb(0, 0, 0));
+    
+}
+.musics-hero .coverblur2{
+    background: linear-gradient(to bottom, rgb(0, 0, 0),transparent, rgb(0, 0, 0));
+    
+}
+
+
+
+@keyframes scroll {
+    to{
+        transform: translateY(-100%);
+    }
+    
+}
+
+
+
+.event-cotainer {
+    display: flex;
+    overflow-x: hidden;
+    gap: 2rem;
+    width: 700px;
+    animation: scroll 20s linear infinite;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  .event-cards {
+    min-height: 260px;
+    min-width: 400px;
+    flex-shrink: 0;
+  }
+
+
+.time-stamp li{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 900;
+    color: #FFAD0E;
+    font-size: 36px;
+}
+
+.time-stamp li span{
+    color: white;
+    font-size: 16px;
+    font-weight: 900;
+    transform: translateY(-10px);
+}
+.progress {
+    position: relative;
+}
+.progress-bar::after{
+    content: "";
+    position: absolute;
+    width:10px;
+    height:10px;
+    border-radius: 50%;
+    background-color: inherit;
+    left: calc(68%);
+    top: -1px;
+
+}
+.filters select{
+    -webkit-appearance: none;
+}
+
+.filter1 select:focus .arrow-icon{
+    rotate:180deg;
+}
+.filters option{
+    color: #666666;
+    background-color: #E0D1B4;
+    font-weight: 500;
+}
+
+
+.musics-hero .blur-cover{
+    background: linear-gradient(to bottom,transparent, rgba(0,0,0,1));
+}
+
+.hero-image .image-cover{
+    background: linear-gradient(to right,rgba(0,0,0,1) 25%,rgba(0,0,0,0.3) 45%, rgba(255,255,255,0.2) );
+}
+
+.list-items li{
+    text-transform: capitalize;
+    width: 100%;
+    padding: 2px 3px; 
+    text-align: center;
+    border-bottom: 1px solid #666666;
+    font-weight: 500;
+    color:#666666;
+}
+.Lyric-content{
+   opacity: 0;
+   transition: opacity 500ms ease-in;
+}
+
+.Lyric-content.active{
+    opacity: 1;
+}
+
+.song-name.hideText{
+    display: none;
+}
+
+.seekBar::after{
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ec7200;
+    right: -1px;
+    box-shadow: 0px 0px 15px 1px rgb(255, 255, 255);
+    
+}
+
+.seekhr{
+    position: relative;
+}
+.seekhr::after{
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  
+    
+    right: 0px;
+    top: -2px;
+    
+
+}
+.casts-seeks .promo{
+    background-image: url('../../src/assets/images/short\ films/adimaithanam.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.subscribebtn{
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 1.6px;
+    
+}
+
+.subscribebtn:hover{
+    -webkit-text-stroke-color: white;
+}
+
+.first-para,.details-content p {
+    font-size: 16px;
+    color:white;
+    font-family: 'Poppins', sans-serif;
+    line-height: 24px;
+    font-weight: 300;
+    
+}
+
+
+
+
+
+  
+.movie-details p{
+    width: 450px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+  }
+  .movie-carousel{
+    position: relative;
+  }
+
+
+
+
+@layer components { 
+    .navlink {
+        @apply px-3 py-5 pt-[1.5rem] hover:text-[orange];
+    }
+    .title1{
+        @apply text-white font-bold text-[36px];
+    }
+    .title2{
+        @apply text-white font-bold text-[22px]
+    }
+
+    .filter1{
+        @apply bg-black border-[1px] px-[27px] py-[10px] rounded-[10px] text-[23.93px] border-[#F37022] font-inter;
+    }
+    .heading{
+        @apply text-[16px] font-bold ;
+    }
+}
+

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Artist</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/Styles2.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <h2>My<span>Site</span></h2>
+        </div>
+        <ul>
+            <li><a href="/">Dashboard</a></li>
+            <li><a href="#">Movies</a></li>
+            <li class="active"><a href="/hotels-page">Music</a>
+                <ul class="submenu">
+                    <li><a href="/artists">Artists</a></li>
+                    <li><a href="/albums">Albums</a></li>
+                    <li><a href="/tracks">Tracks</a></li>
+                    <li><a href="/city-list">City List</a></li>
+                    <li><a href="/hotels-page">Add Hotel</a></li>
+                    <li><a href="/list">Hotel List</a></li>
+                </ul>
+            </li>
+            <li><a href="/hotels-page">Shopping</a>
+                <ul class="submenu">
+                    <li><a th:href="@{/brands}">Brands</a></li>
+                    <li><a href="category">Category</a></li>
+                    <li><a href="products">Product</a></li>
+                    <li><a href="/city-list">City List</a></li>
+                    <li><a href="/hotels-page">Add Hotel</a></li>
+                    <li><a href="/list">Hotel List</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Hotels</a></li>
+
+        </ul>
+    </div>
+
+    <!-- Topbar -->
+    <div class="topbar">
+        <img src="images/logo.png" alt="" width="70px">
+        <input type="text" placeholder="Search...">
+        <button>Search</button>
+    </div>
+
+    <div class="container mt-5">
+        <h2>Edit Artist</h2>        
+        <form th:action="@{/artists/save}" th:object="${artist}" method="post" enctype="multipart/form-data">
+            <input type="hidden" th:field="*{artistId}" />
+            <input type="text" th:field="*{name}" placeholder="Name" />
+            <textarea th:field="*{bio}" placeholder="Bio"></textarea>
+            <div>
+                <label>Current Image:</label>
+                <div>
+                    <img th:src="${base64Image != null} ? 'data:image/jpeg;base64,' + ${base64Image} : '/images/default.jpg'" 
+                         alt="Artist Image" width="200" height="200" />
+                </div>
+            </div>
+            <label for="imageFile">Upload New Image (optional):</label>
+            <input type="file" name="imageFile" id="imageFile"/>
+            <button type="submit">Save</button>
+        </form>
+        
+    </div>
+</body>
+</html>

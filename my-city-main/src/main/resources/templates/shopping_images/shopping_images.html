@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Images List</title>
+</head>
+<body>
+    <h1>Shopping Images List</h1>
+    <table border="1">
+        <tr>
+            <th>Image ID</th>
+            <th>Image</th>
+            <th>Product Name</th>
+            <th>Product Id</th>
+            <th>Action</th>
+        </tr>
+        
+        <tr th:each="image : ${imagesList}">
+            <td th:text="${image.imageId}"></td>
+            <td>
+                <img th:src="@{/shopping-images/image/{imageId}(imageId=${image.imageId})}" alt="Image" width="100" />
+
+
+            </td>
+            <td th:text="${image.product.name}"></td>
+            <td th:text="${image.product.productId}"></td>
+            <td>
+                <a th:href="@{/shopping-images/editImage/{id}(id=${image.imageId})}" class="btn btn-primary">Edit</a>
+                <a class="btn btn-danger btn-sm" th:href="@{/shopping-images/deleteImage(imageId=${image.imageId})}"
+   onclick="return confirm('Are you sure you want to delete ?')">Delete</a>
+
+            </td>
+        </tr>
+        
+    </table>
+    <a href="/shopping-images/create">Add New Image</a>
+    
+</body>
+</html>

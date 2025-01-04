@@ -1,0 +1,2660 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Categories and Products</title>
+    <link rel="stylesheet" href="/css/Shopping_styles.css" />
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Main container for two-column layout */
+        .container-category {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin-left: 50px;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            width: 350px;
+            height: 255vh;
+            /*  background-color: #fff; */
+            background: rgba(243, 112, 34, 1);
+
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header style for sections */
+        .sidebar h2 {
+            font-size: 16px;
+            color: white;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .list {
+            margin-top: 50px;
+        }
+
+        /* Categories and brands lists */
+        .list h3 {
+            font-size: 15px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .list h3 span {
+            padding: 4px;
+        }
+
+        .list ul {
+            list-style: none;
+            margin-top: 5px;
+            display: none;
+            /* Initially hidden */
+            padding-left: 15px;
+        }
+
+        .list ul li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .list ul li:hover {
+            color: #ff8c00;
+        }
+
+        .brand {
+            margin-top: 30px;
+        }
+
+        .brand-list {
+            list-style: none;
+            margin-top: 5px;
+            padding-left: 0;
+        }
+
+        .brand-list li {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        /* Right container for product cards */
+        .product-container {
+            flex: 1;
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        }
+
+        /* Product card styling */
+        .product-card {
+            width: 200px;
+            background-color: hsl(0, 22%, 96%);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .list-items {
+            background-color: white;
+            padding: 3px;
+            margin-bottom: 5px;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .product-card .icons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .product-card .icons a {
+            width: 30px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.258);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .product-card .icons a:hover {
+            background-color: rgba(232, 15, 15, 0.8);
+        }
+
+        .product-card .details {
+            padding: 10px;
+
+        }
+
+        .product-card .details h3 {
+            font-size: 18px;
+            margin: 0;
+            color: #333;
+        }
+
+        .product-card .details p {
+            font-size: 14px;
+            color: #777;
+            margin: 5px 0 0;
+        }
+
+        .dropdown-column {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* Space between left and right content */
+            gap: 10px;
+            /* Small gap between the left and right sections */
+            padding: 8px 15px;
+            /* Reduced padding for smaller box size */
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            max-width: 1200px;
+            /* Adjusted max-width to reduce the size */
+            width: 100%;
+            /* Ensures the box is responsive */
+            margin: 10px auto;
+            /* Increased margin-left to push the box further to the right */
+        }
+
+        /* Left section inside dropdown-column (select city) */
+        .dropdown-column .left {
+            flex: 1;
+            display: flex;
+        }
+
+        /* Adjusting the right section to make it more compact */
+        .dropdown-column .right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            /* Small gap between the search bar, filter icon, and add card icon */
+            max-width: 400px;
+            /* Limit the width of the right section for better alignment */
+        }
+
+        /* Search Box Styles */
+        .search-box {
+            position: relative;
+            width: 300px;
+            border: 1px solid orange;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 40px 10px 10px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            background-color: transparent;
+        }
+
+        /* Placeholder text style */
+        .search-box input::placeholder {
+            color: #f0831e;
+            /* Orange placeholder color */
+        }
+
+        .search-box img {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* Button styles for icons */
+        .filters-icon,
+        .add-card-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .filters-icon img,
+        .add-card-icon img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .filters-icon:hover img,
+        .add-card-icon:hover img {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+
+        .filters-icon:active img,
+        .add-card-icon:active img {
+            transform: scale(0.9);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dropdown-column {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .dropdown-column .left,
+            .dropdown-column .right {
+                width: 100%;
+                /* Full width for both sections on small screens */
+            }
+
+            .right-container {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .filters-icon,
+            .add-card-icon {
+                justify-content: center;
+                margin-left: 0;
+            }
+        }
+
+        /* Dropdown Wrapper */
+        .dropdown-wrapper {
+            display: flex;
+            align-items: center;
+            position: relative;
+            width: 100%;
+        }
+
+        .dropdown-icon {
+            position: absolute;
+            left: 10px;
+            z-index: 1;
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            /* Ensures the image fits inside the given width and height */
+        }
+
+        /* Style for the select input */
+        select {
+            padding-left: 30px;
+            /* Adds space to the left to accommodate the icon */
+            width: 40%;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid rgb(237, 115, 34);
+            font-size: 16px;
+            background-color: rgb(237, 115, 34);
+
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        /* Focus state for the select input */
+        select:focus {
+            outline: none;
+            border-color: rgb(237,
+                    115,
+                    34);
+            background-color: rgb(237, 115, 34);
+        }
+
+        .favorite-button {
+            width: 30px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.6);
+            /* Default color */
+            border: none;
+            /* Remove any default button border */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .favorite-button.active {
+            background-color: red;
+            /* Active color */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mobile_header">
+        <svg width="32px" height="32px" viewBox="0 0 24.00 24.00" fill="black" xmlns="http://www.w3.org/2000/svg"
+          transform="rotate(0)">
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+          <g id="SVGRepo_iconCarrier">
+            <path d="M4 6H20M4 12H20M4 18H20" stroke="black" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </g>
+        </svg>
+      </div>
+    <header class="mobile-header">
+
+        <div class="logo_placeholder">
+            <img src="/imgs/logo.png" alt="logo" />
+            <img src="/icons/close.svg" alt="close" class="closeImage"/>
+        </div>
+        <div class="nav_links_placeholder">
+            <ul class="nav_links">
+                <li class="nav_link">
+                    <a href="/mycity-homepage"><span>Home</span></a>
+                </li>
+                <li class="nav_link">
+                    <a href="/Entertainment/home"><span>Entertainment</span></a>
+                </li>
+                <li class="nav_link active">
+                    <a href="/homePage"><span>Shopping</span></a>
+                </li>
+                <li class="nav_link">
+                    <a href="/tourism"><span>Tourism</span></a>
+                </li>
+
+                <li class="nav_link">
+                    <a href="beauty"><span>Pay Bills</span></a>
+                </li>
+                <li class="nav_link">
+                    <a href="hotels"><span>Hotels</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="login-button_placeholder">
+            <button class="login_button"><a href="">Sign Up</a></button>
+        </div>
+    </header>
+    <!-- Dropdown Column -->
+    <div class="dropdown-column">
+        <div class="left">
+            <div class="dropdown-wrapper">
+                <img src="/imgs/cart img/Location.png" alt="City Icon" class="dropdown-icon" />
+
+                <select>
+                    <option value="">Select a City</option>
+                    <option value="alluri-sitharama-raju">Alluri Sitharama Raju</option>
+                    <option value="anakapalli">Anakapalli</option>
+                    <option value="ananthapuramu">Ananthapuramu</option>
+                    <option value="annamayya">Annamayya</option>
+                    <option value="bapatla">Bapatla</option>
+                    <option value="chittoor">Chittoor</option>
+                    <option value="dr-b-r-ambedkar-konaseema">
+                        Dr. B.R. Ambedkar Konaseema
+                    </option>
+                    <option value="east-godavari">East Godavari</option>
+                    <option value="eluru">Eluru</option>
+                    <option value="guntur">Guntur</option>
+                    <option value="kakinada">Kakinada</option>
+                    <option value="krishna">Krishna</option>
+                    <option value="kurnool">Kurnool</option>
+                    <option value="nandyal">Nandyal</option>
+                    <option value="ntr">Ntr</option>
+                    <option value="palnadu">Palnadu</option>
+                    <option value="parvathipuram-manyam">Parvathipuram Manyam</option>
+                    <option value="prakasam">Prakasam</option>
+                    <option value="sri-potti-sriramulu-nellore">
+                        Sri Potti Sriramulu Nellore
+                    </option>
+                    <option value="sri-sathya-sai">Sri Sathya Sai</option>
+                    <option value="srikakulam">Srikakulam</option>
+                    <option value="tirupati">Tirupati</option>
+                    <option value="visakhapatnam">Visakhapatnam</option>
+                    <option value="vizianagaram">Vizianagaram</option>
+                    <option value="west-godavari">West Godavari</option>
+                    <option value="ysr">Y.S.R.</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="right">
+            <div class="search-box">
+                <input type="text" placeholder="Search..." />
+                <img src="/imgs/cart img/search.png" alt="Search" />
+            </div>
+            <div class="add-card-icon">
+                <a href="/cart/view"><img src="/imgs/cart img/Shopping Cart.png" alt="Add Card" /></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-category">
+
+        <img src="/icons/rightarrow.svg" alt="right arrow" class="togglearrow">
+        <!-- Left Sidebar -->
+        <div class="sidebar" style="margin-left: 25px;">
+            <!-- Categories Section -->
+            
+            <h2>Category</h2>
+            <div class="list">
+                <div class="list-items">
+                    <h3 onclick="toggleList('men-list')">Men <span>+</span></h3>
+                    <ul id="men-list">
+                        <a href="/shirts">
+                            <li>Shirts</li>
+                        </a>
+                        <a href="/tshirts">
+                            <li>T-Shirts</li>
+                        </a>
+                        <a href="/mens-jeans">
+                            <li>Jeans</li>
+                        </a>
+                        <a href="/mens-track-pants">
+                            <li>Track-Pants</li>
+                        </a>
+                    </ul>
+                </div>
+                <div class="list-items">
+                    <h3 onclick="toggleList('women-list')">Women <span>+</span></h3>
+                    <ul id="women-list">
+                        <a href="/womens-sarees">
+                            <li>Sarees</li>
+                        </a>
+                        <a href="/womens-kurta-set">
+                            <li>Kurta Sets</li>
+                        </a>
+                        <a href="/womens-tops">
+                            <li>Tops</li>
+                        </a>
+                        <a href="/womens-jeans">
+                            <li>Jeans</li>
+                        </a>
+                    </ul>
+                </div>
+                <div class="list-items">
+                    <h3 onclick="toggleList('Kids')">Kids <span>+</span></h3>
+                    <ul id="Kids">
+                        <a href="/frocks">
+                            <li>Frocks</li>
+                        </a>
+                        <a href="/rompers">
+                            <li>Rompers</li>
+                        </a>
+                        <a href="/kids-blankets">
+                            <li>Blankets</li>
+                        </a>
+                        <a href="/kids-footwear">
+                            <li>Footwear</li>
+                        </a>
+                        <a href="/toys">
+                            <li>Toys</li>
+                        </a>
+                    </ul>
+                </div>
+                <div class="list-items">
+                    <h3 onclick="toggleList('Footwear-list')">
+                        Foot Wear<span>+</span>
+                    </h3>
+                    <ul id="Footwear-list">
+                        <a href="/mens-footwear">
+                            <li>Men Footwear</li>
+                        </a>
+                        <a href="/womens-footwear">
+                            <li>Women Footwear</li>
+                        </a>
+                        <a href="/kids-footwear">
+                            <li>Kids footwear</li>
+                        </a>
+                    </ul>
+                </div>
+                <div class="list-items">
+                    <h3 onclick="toggleList('Home&kitchen-list')">
+                        Home & Kitchen<span>+</span>
+                    </h3>
+                    <ul id="Home&kitchen-list">
+                        <a href="/bedsheets">
+                            <li>Bedsheets</li>
+                        </a>
+                        <a href="/doormates">
+                            <li>Doormates</li>
+                        </a>
+                    </ul>
+                </div>
+                <div class="list-items">
+                    <h3 onclick="toggleList('Electronic-list')">
+                        Electronic Accessories <span>+</span>
+                    </h3>
+                    <ul id="Electronic-list">
+                        <a href="/mobiles">
+                            <li>Mobile</li>
+                        </a>
+                        <a href="/bluetooth-earphones">
+                            <li>Bluetooth</li>
+                        </a>
+                        <a href="/smart-watches">
+                            <li>Smart Watches</li>
+                        </a>
+                        <a href="/homeTheatres">
+                            <li>Home Theater</li>
+                        </a>
+                    </ul>
+                </div>
+                <div class="list-items">
+                    <h3 onclick="toggleList('Jewellery-list')">
+                        Jewellery <span>+</span>
+                    </h3>
+                    <ul id="Jewellery-list">
+                        <a href="/rings">
+                            <li>Rings</li>
+                        </a>
+                        <a href="/bangles">
+                            <li>Bangles</li>
+                        </a>
+                        <a href="/jewellery-set">
+                            <li>JewellerySet</li>
+                        </a>
+                        <a href="/anklets">
+                            <li>Anklets</li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Brands Section -->
+            <!--   <h2 class="brand">Brands</h2>
+            <ul class="brand-list">
+                <li>POLO</li>
+                <li>H&M </li>
+                <li>MADAME </li>
+            </ul> -->
+
+            <h3>Sort</h3>
+            <div class="filter-section">
+                <label for="priceRange">Price Range</label>
+                <input type="range" id="priceRange" min="0" max="20000" value="20000" oninput="filterProducts()" />
+                <p>₹0 - ₹<span id="priceValue">20000</span></p>
+            </div>
+            <div class="filter-section">
+                <h3>Discount</h3>
+                <label><input type="checkbox" data-discount="50" onclick="filterProducts()" />
+                    50% off</label>
+                <label><input type="checkbox" data-discount="40" onclick="filterProducts()" />
+                    40% off</label>
+                <label><input type="checkbox" data-discount="25" onclick="filterProducts()" />
+                    25% off</label>
+            </div>
+            <div class="filter-section">
+                <h3>Customer Ratings</h3>
+                <label><input type="checkbox" data-rating="4.5" onclick="filterProducts()" />
+                    4.5</label>
+                <label><input type="checkbox" data-rating="4" onclick="filterProducts()" />
+                    4</label>
+                <label><input type="checkbox" data-rating="3" onclick="filterProducts()" />
+                    3</label>
+                <label><input type="checkbox" data-rating="2" onclick="filterProducts()" />
+                    2</label>
+                <label><input type="checkbox" data-rating="1" onclick="filterProducts()" />
+                    1</label>
+            </div>
+            <div class="filter-section">
+                <h3>TYPE</h3>
+                <label><input type="checkbox" data-display="full" onclick="filterProducts()" />
+                    full</label>
+                <label><input type="checkbox" data-display="half" onclick="filterProducts()" />
+                    half</label>
+                <label><input type="checkbox" data-display="formal" onclick="filterProducts()" />
+                    formal</label>
+            </div>
+        </div>
+
+        <div class="product-grid">
+
+            <div class="product-card" th:each="product : ${products}">
+                <a th:href="@{/products/{id}(id=${product.productId})}">
+                    <img th:src="@{/products/image/{id}(id=${product.productId})}" alt="Product Image">
+                    <p class="product-name"
+                        th:text="${#strings.length(product.name) > 20} ? ${#strings.substring(product.name,0,20) + '...'} : ${product.name}">
+                    </p>
+                    <p class="product-price" th:text="'₹ '+${product.price}"><span class="discount-price"></span></p>
+                    <p class="product-rating" th:text="'Rating: '+${product.rating}"></p>
+                    <p class="product-display" th:text="'Display: '+${product.display}"></p>
+                </a>
+            </div>
+        </div>
+        <!-- Additional Product Cards -->
+        <!-- Add more product-card divs here -->
+    </div>
+
+    <!-- JavaScript to toggle visibility of lists -->
+    <script>
+        const truncateText = (text, maxLength) => {
+            if (text.length > maxLength) {
+                return text.slice(0, maxLength) + "...";
+            }
+            return text;
+        };
+
+        function toggleList(id) {
+            const list = document.getElementById(id);
+            list.style.display = list.style.display === "none" ? "block" : "none";
+        }
+
+        // Set initial display state for lists to hidden
+        document
+            .querySelectorAll(".list ul")
+            .forEach((list) => (list.style.display = "none"));
+
+        // Data for products categorized by type
+        const allProducts = {
+            "T-Shirts": [
+                {
+                    link: "/adidas-tshirt.html",
+                    imgSrc: "/tshirt images/adidas1.1.avif",
+                    name: "ADIDAS ROUND NECK T-SHIRT",
+                    price: "₹999",
+                    discountPrice: "₹2,499",
+                    rating: "4.5",
+                    display: "Round Neck",
+                },
+                {
+                    link: "/ketch-tshirts.html",
+                    imgSrc: "/tshirt images/high1.2.webp",
+                    name: "KETCH T-SHIRT",
+                    price: "₹999",
+                    discountPrice: "₹3,099",
+                    rating: "4.0",
+                    display: "Round Neck",
+                },
+                {
+                    link: "/teamspirit.html",
+                    imgSrc: "/tshirt images/ts1.1.webp",
+                    name: "TEAM SPIRIT T-SHIRT",
+                    price: "₹2,499",
+                    discountPrice: "₹3,999",
+                    rating: "3",
+                    display: "Round Neck",
+                },
+                {
+                    link: "/uspolo-tshirts.html",
+                    imgSrc: "/tshirt images/uspa1.1.webp",
+                    name: "US POLO T-SHIRT",
+                    price: "₹1,943",
+                    discountPrice: "₹2,990",
+                    rating: "3",
+                    display: "V-Neck",
+                },
+                {
+                    link: "/adidas2-tshirts.html",
+                    imgSrc: "/tshirt images/adidas2.1.avif",
+                    name: "ADIDAS T-SHIRT",
+                    price: "₹1,699",
+                    discountPrice: "₹5,999",
+                    rating: "3.5",
+                    display: "Round Neck",
+                },
+                {
+                    link: "/ketch2-tshirts.html",
+                    imgSrc: "/tshirt images/high2.1.webp",
+                    name: "KETCH T-SHIRT",
+                    price: "₹1,799",
+                    discountPrice: "₹4,499",
+                    rating: "3.7",
+                    display: "Round Neck",
+                },
+            ],
+
+            Shirts: [
+                {
+                    link: "/uspolo.html",
+                    imgSrc: "/shirtimages/uspasoftoxford1.webp",
+                    name: "US POLO Slim Shirt",
+                    price: "₹1,649",
+                    discountPrice: "₹2,499",
+                    rating: "4.5",
+                    display: "Full",
+                },
+                {
+                    link: "/ketch.html",
+                    imgSrc: "/shirtimages/ketch1.1.webp",
+                    name: "Ketch Shirt",
+                    price: "₹999",
+                    discountPrice: "₹3,099",
+                    rating: "3.8",
+                    display: "Full Hands",
+                },
+                {
+                    link: "/tones.html",
+                    imgSrc: "/shirtimages/tones3.1.webp",
+                    name: "Tones Shirt",
+                    price: "₹1,943",
+                    discountPrice: "₹2,990",
+                    rating: "3.8",
+                    display: "Formal",
+                },
+                {
+                    link: "/ketch.html",
+                    imgSrc: "/shirtimages/ketch3.2.webp",
+                    name: "Ketch Relaxed Fit Shirt",
+                    price: "₹589",
+                    discountPrice: "₹2,699",
+                    rating: "3.7",
+                    display: "Full",
+                },
+                {
+                    link: "/tones.html",
+                    imgSrc: "/shirtimages/tones1.3.webp",
+                    name: "Tones Shirt",
+                    price: "₹1,799",
+                    discountPrice: "₹4,499",
+                    rating: "3.7",
+                    display: "Formal",
+                },
+                {
+                    link: "/uspolo.html",
+                    imgSrc: "/shirtimages/uspasoftoxford2.webp",
+                    name: "US POLO Shirt",
+                    price: "₹2,999",
+                    discountPrice: "₹5,299",
+                    rating: "3.7",
+                    display: "Full",
+                },
+            ],
+            Jeans: [
+                {
+                    link: "/uspolo-jean.html",
+                    imgSrc: "/phantimages/uspa1.1.webp",
+                    name: "US POLO Slim Fit Formal",
+                    price: "₹3,999",
+                    discountPrice: "₹12,499",
+                    rating: "4.5",
+                    display: "Formal",
+                },
+                {
+                    link: "/ketch.html",
+                    imgSrc: "/phantimages/ketch1.1.jpg",
+                    name: "Ketch Slim Fit Jeans",
+                    price: "₹999",
+                    discountPrice: "₹3,099",
+                    rating: "4.0",
+                    display: "Jeans",
+                },
+                {
+                    link: "/tones-jean.html",
+                    imgSrc: "/phantimages/cargo1.2.jpg",
+                    name: "Tones Cargo Pant",
+                    price: "₹2,499",
+                    discountPrice: "₹3,999",
+                    rating: "3.0",
+                    display: "Jeans",
+                },
+                {
+                    link: "/levis.html",
+                    imgSrc: "/phantimages/levis1.3.jpg",
+                    name: "Levis Jeans Pant",
+                    price: "₹2,499",
+                    discountPrice: "₹3,999",
+                    rating: "3.0",
+                    display: "Jeans",
+                },
+                {
+                    link: "/tones-jean.html",
+                    imgSrc: "/phantimages/cargo1.1.jpg",
+                    name: "Tones Cargo Pant",
+                    price: "₹1,943",
+                    discountPrice: "₹2,990",
+                    rating: "3.0",
+                    display: "Cargo",
+                },
+                {
+                    link: "/dnmx.html",
+                    imgSrc: "/phantimages/dnmx1.1.jpg",
+                    name: "DNMX Blue Jeans",
+                    price: "₹1,699",
+                    discountPrice: "₹5,999",
+                    rating: "3.5",
+                    display: "Jeans",
+                },
+            ],
+            "Track-Pants": [
+                {
+                    link: "/adidas-track.html",
+                    imgSrc: "/trackimages/adi1.1.avif",
+                    name: "ADIDAS TRACKS",
+                    price: "₹3,999",
+                    discountPrice: "₹12,499",
+                    rating: "4.5",
+                    display: "Comfort Fit",
+                },
+                {
+                    link: "/ketch-track.html",
+                    imgSrc: "/trackimages/ketch1.1.jpg",
+                    name: "KETCH TRACKS",
+                    price: "₹999",
+                    discountPrice: "₹3,099",
+                    rating: "4.0",
+                    display: "Slim Fit",
+                },
+                {
+                    link: "/nike-track.html",
+                    imgSrc: "/trackimages/nike1.1.png",
+                    name: "NIKE TRACKS",
+                    price: "₹2,499",
+                    discountPrice: "₹3,999",
+                    rating: "3.0",
+                    display: "Relax Fit",
+                },
+                {
+                    link: "/rare.html",
+                    imgSrc: "/trackimages/black1.1.jpg",
+                    name: "RARE RABIT TRACKS",
+                    price: "₹2,499",
+                    discountPrice: "₹3,999",
+                    rating: "3.0",
+                    display: "Comfort Fit",
+                },
+                {
+                    link: "/adidas2-track.html",
+                    imgSrc: "/trackimages/adi2.1.avif",
+                    name: "ADIDAS TRACK PANT",
+                    price: "₹1,943",
+                    discountPrice: "₹2,990",
+                    rating: "3.0",
+                    display: "Slim Fit",
+                },
+                {
+                    link: "/ketch2-track.html",
+                    imgSrc: "/trackimages/ketch2.3.webp",
+                    name: "KETCH TRACK PANT",
+                    price: "₹1,699",
+                    discountPrice: "₹5,999",
+                    rating: "3.5",
+                    display: "Slim Fit",
+                },
+            ],
+
+            Sarees: [
+                {
+                    link: "/black-saree.html",
+                    imgSrc: "/saree images/black1.1.jpg",
+                    name: "Traditional Saree",
+                    price: "₹1,499",
+                    discountPrice: "₹2,499",
+                    rating: "4.5",
+                    display: "Silk",
+                },
+                {
+                    link: "/blue-saree.html",
+                    imgSrc: "/saree images/blue1.2.webp",
+                    name: "WOMEN BLUE SAREE",
+                    price: "₹2,999",
+                    discountPrice: "₹4,499",
+                    rating: "4.0",
+                    display: "Designer",
+                },
+                {
+                    link: "/blackcotton.html",
+                    imgSrc: "/saree images/blackcotton2.webp",
+                    name: "WOMEN BLACK COTTON SAREE",
+                    price: "₹1,599",
+                    discountPrice: "₹4,499",
+                    rating: "4.0",
+                    display: "Cotton",
+                },
+                {
+                    link: "/greencotton.html",
+                    imgSrc: "/saree images/greencotton1.webp",
+                    name: "WOMEN GREEN COTTON SAREE",
+                    price: "₹2530",
+                    discountPrice: "₹3,999",
+                    rating: "3.0",
+                    display: "Cotton",
+                },
+                {
+                    link: "/blackdesign.html",
+                    imgSrc: "/saree images/blackdesign1.webp",
+                    name: "WOMEN BLACK DESIGNER SAREE",
+                    price: "₹1599",
+                    discountPrice: "₹3,999",
+                    rating: "4.0",
+                    display: "Cotton",
+                },
+                {
+                    link: '/reddesign.html"',
+                    imgSrc: "/saree images/reddesign1.webp",
+                    name: "WOMEN RED DESIGNER SAREE",
+                    price: "₹2099",
+                    discountPrice: "₹3,999",
+                    rating: "3.0",
+                    display: "Cotton",
+                },
+            ],
+            "Kurta Sets": [
+                {
+                    link: "/red.html",
+                    imgSrc: "/kurthaimages/red1.1.jpg",
+                    name: "RED KURTHA",
+                    price: "₹999",
+                    discountPrice: "₹3,099",
+                    rating: "4.0",
+                    display: "Anarkali",
+                },
+                {
+                    link: "/blue.html",
+                    imgSrc: "/kurthaimages/blue1.1.webp",
+                    name: "BLUE KURTHA",
+                    price: "₹799",
+                    discountPrice: "₹2,500",
+                    rating: "3.0",
+                    display: "Flared",
+                },
+                {
+                    link: "/green.html",
+                    imgSrc: "/kurthaimages/green1.1.webp",
+                    name: "GREEN KURTHA",
+                    price: "₹1,099",
+                    discountPrice: "₹4,200",
+                    rating: "4.5",
+                    display: "Dhoti",
+                },
+                {
+                    link: "/sandel.html",
+                    imgSrc: "/kurthaimages/sandel1.1.webp",
+                    name: "SANDEL KURTHA",
+                    price: "₹999",
+                    discountPrice: "₹3,099",
+                    rating: "4.0",
+                    display: "Anarkali",
+                },
+                {
+                    link: "/black.html",
+                    imgSrc: "/kurthaimages/black1.1.webp",
+                    name: "BLACK KURTHA",
+                    price: "₹799",
+                    discountPrice: "₹2,500",
+                    rating: "3.0",
+                    display: "Flared",
+                },
+                {
+                    link: "/pink.html",
+                    imgSrc: "/kurthaimages/pink1.1.webp",
+                    name: "PINK KURTHA",
+                    price: "₹1,099",
+                    discountPrice: "₹4,200",
+                    rating: "4.5",
+                    display: "Dhoti",
+                },
+            ],
+            Mobile: [
+                {
+                    link: "/Redmi 13c.html",
+                    imgSrc: "Mobile Image/Redmi 13C 5G.jpg",
+                    name: "Redmi 13C 5G",
+                    price: "₹9,199",
+                    discountPrice: "₹13,999",
+                    rating: "3.9",
+                    display: "Redmi",
+                },
+                {
+                    link: "/iQOO.html",
+                    imgSrc: "Mobile Image/iQOO.jpg",
+                    name: "iQOO Z9 Lite 5G",
+                    price: "₹11,499",
+                    discountPrice: "₹15,499",
+                    rating: "4.0",
+                    display: "iQOO",
+                },
+                {
+                    link: "/OnePlus.html",
+                    imgSrc: "Mobile Image/OnePlus.jpg",
+                    name: "OnePlus Nord CE 3 Lite 5G",
+                    price: "₹16,860",
+                    discountPrice: "₹19,999",
+                    rating: "4.2",
+                    display: "OnePlus",
+                },
+                {
+                    link: "/Samsung.html",
+                    imgSrc: "Mobile Image/Samsung.jpg",
+                    name: "Samsung Galaxy S20 FE 5G",
+                    price: "₹30,490",
+                    discountPrice: "₹74,999",
+                    rating: "4.2",
+                    display: "Samsung",
+                },
+                {
+                    link: "/Apple.html",
+                    imgSrc: "Mobile Image/Apple.jpg",
+                    name: "Apple iPhone 16",
+                    price: "₹79,900",
+                    discountPrice: "₹0",
+                    rating: "4.3",
+                    display: "Apple",
+                },
+                {
+                    link: "/Vivo.html",
+                    imgSrc: "Mobile Image/Vivo.jpg",
+                    name: "Vivo V40 5G Smartphone",
+                    price: "₹33,850",
+                    discountPrice: "₹39,999",
+                    rating: "4.1",
+                    display: "Vivo",
+                },
+            ],
+            Bluetooth: [
+                {
+                    link: "/boAt-bluetooth.html",
+                    imgSrc: "Bluetooth Images/boAt.jpg",
+                    name: "boAt Rockerz 255 Pro+ Bluetooth",
+                    price: "₹999",
+                    discountPrice: "₹3,990",
+                    rating: "4.0",
+                    display: "Redmi",
+                },
+                {
+                    link: "/boAt Airdopes-bluetooth.html",
+                    imgSrc: "Bluetooth Images/boAt Airdopes.jpg",
+                    name: "boAt Airdopes 141 Bluetooth",
+                    price: "₹1,299",
+                    discountPrice: "₹4,490",
+                    rating: "3.8",
+                    display: "boat",
+                },
+                {
+                    link: "/realme Buds-bluetooth.html",
+                    imgSrc: "Bluetooth Images/realme Buds.jpg",
+                    name: "realme Buds T310 Truly Wireless",
+                    price: "₹2,499",
+                    discountPrice: "₹3,999",
+                    rating: "4.1",
+                    display: "Realme",
+                },
+                {
+                    link: "/realme Buds1-bluetooth.html",
+                    imgSrc: "Bluetooth Images/realme Buds1.jpg",
+                    name: "realme Buds Wire T3",
+                    price: "₹1,799",
+                    discountPrice: "₹2,999",
+                    rating: "4.2",
+                    display: "Realme",
+                },
+                {
+                    link: "/OnePlus-bluetooth.html",
+                    imgSrc: "Bluetooth Images/OnePlus.jpg",
+                    name: "OnePlus Nord Buds",
+                    price: "₹1,599",
+                    discountPrice: "₹2,299",
+                    rating: "4.2",
+                    display: "Oneplus",
+                },
+                {
+                    link: "/TYROCX-bluetooth.html",
+                    imgSrc: "Bluetooth Images/TYROCX.jpg",
+                    name: "TYROCX S109 One Ear Bluetooth",
+                    price: "₹299",
+                    discountPrice: "₹1,499",
+                    rating: "3.5",
+                    display: "16 ohm",
+                },
+            ],
+            "Smart-Watch": [
+                {
+                    link: "/NoiseFit.html",
+                    imgSrc: "/Smart watches Image/NoiseFit.jpg",
+                    name: "NoiseFit Bluetooth Calling Round Dial Smart Watch",
+                    price: "₹2,999",
+                    discountPrice: "₹7,999",
+                    rating: "4.1",
+                    display: "Android & iOS",
+                },
+                {
+                    link: "/Noise Quad.html",
+                    imgSrc: "/Smart watches Image/Noise Quad.jpg",
+                    name: "Noise Quad Bluetooth Calling Smart Watch",
+                    price: "₹1,599",
+                    discountPrice: "₹6,999",
+                    rating: "4.0",
+                    display: "Android, iOS",
+                },
+                {
+                    link: "/Fastrack-watch.html",
+                    imgSrc: "/Smart watches Image/Fastrack.jpg",
+                    name: "Fastrack Astor Fs1 Pro Smartwatch",
+                    price: "₹2,099",
+                    discountPrice: "₹4,999",
+                    rating: "4.0",
+                    display: "Android, iOS",
+                },
+                {
+                    link: "/Fire-Boltt.html",
+                    imgSrc: "/Smart watches Image/Fire-Boltt.jpg",
+                    name: "Fire-Boltt Ninja Call Pro Max 51.05mm Display Smart Watch",
+                    price: "₹1,399",
+                    discountPrice: "₹14,999",
+                    rating: "4.0",
+                    display: "Android, iOS",
+                },
+                {
+                    link: "/Noise Diva.html",
+                    imgSrc: "/Smart watches Image/Noise Diva.webp",
+                    name: "Noise Diva Fashion Smart Watch for Women",
+                    price: "₹4,999",
+                    discountPrice: "₹6,999",
+                    rating: "4.7",
+                    display: "Android, iOS",
+                },
+                {
+                    link: "/CrossBeats-watch.html",
+                    imgSrc: "/Smart watches Image/CrossBeats.jpg",
+                    name: "CrossBeats Stylish Smart Watch for Women",
+                    price: "₹3,999",
+                    discountPrice: "₹12,999",
+                    rating: "4.4",
+                    display: "iOS, Android",
+                },
+            ],
+            "Home-theater": [
+                {
+                    link: "/OBAGE.html",
+                    imgSrc: "/Home Theater Image/OBAGE DT-51.jpg",
+                    name: "OBAGE DT-51 100 Watt 2.1",
+                    price: "₹7,699",
+                    discountPrice: "₹10,000",
+                    rating: "4.2",
+                    display: "5.1",
+                },
+                {
+                    link: "/JBL.html",
+                    imgSrc: "/Home Theater Image/JBL.jpg",
+                    name: "JBL Cinema SB241",
+                    price: "₹8,499",
+                    discountPrice: "₹14,999",
+                    rating: "3.7",
+                    display: "3.1",
+                },
+                {
+                    link: "/TRONICA.html",
+                    imgSrc: "/Home Theater Image/TRONICA TR.jpg",
+                    name: "TRONICA Launched Auxiliary Bluetooth Deep Bass",
+                    price: "₹3,999",
+                    discountPrice: "₹6,000",
+                    rating: "4.0",
+                    display: "5.0",
+                },
+                {
+                    link: "/Mivi.html",
+                    imgSrc: "/Home Theater Image/Mivi Fort Q200.jpg",
+                    name: "Mivi Fort Q200 2.1 Channel with an External subwoofer",
+                    price: "₹4,999",
+                    discountPrice: "₹16,999",
+                    rating: "3.9",
+                    display: "3.1",
+                },
+                {
+                    link: "/GOVO.html",
+                    imgSrc: "/Home Theater Image/GOVO.webp",
+                    name: "GOVO 200W Sound bar, 2.1 Channel Home Theatre",
+                    price: "₹4,999",
+                    discountPrice: "₹17,999",
+                    rating: "4.0",
+                    display: "5.0",
+                },
+                {
+                    link: "/Sony.html",
+                    imgSrc: "/Home Theater Image/Sony HT-G700.jpg",
+                    name: "Sony HT-G700",
+                    price: "₹38,100",
+                    discountPrice: "₹51,990",
+                    rating: "4.6",
+                    display: "5.0",
+                },
+            ],
+            "Men-footwear": [
+                {
+                    link: "/Bata.html",
+                    imgSrc: "/Images/Bata Slipper.jpg",
+                    name: "Bata Mens Shrek Tr Sandals",
+                    price: "₹809",
+                    discountPrice: "₹899",
+                    rating: "3.9",
+                    display: "Casual",
+                },
+                {
+                    link: "/Mochi.html",
+                    imgSrc: "/Images/Mochi Women.jpg",
+                    name: "Mochi Women Purple Floral Embroidered Toe Ring Casual Fashion Slippers",
+                    price: "₹929",
+                    discountPrice: "₹1,690",
+                    rating: "4.0",
+                    display: "Fashion Sandal",
+                },
+                {
+                    link: "/Hush.html",
+                    imgSrc: "/Images/Hush Puppies.jpg",
+                    name: "Hush Puppies Men's Robert Fisherman Casual Shoes",
+                    price: "₹3,999",
+                    discountPrice: "₹0",
+                    rating: "4.0",
+                    display: "ROBERT FISHERMAN",
+                },
+                {
+                    link: "/Pampy.html",
+                    imgSrc: "/Images/Pampy Angel.jpg",
+                    name: "Pampy Angel Clog All Style Men's Clogs Sandal Slippers",
+                    price: "₹399",
+                    discountPrice: "₹799",
+                    rating: "3.9",
+                    display: "Flat",
+                },
+                {
+                    link: "/Centrino.html",
+                    imgSrc: "/Images/Centrino.jpg",
+                    name: "Centrino Men's 3263 Sandals",
+                    price: "₹749",
+                    discountPrice: "₹2,499",
+                    rating: "3.6",
+                    display: "Sandals",
+                },
+                {
+                    link: "/YOHO.html",
+                    imgSrc: "/Images/YOHO Dolphy.jpg",
+                    name: "YOHO Dolphy EVA Sliders For Women",
+                    price: "₹599",
+                    discountPrice: "₹1,398",
+                    rating: "3.4",
+                    display: "Casual",
+                },
+            ],
+            Bedsheets: [
+                {
+                    link: "/BSB HOME.html",
+                    imgSrc: "/bed sheet images/BSB HOME.jpg",
+                    name: truncateText(
+                        "BSB HOME 200 TC 100% Cotton Feel Bedsheet for Double Bed"
+                    ),
+                    price: "₹199",
+                    discountPrice: "₹1,299",
+                    rating: "3.2",
+                    display: "Envelope",
+                },
+                {
+                    link: "/vomzer.html",
+                    imgSrc: "/bed sheet images/VOMZER.jpg",
+                    name: truncateText(
+                        "VOMZER 320 TC Cotton Feel All Around Elastic Fitted Bedsheets"
+                    ),
+                    price: "₹497",
+                    discountPrice: "₹1,499",
+                    rating: "4.0",
+                    display: "Elastic,Elasticated",
+                },
+                {
+                    link: "/new leaf.html",
+                    imgSrc: "/bed sheet images/NEW LEAF.jpg",
+                    name: truncateText(
+                        "NEW LEAF Premium Cotton Elastic Fitted Bedsheets"
+                    ),
+                    price: "₹378",
+                    discountPrice: "₹1,599",
+                    rating: "4.0",
+                    display: "Elastic",
+                },
+                {
+                    link: "/queenie.html",
+                    imgSrc: "/bed sheet images/Queenie.jpg",
+                    name: truncateText(
+                        "Queenie Brand Traditional Mandala Jaipuri Printed Bedsheet"
+                    ),
+                    price: "₹449",
+                    discountPrice: "₹1,599",
+                    rating: "3.7",
+                    display: "Envelope,Pull on",
+                },
+                {
+                    link: "/the home style.html",
+                    imgSrc: "/bed sheet images/THE HOME STYLE.jpg",
+                    name: truncateText(
+                        "THE HOME STYLE Cotton Feel Glace Elastic  Printed Full Length Single Bed Bedsheet"
+                    ),
+                    price: "₹545",
+                    discountPrice: "₹2,999",
+                    rating: "3.9",
+                    display: "Elastic",
+                },
+                {
+                    link: "/loreto.html",
+                    imgSrc: "/bed sheet images/LORETO.jpg",
+                    name: truncateText(
+                        "LORETO – A QUALITY LINEN BRAND 100% Cotton Single Bedsheet"
+                    ),
+                    price: "₹539",
+                    discountPrice: "₹1,499",
+                    rating: "4.0",
+                    display: "Elastic",
+                },
+            ],
+            Doormates: [
+                {
+                    link: "/LUXE HOME INTERNATIONAL.html",
+                    imgSrc: "/door mates images/LUXE HOME INTERNATIONAL.jpg",
+                    name: truncateText(
+                        "Luxe Home Bath Mat Super Soft Non Slip Vegas Mats for Bathroom, Kitchen, Bedroom, and Door",
+                        40
+                    ),
+                    price: "₹545",
+                    discountPrice: "₹1,399",
+                    rating: "3.9",
+                    display: "Tufted",
+                },
+                {
+                    link: "/TEKCOOL.html",
+                    imgSrc: "/door mates images/TEKCOOL.jpg",
+                    name: truncateText(
+                        "TEKCOOL Bathroom Mat, Door mat, Rubber Non-Slip Quick Dry Rugs Fit Under Door Super Absorbent Thin Washable Oval Floor Bath Mat",
+                        40
+                    ),
+                    price: "₹599",
+                    discountPrice: "₹999",
+                    rating: "5.0",
+                    display: "Tufted",
+                },
+                {
+                    link: "/Amazon Brand - Solimo.html",
+                    imgSrc: "/door mates images/Amazon Brand - Solimo.jpg",
+                    name: truncateText(
+                        "Amazon Brand - Solimo Tufted Valencia Doormat",
+                        40
+                    ),
+                    price: "₹179",
+                    discountPrice: "₹399",
+                    rating: "3.8",
+                    display: "Tufted",
+                },
+                {
+                    link: "/ELEGANT WEAVERS.html",
+                    imgSrc: "/door mates images/ELEGANT WEAVERS.jpg",
+                    name: truncateText("ELEGANT WEAVERS Hershey Doormat", 40),
+                    price: "₹449",
+                    discountPrice: "₹1,599",
+                    rating: "3.7",
+                    display: "Machine Wash",
+                },
+                {
+                    link: "/LYRA.html",
+                    imgSrc: "/door mates images/Generic.jpg",
+                    name: truncateText(
+                        "LYRA Premium Multicolor Microfiber Rangoli Doormat",
+                        40
+                    ),
+                    price: "₹249",
+                    discountPrice: "₹999",
+                    rating: "3.9",
+                    display: "Machine Wash",
+                },
+                {
+                    link: "/AAZEEM.html",
+                    imgSrc: "/door mates images/AAZEEM.jpg",
+                    name: truncateText(
+                        'AAZEEM Abstract Cotton Door Mat - 16"x24", Multicolour',
+                        40
+                    ),
+                    price: "₹389",
+                    discountPrice: "₹1,199",
+                    rating: "3.8",
+                    display: "Flat Woven",
+                },
+                {
+                    link: "/Waco Creation.html",
+                    imgSrc: "/door mates images/Waco Creation.jpg",
+                    name: truncateText(
+                        "Waco Creation Anti Skid & Multipurpose/Bathroom Mat/Shower Mat",
+                        40
+                    ),
+                    price: "₹3,299",
+                    discountPrice: "₹4,599",
+                    rating: "3.3",
+                    display: "Zig Zag",
+                },
+                {
+                    link: "/House2Home.html",
+                    imgSrc: "/door mates images/House2Home.jpg",
+                    name: truncateText(
+                        "House2Home H2H Striped Traditional Rectangular Door Mat",
+                        40
+                    ),
+                    price: "₹699",
+                    discountPrice: "₹1,399",
+                    rating: "4.3",
+                    display: "Knotted",
+                },
+                {
+                    link: "/NICESIR.html",
+                    imgSrc: "/door mates images/NICESIR.jpg",
+                    name: truncateText(
+                        "Welcome Mat Yes Amazon This House Again Hello Front Doormat",
+                        40
+                    ),
+                    price: "₹175",
+                    discountPrice: "",
+                    rating: "4.2",
+                    display: "Machine Made",
+                },
+            ],
+            Tops: [
+                {
+                    link: "/tblack.html",
+                    imgSrc: "/topimages/black1.1.webp",
+                    name: "WOMEN BLACK SAREE",
+                    price: "₹1599",
+                    discountPrice: "₹4,499",
+                    rating: "4.5",
+                    display: "Silk",
+                },
+                {
+                    link: "/tred.html",
+                    imgSrc: "/topimages/red1.webp",
+                    name: "WOMEN RED TOP",
+                    price: "₹1299",
+                    discountPrice: "₹5,499",
+                    rating: "4.5",
+                    display: "Cotton",
+                },
+                {
+                    link: "/tblue.html",
+                    imgSrc: "/topimages/blue1.webp",
+                    name: "WOMEN BLUE TOP",
+                    price: "₹699",
+                    discountPrice: "₹4,499",
+                    rating: "4.5",
+                    display: "Designer",
+                },
+                {
+                    link: "/twhite.html",
+                    imgSrc: "/topimages/white1.webp",
+                    name: "WOMEN WHITE TOP",
+                    price: "₹1699",
+                    discountPrice: "₹2,499",
+                    rating: "3.0",
+                    display: "Designer",
+                },
+                {
+                    link: "/tmaroon.html",
+                    imgSrc: "/topimages/maroon1.webp",
+                    name: "WOMEN MAROON TOP",
+                    price: "₹899",
+                    discountPrice: "₹3,499",
+                    rating: "4.0",
+                    display: "Silk",
+                },
+                {
+                    link: "/tskyblue.html",
+                    imgSrc: "/topimages/sky1.webp",
+                    name: "WOMEN SKY BLUE TOP",
+                    price: "₹1299",
+                    discountPrice: "₹5,499",
+                    rating: "4.5",
+                    display: "Cotton",
+                },
+                {
+                    link: "/tgreen.html",
+                    imgSrc: "/topimages/green1.webp",
+                    name: "WOMEN GREEN TOP",
+                    price: "₹1699",
+                    discountPrice: "₹2,899",
+                    rating: "3.0",
+                    display: "Designer",
+                },
+                {
+                    link: "/tlavender.html",
+                    imgSrc: "/topimages/lavander1.webp",
+                    name: "WOMEN LAVENDER TOP",
+                    price: "₹899",
+                    discountPrice: "₹3,499",
+                    rating: "4.0",
+                    display: "Silk",
+                },
+            ],
+            "Women-Jeans": [
+                {
+                    link: "/jketch2.html",
+                    imgSrc: "/women jens images/baggywhite1.avif",
+                    name: "US POLO Slim fit Jeans",
+                    price: "₹3999",
+                    discountPrice: "₹12,499",
+                    rating: "4.5",
+                    display: "Jeans",
+                },
+                {
+                    link: "/jketch.html",
+                    imgSrc: "/women jens images/blackjeans1.jpg",
+                    name: "ketch slim fit jeans",
+                    price: "₹999",
+                    discountPrice: "₹3,099",
+                    rating: "4.0",
+                    display: "Jeans",
+                },
+                {
+                    link: "/jtones.html",
+                    imgSrc: "/women jens images/black cargo.avif",
+                    name: "Tones cargo phant",
+                    price: "₹2499",
+                    discountPrice: "₹3,999",
+                    rating: "3",
+                    display: "Jeans",
+                },
+                {
+                    link: "/jlevis.html",
+                    imgSrc: "/women jens images/bluejeans.avif",
+                    name: "LEVIS JEANS PHANT",
+                    price: "₹2499",
+                    discountPrice: "₹3,999",
+                    rating: "1",
+                    display: "Jeans",
+                },
+                {
+                    link: "/jdnmx.html",
+                    imgSrc: "/women jens images/white1.avif",
+                    name: "DNMX Blue jeans",
+                    price: "₹1699",
+                    discountPrice: "₹5,999",
+                    rating: "3.5",
+                    display: "Jeans",
+                },
+                {
+                    link: "/jtones2.html",
+                    imgSrc: "/women jens images/boot1.jpg",
+                    name: "Tones Boot Cut pants",
+                    price: "₹1799",
+                    discountPrice: "₹4,499",
+                    rating: "3.5",
+                    display: "Cargo",
+                },
+                {
+                    link: "/jlevis2.html",
+                    imgSrc: "/women jens images/green1.avif",
+                    name: "Levis relaxed formal phants",
+                    price: "₹2999",
+                    discountPrice: "₹5,299",
+                    rating: "4.5",
+                    display: "Formal",
+                },
+                {
+                    link: "/jketch.html",
+                    imgSrc: "/women jens images/blackjeans2.jpg",
+                    name: "Ketch Mid Raised Jeans",
+                    price: "₹1539",
+                    discountPrice: "₹2,199",
+                    rating: "2.0",
+                    display: "Cargo",
+                },
+                {
+                    link: "/jdnmx.html",
+                    imgSrc: "/women jens images/bluejeans3.avif",
+                    name: "DNMX Straiht Jeans",
+                    price: "₹1589",
+                    discountPrice: "₹2,699",
+                    rating: "3.5",
+                    display: "Jeans",
+                },
+                {
+                    link: "/jketchcargo.html",
+                    imgSrc: "/women jens images/blue cargo3.avif",
+                    name: "ketch Cargo pant",
+                    price: "₹2499",
+                    discountPrice: "₹4,999",
+                    rating: "3.5",
+                    display: "Cargo",
+                },
+            ],
+            Rings: [
+                {
+                    link: "Sizziling Fancy Rings.html",
+                    imgSrc: "Jewellery images/Sizziling Fancy Rings.jpg",
+                    name: "Sizziling Fancy Rings",
+                    price: "₹132",
+                    discountPrice: "₹234",
+                    rating: "4.0",
+                    display: "Silver",
+                },
+                {
+                    link: "Elite Glittering Rings.html",
+                    imgSrc: "Jewellery images/Elite Glittering Rings.jpg",
+                    name: "Elite Glittering Rings",
+                    price: "₹224",
+                    discountPrice: "₹266",
+                    rating: "4.0",
+                    display: "Silver",
+                },
+                {
+                    link: "Divine Micro Plated OM Finger Ring.html",
+                    imgSrc: "Jewellery images/Divine Micro Plated OM Finger Ring.jpg",
+                    name: "Divine Micro Plated OM Finger Ring",
+                    price: "₹1699",
+                    discountPrice: "₹17,499",
+                    rating: "4.5",
+                    display: "Gold",
+                },
+                {
+                    link: "Twinkling Gold Ring.html",
+                    imgSrc: "Jewellery images/Twinkling Gold Ring.jpg",
+                    name: "Twinkling Gold Ring",
+                    price: "₹12699",
+                    discountPrice: "₹13,499",
+                    rating: "4.0",
+                    display: "Gold",
+                },
+                {
+                    link: "Elite Gold Ring.html",
+                    imgSrc: "Jewellery images/Elite Gold Ring.jpg",
+                    name: "Elite Gold Ring",
+                    price: "₹11899",
+                    discountPrice: "₹13,499",
+                    rating: "4.0",
+                    display: "Gold",
+                },
+                {
+                    link: "Exclusive Gold Ring.html",
+                    imgSrc: "Jewellery images/Exclusive Gold Ring.jpg",
+                    name: "Exclusive Gold Ring",
+                    price: "₹11299",
+                    discountPrice: "₹12,499",
+                    rating: "3.0",
+                    display: "Gold",
+                },
+                {
+                    link: "Twinling Fancy Ring.html",
+                    imgSrc: "Jewellery images/Twinkling Fancy Ring.jpg",
+                    name: "Twinkling Fancy Ring",
+                    price: "₹181",
+                    discountPrice: "₹200",
+                    rating: "3.0",
+                    display: "Silver",
+                },
+                {
+                    link: "Gold Ring.html",
+                    imgSrc: "Jewellery images/Gold Ring.jpg",
+                    name: "Gold Ring",
+                    price: "₹12700",
+                    discountPrice: "₹13,499",
+                    rating: "4.0",
+                    display: "Gold",
+                },
+            ],
+            Bangles: [
+                {
+                    link: "Diva Beautiful Bracelet.html",
+                    imgSrc: "Jewellery images/Diva Beautiful Bracelet.jpg",
+                    name: "Diva Beautiful Bracelet",
+                    price: "₹170",
+                    discountPrice: "₹234",
+                    rating: "4.0",
+                    display: "Brass",
+                },
+                {
+                    link: "Shimmering Bracelet.html",
+                    imgSrc: "Jewellery images/Shimmering Bracelet.jpg",
+                    name: "Shimmering Bracelet",
+                    price: "₹1700",
+                    discountPrice: "₹1900",
+                    rating: "4.5",
+                    display: "Silver",
+                },
+                {
+                    link: "Twinkling Bracelet.html",
+                    imgSrc: "Jewellery images/Twinkling Bracelet.jpg",
+                    name: "Twinkling Bracelet",
+                    price: "₹1200",
+                    discountPrice: "₹1300",
+                    rating: "3.0",
+                    display: "Silver",
+                },
+                {
+                    link: "Elite Bracelet.html",
+                    imgSrc: "Jewellery images/Elite Bracelet.jpg",
+                    name: "Elite Bracelet",
+                    price: "₹400",
+                    discountPrice: "₹500",
+                    rating: "4.0",
+                    display: "Plastic",
+                },
+                {
+                    link: "Diva Bracelet.html",
+                    imgSrc: "Jewellery images/Diva Bracelet.jpg",
+                    name: "Diva Bracelet",
+                    price: "₹500",
+                    discountPrice: "₹600",
+                    rating: "4.5",
+                    display: "Brass",
+                },
+                {
+                    link: "Spiral Bangle.html",
+                    imgSrc: "Jewellery images/Spiral Bangle.jpg",
+                    name: "Spiral Bangle",
+                    price: "₹300",
+                    discountPrice: "₹400",
+                    rating: "4.0",
+                    display: "Brass",
+                },
+                {
+                    link: "Princess Bracelet.html",
+                    imgSrc: "Jewellery images/Princess Bracelet.jpg",
+                    name: "Princess Bracelet",
+                    price: "₹600",
+                    discountPrice: "₹700",
+                    rating: "4.5",
+                    display: "Alloy",
+                },
+                {
+                    link: "Feminine Bracelet.html",
+                    imgSrc: "Jewellery images/Feminine Bracelet.jpg",
+                    name: "Feminine Bracelet",
+                    price: "₹250",
+                    discountPrice: "₹300",
+                    rating: "4.0",
+                    display: "Plastic",
+                },
+            ],
+            "Jewellery-Set": [
+                {
+                    link: "Allure JewellerySet.html",
+                    imgSrc: "Jewellery images/Allure Set.jpg",
+                    name: "Allure JewellerySet",
+                    price: "₹400",
+                    discountPrice: "₹500",
+                    rating: "4.0",
+                    display: "Alloy",
+                },
+                {
+                    link: "Diva JewellerySet.html",
+                    imgSrc: "Jewellery images/Diva Set.jpg",
+                    name: "Diva JewellerySet",
+                    price: "₹300",
+                    discountPrice: "₹400",
+                    rating: "4.5",
+                    display: "Alloy",
+                },
+                {
+                    link: "Shimmering JewellerySet.html",
+                    imgSrc: "Jewellery images/Shimmering Set.jpg",
+                    name: "Shimmering JewellerySet",
+                    price: "₹200",
+                    discountPrice: "₹300",
+                    rating: "3.0",
+                    display: "Alloy",
+                },
+                {
+                    link: "Princess JewellerySet.html",
+                    imgSrc: "Jewellery images/Princess Set.jpg",
+                    name: "Princess JewellerySet",
+                    price: "₹400",
+                    discountPrice: "₹500",
+                    rating: "4.0",
+                    display: "Silver",
+                },
+                {
+                    link: "Samridhi JewellerySet.html",
+                    imgSrc: "Jewellery images/Samridhi Set.jpg",
+                    name: "Samridhi JewellerySet",
+                    price: "₹300",
+                    discountPrice: "₹400",
+                    rating: "4.5",
+                    display: "Silver",
+                },
+                {
+                    link: "Shubh JewellerySet.html",
+                    imgSrc: "Jewellery images/Shubh Set.jpg",
+                    name: "Shubh JewellerySet",
+                    price: "₹250",
+                    discountPrice: "₹300",
+                    rating: "4.0",
+                    display: "Brass",
+                },
+                {
+                    link: "Unique JewellerySet.html",
+                    imgSrc: "Jewellery images/Unique Set.jpg",
+                    name: "Unique JewellerySet",
+                    price: "₹600",
+                    discountPrice: "₹700",
+                    rating: "4.5",
+                    display: "Silver",
+                },
+                {
+                    link: "Elegant JewellerySet.html",
+                    imgSrc: "Jewellery images/Elegant Set.jpg",
+                    name: "Elegant JewellerySet",
+                    price: "₹150",
+                    discountPrice: "₹200",
+                    rating: "4.0",
+                    display: "Alloy",
+                },
+            ],
+            Anklets: [
+                {
+                    link: "Elite Anklet.html",
+                    imgSrc: "Jewellery images/Elite Anklet.jpg",
+                    name: "Elite Anklet",
+                    price: "₹350",
+                    discountPrice: "₹400",
+                    rating: "4.0",
+                    display: "Alloy",
+                },
+                {
+                    link: "Sizziling Anklet.html",
+                    imgSrc: "Jewellery images/Sizziling Anklet.jpg",
+                    name: "Sizziling Anklet",
+                    price: "₹150",
+                    discountPrice: "₹200",
+                    rating: "4.5",
+                    display: "Brass",
+                },
+                {
+                    link: "Silver Anklet.html",
+                    imgSrc: "Jewellery images/Silver Anklet.jpg",
+                    name: "Silver Anklet",
+                    price: "₹200",
+                    discountPrice: "₹300",
+                    rating: "3",
+                    display: "Silver",
+                },
+                {
+                    link: "Chain Anklet.html",
+                    imgSrc: "Jewellery images/Chain Anklet.jpg",
+                    name: "Chain Anklet",
+                    price: "₹170",
+                    discountPrice: "₹200",
+                    rating: "2",
+                    display: "Brass",
+                },
+                {
+                    link: "Fancy Anklet.html",
+                    imgSrc: "Jewellery images/Fancy Anklet.jpg",
+                    name: "Fancy Anklet",
+                    price: "₹500",
+                    discountPrice: "₹600",
+                    rating: "4.5",
+                    display: "Silver",
+                },
+                {
+                    link: "Graceful Anklet.html",
+                    imgSrc: "Jewellery images/Graceful Anklet.jpg",
+                    name: "Graceful Anklet",
+                    price: "₹350",
+                    discountPrice: "₹450",
+                    rating: "4",
+                    display: "Brass",
+                },
+                {
+                    link: "Alloy Anklet.html",
+                    imgSrc: "Jewellery images/Alloy Anklet.jpg",
+                    name: "Alloy Anklet",
+                    price: "₹120",
+                    discountPrice: "₹180",
+                    rating: "4.5",
+                    display: "Alloy",
+                },
+                {
+                    link: "Shimmering Anklet.html",
+                    imgSrc: "Jewellery images/Shimmering Anklet.jpg",
+                    name: "Shimmering Anklet",
+                    price: "₹180",
+                    discountPrice: "₹200",
+                    rating: "4.0",
+                    display: "Silver",
+                },
+            ],
+            Frocks: [
+                {
+                    link: "/Cotton.html",
+                    imgSrc: "/Frock Images/Cotton.jpg",
+                    name: "Muslin Cotton Sleeveless Frock",
+                    price: "₹699",
+                    discountPrice: "₹1,549",
+                    rating: "4.0",
+                    display: "Knee-Length",
+                },
+                {
+                    link: "/Net.html",
+                    imgSrc: "/Frock Images/Net.jpg",
+                    name: "Niren Enterprise Girls Modal",
+                    price: "₹447",
+                    discountPrice: "₹1,999",
+                    rating: "3.9",
+                    display: "Knee-Length",
+                },
+                {
+                    link: "/Net2.html",
+                    imgSrc: "/Frock Images/Net2.jpg",
+                    name: "Net Flair Baby Frock",
+                    price: "₹519",
+                    discountPrice: "₹1,999",
+                    rating: "3.5",
+                    display: "Knee-Length",
+                },
+                {
+                    link: "/Net3.html",
+                    imgSrc: "/Frock Images/Net3.jpg",
+                    name: "Aarika Girls Net A-Line Knee",
+                    price: "₹434",
+                    discountPrice: "₹1,629",
+                    rating: "3.7",
+                    display: "Knee-Length",
+                },
+                {
+                    link: "/NEW JON.html",
+                    imgSrc: "/Frock Images/NEW JON.jpg",
+                    name: "NEW JON Girl's Calf-Length",
+                    price: "₹449",
+                    discountPrice: "₹898",
+                    rating: "2.9",
+                    display: "Calf-Length",
+                },
+                {
+                    link: "/aarikka Girl's.html",
+                    imgSrc: "/Frock Images/aarikka Girl's.jpg",
+                    name: "aarikka Girl's Net A-Line Knee-Long Dress",
+                    price: "₹539",
+                    discountPrice: "₹1,629",
+                    rating: "4.0",
+                    display: "Knee-Length",
+                },
+                {
+                    link: "/TAGAS.html",
+                    imgSrc: "/Frock Images/TAGAS.jpg",
+                    name: "TAGAS Dress for Girls Baby Girl Dress",
+                    price: "₹439",
+                    discountPrice: "₹1,499",
+                    rating: "3.9",
+                    display: "Knee-Length",
+                },
+                {
+                    link: "/Generic.html",
+                    imgSrc: "/Frock Images/Generic.jpg",
+                    name: "Cotton Polka Printed Sleeveless Frock Dress",
+                    price: "₹388",
+                    discountPrice: "₹799",
+                    rating: "3.4",
+                    display: "Sleeveless",
+                },
+                {
+                    link: "/TAGAS2.html",
+                    imgSrc: "/Frock Images/TAGAS2.jpg",
+                    name: "Baby-Girl's Net Fit and Flare Knee-Length Dress",
+                    price: "₹549",
+                    discountPrice: "₹1,499",
+                    rating: "3.9",
+                    display: "Knee-Length",
+                },
+                {
+                    link: "/UFB.html",
+                    imgSrc: "/Frock Images/UFB.jpg",
+                    name: "Embroidered Festive/Wedding Dress",
+                    price: "₹799",
+                    discountPrice: "₹2,299",
+                    rating: "3.7",
+                    display: "Maxi",
+                },
+            ],
+            Rompers: [
+                {
+                    link: "VParents.html",
+                    imgSrc: "/Rompers Images/VParents.jpg",
+                    name: "VParents Zoey Hooded Full Sleeve Cotton Baby",
+                    price: "₹539",
+                    discountPrice: "₹1,199",
+                    rating: "5.0",
+                    display: "Full Sleeve",
+                },
+                {
+                    link: "/Montu Bunty Wear.html",
+                    imgSrc: "/Rompers Images/Montu Bunty Wear.jpg",
+                    name: "New Born Baby Clothes Set Romper",
+                    price: "₹1,299",
+                    discountPrice: "₹3,499",
+                    rating: "4.0",
+                    display: "Full Sleeve",
+                },
+                {
+                    link: "/a baby cherry.html",
+                    imgSrc: "/Rompers Images/a baby cherry.jpg",
+                    name: "Side Snaps Open Baby Romper",
+                    price: "₹699",
+                    discountPrice: "₹1,099",
+                    rating: "4.4",
+                    display: "Loose",
+                },
+                {
+                    link: "/KNITROOT.html",
+                    imgSrc: "/Rompers Images/KNITROOT.jpg",
+                    name: "Lycra Envelope Neck Half Sleeve Romper",
+                    price: "₹499",
+                    discountPrice: "₹999",
+                    rating: "4.4",
+                    display: "Half",
+                },
+                {
+                    link: "/EIO.html",
+                    imgSrc: "/Rompers Images/EIO.jpg",
+                    name: "EIO 100% Cotton Rompers",
+                    price: "₹499",
+                    discountPrice: "₹1,499",
+                    rating: "4.0",
+                    display: "Ankle Length",
+                },
+                {
+                    link: "/Generic-rompers.html",
+                    imgSrc: "/Rompers Images/Generic.jpg",
+                    name: "Appu Kids Romper For Baby",
+                    price: "₹487",
+                    discountPrice: "₹999",
+                    rating: "3.6",
+                    display: "Cotton",
+                },
+                {
+                    link: "/Swissberry.html",
+                    imgSrc: "/Rompers Images/Swissberry.jpg",
+                    name: "Swissberry Kids romper jumpsuit panda style",
+                    price: "₹699",
+                    discountPrice: "₹1,499",
+                    rating: "4.0",
+                    display: "Regular",
+                },
+                {
+                    link: "/TuddyBuddy.html",
+                    imgSrc: "/Rompers Images/TuddyBuddy.jpg",
+                    name: "TuddyBuddy 100% Cotton Multi Color Romper",
+                    price: "₹399",
+                    discountPrice: "₹999",
+                    rating: "4.0",
+                    display: "Cotton",
+                },
+                {
+                    link: "SMILEY APPU CLOTHING.html",
+                    imgSrc: "/Rompers Images/SMILEY APPU CLOTHING.jpg",
+                    name: "Smiley APPU 100% Cotton Baby Rompers",
+                    price: "₹499",
+                    discountPrice: "₹1,899",
+                    rating: "3.8",
+                    display: "Cotton",
+                },
+                {
+                    link: "/Zolario.html",
+                    imgSrc: "/Other Ethnic Images/Zolario.jpg",
+                    name: "Sherwani for KidZolarios Boys",
+                    price: "₹939",
+                    discountPrice: "₹1,999",
+                    rating: "3.8",
+                    display: "Full Sleeve",
+                },
+                {
+                    link: "/FEBVIBE.html",
+                    imgSrc: "/Other Ethnic Images/FEBVIBE.jpg",
+                    name: "Embroidered Cotton Kurta",
+                    price: "₹949",
+                    discountPrice: "₹2,499",
+                    rating: "3.9",
+                    display: "Full Sleeve",
+                },
+                {
+                    link: "/Blushup.html",
+                    imgSrc: "/Other Ethnic Images/Blushup.jpg",
+                    name: "Arshia Fashions Girls ethnic",
+                    price: "₹739",
+                    discountPrice: "₹2,499",
+                    rating: "3.8",
+                    display: "A-Line",
+                },
+                {
+                    link: "/Tiber Taber.html",
+                    imgSrc: "/Other Ethnic Images/Tiber Taber.jpg",
+                    name: "Tiber Taber Indus Pixel Baby Boy Outfits-Ethnic",
+                    price: "₹1,485",
+                    discountPrice: "₹1,650",
+                    rating: "4.4",
+                    display: "Dhoti Set",
+                },
+                {
+                    link: "/Stanwells Kids.html",
+                    imgSrc: "/Other Ethnic Images/Stanwells Kids.jpg",
+                    name: "Handloom Traditional Dress Ethnic Wear For Baby Girls",
+                    price: "₹980",
+                    discountPrice: "₹2,599",
+                    rating: "4.5",
+                    display: "Maxi",
+                },
+                {
+                    link: "/AJ DEZINES.html",
+                    imgSrc: "/Other Ethnic Images/AJ DEZINES.jpg",
+                    name: "AJ DEZINES Kids Ethnic Wear Kurta",
+                    price: "₹949",
+                    discountPrice: "₹2,999",
+                    rating: "3.9",
+                    display: "Modern",
+                },
+                {
+                    link: "/Joley Poley.html",
+                    imgSrc: "/Other Ethnic Images/Joley Poley.jpg",
+                    name: "Kurta Pyjama Set for Baby Boys Casual Party",
+                    price: "₹749",
+                    discountPrice: "₹1,599",
+                    rating: "4.4",
+                    display: "Modern",
+                },
+                {
+                    link: "/Hopscotch.html",
+                    imgSrc: "/Other Ethnic Images/Hopscotch.jpg",
+                    name: "Hopscotch Boys Cotton Kurta",
+                    price: "₹1,078",
+                    discountPrice: "₹1,299",
+                    rating: "4.4",
+                    display: "Crew Neck",
+                },
+                {
+                    link: "/POLKA TOTS.html",
+                    imgSrc: "/Other Ethnic Images/POLKA TOTS.jpg",
+                    name: "Indian Ethnic Kurta Pajama Set",
+                    price: "₹1,599",
+                    discountPrice: "₹1,799",
+                    rating: "4.4",
+                    display: "Casual",
+                },
+            ],
+            "Kids-footwear": [
+                {
+                    link: "/Aerokick.html",
+                    imgSrc: "/Foot wear images/Aerokick.jpg",
+                    name: "Aerokick Kids Casual Sneaker Shoes, Lightweight, Durable, Comfortable Casual Shoes for Boys and Girls",
+                    price: "₹479",
+                    discountPrice: "₹999",
+                    rating: "4.0",
+                    display: "Sneaker",
+                },
+                {
+                    link: "/ASIAN-kids.html",
+                    imgSrc: "/Foot wear images/ASIAN.jpg",
+                    name: "ASIAN Kids SLIDER-32 Daily use Casual Walking Sliders and Slippers – Lightweight & Stylish Flip-Flops for Men & Boys",
+                    price: "₹467",
+                    discountPrice: "₹599",
+                    rating: "2.5",
+                    display: "Flip-Flops",
+                },
+                {
+                    link: "/crocs.html",
+                    imgSrc: "/Foot wear images/crocs.jpg",
+                    name: "crocs unisex-child Bayaband Sandal NAVY/PEPPER Sandal - 5-5.5 Years, 12 Kids UK",
+                    price: "₹1,319",
+                    discountPrice: "₹2,495",
+                    rating: "4.5",
+                    display: "Sandal",
+                },
+                {
+                    link: "/DRUNKEN.html",
+                    imgSrc: "/Foot wear images/DRUNKEN.jpg",
+                    name: "DRUNKEN Slipper For Kids Girls Boys Flip Flops Child Slides Chappals Home Fashion Winter Slipper",
+                    price: "₹1,099",
+                    discountPrice: "₹2,780",
+                    rating: "4.5",
+                    display: "Flip-Flops",
+                },
+                {
+                    link: "/FootStation.html",
+                    imgSrc: "/Foot wear images/FootStation.jpg",
+                    name: "FootStation Kids' Colorful & Playful Girls' Sneakers",
+                    price: "₹599",
+                    discountPrice: "₹899",
+                    rating: "2",
+                    display: "Sneaker",
+                },
+                {
+                    link: "/GLJ.html",
+                    imgSrc: "/Foot wear images/GLJ.jpg",
+                    name: "GLJ Little AngelToddler Clogs Slippers, 12 Months to 3 Years, Baby Boy",
+                    price: "₹499",
+                    discountPrice: "₹999",
+                    rating: "4.0",
+                    display: "Clogs",
+                },
+                {
+                    link: "/HOOH.html",
+                    imgSrc: "/Foot wear images/HOOH.jpg",
+                    name: "HOOH-Now comfort in Fashion unisex child Sneaker",
+                    price: "₹499",
+                    discountPrice: "₹999",
+                    rating: "3.5",
+                    display: "Sneaker",
+                },
+                {
+                    link: "/Puma.html",
+                    imgSrc: "/Foot wear images/Puma.jpg",
+                    name: "Puma Unisex-Kids' Popcat 20 Backstrap V1 AC Pre-School Slide",
+                    price: "₹749",
+                    discountPrice: "₹1,499",
+                    rating: "3.0",
+                    display: "Slides",
+                },
+                {
+                    link: "/RJ FOOTWEAR.html",
+                    imgSrc: "/Foot wear images/RJ FOOTWEAR.jpg",
+                    name: "RJ FOOTWEAR Kids Girl's Beautiful Floral PVC Stylish Block Heel Ankle Strap Sandals",
+                    price: "₹499",
+                    discountPrice: "₹899",
+                    rating: "2",
+                    display: "Sandal",
+                },
+                {
+                    link: "/VIL.html",
+                    imgSrc: "/Foot wear images/VIL.jpg",
+                    name: "VIL Kids Casual, Sports and Running Shoes for Boys and Girls(Unisex)",
+                    price: "₹399",
+                    discountPrice: "₹1,499",
+                    rating: "4.0",
+                    display: "Sneaker",
+                },
+            ],
+            Blankets: [
+                {
+                    link: "/TWC.html",
+                    imgSrc: "Blankets Images/TWC.jpg",
+                    name: "TWC Knitted Baby Blanket",
+                    price: "₹2,298",
+                    discountPrice: "₹4,998",
+                    rating: "4.1",
+                    display: "Comforter",
+                    discount: "30",
+                },
+                {
+                    link: "/MY NEWBORN.html",
+                    imgSrc: "/Blankets Images/MY NEWBORN.jpg",
+                    name: "MY NEWBORN Hooded Baby Blanket Wrapper",
+                    price: "₹652",
+                    discountPrice: "₹2,000",
+                    rating: "3.8",
+                    display: "Modern",
+                    discount: "40",
+                },
+                {
+                    link: "/POLKA TOTS.html",
+                    imgSrc: "/Blankets Images/POLKA TOTS.jpg",
+                    name: "POLKA TOTS Cartoon Printed Comforter Baby Blanket",
+                    price: "₹999",
+                    discountPrice: "₹1,599",
+                    rating: "3.0",
+                    display: "Quilt",
+                    discount: "50",
+                },
+                {
+                    link: "/haus & kinder-blankets.html",
+                    imgSrc: "/Blankets Images/haus & kinder.jpg",
+                    name: "haus & kinder Cotton Reversible Muslin Blanket",
+                    price: "₹899",
+                    discountPrice: "₹1,699",
+                    rating: "4.6",
+                    display: "Cotton",
+                    discount: "50",
+                },
+                {
+                    link: "/FAMYO.html",
+                    imgSrc: "/Blankets Images/FAMYO.jpg",
+                    name: "FAMYO Pink Glow In The Dark Blanket For Kids",
+                    price: "₹1,103",
+                    discountPrice: "₹3,499",
+                    rating: "4.1",
+                    display: "FAMYO",
+                    discount: "50",
+                },
+                {
+                    link: "/FRESH FROM LOOM.html",
+                    imgSrc: "/Blankets Images/FRESH FROM LOOM.jpg",
+                    name: "FRESH FROM LOOM Cartoon Printed Children Bed Blanket",
+                    price: "₹948",
+                    discountPrice: "₹1,999",
+                    rating: "4.3",
+                    display: "Comforter",
+                    discount: "50",
+                },
+                {
+                    link: "/Ritvik Decor.html",
+                    imgSrc: "/Blankets Images/Ritvik Decor.jpg",
+                    name: "Ritvik Decor Cartoon Printed Blankets for Kids",
+                    price: "₹780",
+                    discountPrice: "₹1,999",
+                    rating: "4.6",
+                    display: "Modern",
+                    discount: "50",
+                },
+                {
+                    link: "/Happy Hues.html",
+                    imgSrc: "/Blankets Images/Happy Hues.jpg",
+                    name: "Happy Hues Glow in The Dark Blanket",
+                    price: "₹1,090",
+                    discountPrice: "₹3,499",
+                    rating: "4.3",
+                    display: "Happy Hues",
+                    discount: "50",
+                },
+                {
+                    link: "/BRANDONN.html",
+                    imgSrc: "/Blankets Images/BRANDONN.jpg",
+                    name: "BRANDONN New Born and Toddler Kids Blanket",
+                    price: "₹586",
+                    discountPrice: "₹1,599",
+                    rating: "4.4",
+                    display: "Toddler",
+                    discount: "50",
+                },
+                {
+                    link: "/Homescape.html",
+                    imgSrc: "/Blankets Images/Homescape.jpg",
+                    name: "Homescape New Born Baby Blanket",
+                    price: "₹399",
+                    discountPrice: "₹999",
+                    rating: "4.2",
+                    display: "Swaddle",
+                    discount: "50",
+                },
+                {
+                    link: "FRESH FROM LOOM.html",
+                    imgSrc: "/Blankets Images/FRESH FROM LOOM2.jpg",
+                    name: "FRESH FROM LOOM2 Cartoon Printed Blankets for Kids",
+                    price: "₹948",
+                    discountPrice: "₹1,999",
+                    rating: "4.3",
+                    display: "Cartoon",
+                    discount: "50",
+                },
+                {
+                    link: "/FAMYO.html",
+                    imgSrc: "/Blankets Images/FAMYO Unicorn.jpg",
+                    name: "FAMYO Unicorn & Fairy Glow in The Dark Blanket for Kids",
+                    price: "₹1,149",
+                    discountPrice: "₹3,499",
+                    rating: "4.1",
+                    display: "FAMYO",
+                    discount: "50",
+                },
+            ],
+
+            "Kids-toys": [
+                {
+                    link: "/Amisha.html",
+                    imgSrc: "Kids Toys Images/Amisha.jpg",
+                    name: "Amisha Gift Gallery Indian Passenger Toy Train Set | Battery Operated Train Railway Tracks for Kids",
+                    price: "₹682",
+                    discountPrice: "₹718",
+                    rating: "3.7",
+                    display: "Train",
+                    discount: "25",
+                },
+                {
+                    link: "/Amitasha.html",
+                    imgSrc: "Kids Toys Images/Amitasha.jpg",
+                    name: "Amitasha Kids Archery Bow and Arrow Toy Set with Target Board for Kids",
+                    price: "₹299",
+                    discountPrice: "₹1,599",
+                    rating: "3.8",
+                    display: "Sports",
+                    discount: "50",
+                },
+                {
+                    link: "/crocs.html",
+                    imgSrc: "Kids Toys Images/Gooyo.jpg",
+                    name: "Gooyo 7732 Set of Walkie Talkie Toy for Gift/Kids/Girls/Boys | Antenna Operated 2 Way Radio Role Play Toy",
+                    price: "₹298",
+                    discountPrice: "₹699",
+                    rating: "3.0",
+                    display: "Sports",
+                    discount: "40",
+                },
+                {
+                    link: "/Graphene.html",
+                    imgSrc: "Kids Toys Images/Graphene.jpg",
+                    name: "Graphene Airplane Launcher Gun, Safe and Fun Shooting Guns for Kids",
+                    price: "₹289",
+                    discountPrice: "₹1,499",
+                    rating: "3.0",
+                    display: "Action",
+                    discount: "70",
+                },
+                {
+                    link: "/Storio.html",
+                    imgSrc: "Kids Toys Images/Storio.jpg",
+                    name: "Storio Plastic Soft Plush Toys Baby Ball with Rattle Sound for Baby Boy Girl Kids",
+                    price: "₹139",
+                    discountPrice: "₹209",
+                    rating: "4.0",
+                    display: "Ball",
+                    discount: "25",
+                },
+                {
+                    link: "/TOYZTREND.html",
+                    imgSrc: "Kids Toys Images/TOYZTREND.jpg",
+                    name: "TOYZTREND Plastic Baby Kids Teddy Stacking Ring Jumbo Stack Up Educational Toy Assorted color Rings Tower Construction Toys",
+                    price: "₹269",
+                    discountPrice: "₹310",
+                    rating: "4.0",
+                    display: "Educational",
+                    discount: "25",
+                },
+                {
+                    link: "/Umadiya.html",
+                    imgSrc: "Kids Toys Images/Umadiya.jpg",
+                    name: "Duck Track Toys for Kids - Ducks Chasing Race Track Game Set",
+                    price: "₹399",
+                    discountPrice: "₹1,500",
+                    rating: "4.0",
+                    display: "Action",
+                    discount: "70",
+                },
+                {
+                    link: "/VGRASSP.html",
+                    imgSrc: "Kids Toys Images/VGRASSP.jpg",
+                    name: "UFO Shaped Spinning Top - Launcher Lattoo Toy for Kids and Adults with Beautiful LED Flash Lights and Dynamic Music",
+                    price: "₹255",
+                    discountPrice: "₹499",
+                    rating: "3.0",
+                    display: "Music",
+                    discount: "50",
+                },
+                {
+                    link: "/Wembley.html",
+                    imgSrc: "Kids Toys Images/Wembley.jpg",
+                    name: "Wembley Ball Pool For Kids Play Area Indoor Setup Baby Ball Pit With 20 Balls Gift Toys",
+                    price: "₹799",
+                    discountPrice: "₹999",
+                    rating: "3.5",
+                    display: "Sports",
+                    discount: "25",
+                },
+                {
+                    link: "/ZUDO.html",
+                    imgSrc: "Kids Toys Images/ZUDO.jpg",
+                    name: "ZUDO TOYS Learning Colour And Pattern Matching Montessori",
+                    price: "₹280",
+                    discountPrice: "₹499",
+                    rating: "4.0",
+                    display: "Educational",
+                    discount: "25",
+                },
+            ],
+        };
+
+        // Function to show products based on selected category
+        function showProducts(category) {
+            const productGrid = document.getElementById("productGrid");
+
+            // Clear current products
+            productGrid.innerHTML = "";
+
+            // Get the products for the selected category
+            const products = allProducts[category] || [];
+
+            // Populate product grid with selected products
+            products.forEach((product) => {
+                const productCard = document.createElement("div");
+                productCard.classList.add("product-card");
+                // productCard.id.add(ca)
+
+                productCard.innerHTML = `
+                    <a href="${product.link}">
+                        <img src="${product.imgSrc}" alt="${product.name}">
+                        <p class="product-name">${product.name}</p>
+                        <p class="product-price">${product.price} <span class="discount-price">${product.discountPrice}</span></p>
+                        <p class="product-rating">Rating: ${product.rating}</p>
+                        <p class="product-display">${product.display}</p>
+                    </a>
+                `;
+
+                productGrid.appendChild(productCard);
+            });
+        }
+    </script>
+    <footer>
+        <div class="footer_nav-links_placeholder" hx-boost="true">
+            <ul class="footer_nav-links">
+                <li class="footer_nav-link"><a href="/about">About</a></li>
+                <li class="footer_nav-link"><a href="/contact">Contact</a></li>
+                <li class="footer_nav-link"><a href="">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer_social-links_placeholder">
+            <ul class="footer_social-links">
+                <li class="footer_social-link">
+                    <a href="#">
+                        <svg fill="white" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="24px"
+                            height="24px" viewBox="0 0 14.906 32">
+                            <path
+                                d="M14.874,11.167 L14.262,14.207 C14.062,15.208 13.100,15.992 12.072,15.992 L10.000,15.992 L10.000,30.000 C10.000,31.104 9.159,32.000 8.049,32.000 L5.030,32.000 C3.920,32.000 3.017,31.102 3.017,29.999 L3.017,15.992 L2.011,15.992 C0.901,15.992 -0.002,15.095 -0.002,13.991 L-0.002,10.990 C-0.002,9.887 0.901,8.989 2.011,8.989 L3.017,8.989 L3.017,6.003 C3.017,2.716 5.693,0.041 8.994,0.013 C9.015,0.012 9.033,0.001 9.055,0.001 L13.081,0.001 C13.636,0.001 14.000,0.448 14.000,1.000 L14.000,6.000 C14.000,6.553 13.636,7.004 13.081,7.004 L10.061,7.004 L10.060,8.989 L13.079,8.989 C13.645,8.989 14.167,9.228 14.509,9.644 C14.852,10.059 14.985,10.615 14.874,11.167 ZM9.092,10.990 C9.078,10.991 9.067,10.998 9.053,10.998 L9.053,10.998 C8.497,10.997 8.046,10.549 8.047,9.997 L8.047,9.990 C8.047,9.990 8.047,9.990 8.047,9.990 C8.047,9.990 8.047,9.990 8.047,9.990 L8.049,6.003 C8.049,5.450 8.499,5.003 9.055,5.003 L12.074,5.003 L12.074,2.002 L9.094,2.002 C9.077,2.002 9.063,2.011 9.045,2.011 C6.831,2.011 5.030,3.802 5.030,6.003 L5.030,10.005 C5.030,10.558 4.579,11.006 4.023,11.006 C3.996,11.006 3.973,10.992 3.946,10.990 L2.011,10.990 L2.011,13.991 L4.023,13.991 C4.579,13.991 5.030,14.439 5.030,14.992 C5.030,15.044 5.008,15.088 5.000,15.138 L5.000,30.000 L8.049,29.999 L8.049,15.002 C8.049,14.998 8.047,14.995 8.047,14.992 C8.047,14.439 8.497,13.991 9.053,13.991 L12.072,13.991 C12.145,13.991 12.275,13.886 12.288,13.816 L12.857,10.990 L9.092,10.990 Z" />
+                        </svg>
+                    </a>
+                </li>
+                <li class="footer_social-link">
+                    <a href="#">
+                        <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
+                                fill="white" />
+                            <path
+                                d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                                fill="white" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
+                                fill="white" />
+                        </svg>
+                    </a>
+                </li>
+                <li class="footer_social-link">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white"
+                            class="bi bi-twitter-x" viewBox="0 0 16 16">
+                            <path
+                                d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+                        </svg>
+                    </a>
+                </li>
+                <li class="footer_social-link"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="footer_copy-rights_placeholder">
+            <p class="copy-rights">Copyright © 2024 MyCity. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="/script.js"></script>
+    <script>
+        // Get all favorite buttons
+        const favoriteButtons = document.querySelectorAll('.favorite-button');
+
+        // Add event listener to each button
+        favoriteButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Toggle the 'active' class to change color
+                button.classList.toggle('active');
+
+                // Optional: Add logic to handle adding/removing from favorites
+                // You might use localStorage or an API here
+            });
+        });
+
+        const hamburger = document.querySelector(".mobile_header");
+        const closebtn = document.querySelector('.closeImage');
+
+        const navbar = document.querySelector(".mobile-header");
+        function toggleNavbar() {
+            navbar.classList.toggle('active');
+            closebtn.classList.toggle('active');
+
+        }
+
+        hamburger.addEventListener("click", toggleNavbar);
+        closebtn.addEventListener("click", toggleNavbar);
+
+        const togglearrow = document.querySelector(".togglearrow");
+        const sidebar = document.querySelector(".sidebar");
+
+        togglearrow.addEventListener('click', ()=>{
+            sidebar.classList.toggle("active");
+            togglearrow.classList.toggle("active");
+
+        })
+
+    </script>
+</body>
+
+</html>

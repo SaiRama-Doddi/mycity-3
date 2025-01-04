@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Brand</title>
+    <link rel="stylesheet" href="/css/Styles2.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <h2>My<span>Site</span></h2>
+        </div>
+        <ul>
+            <li><a href="/">Dashboard</a></li>
+            <li><a href="#">Movies</a></li>
+            <li><a href="/artists">Music</a>
+                <ul class="submenu">
+                    <li><a href="/artists">Artists</a></li>
+                    <li><a href="category">Category</a></li>
+                    <li><a th:href="@{/products}">Product</a></li>
+                    <li><a href="/city-list">City List</a></li>
+                    <li><a href="/hotels-page">Add Hotel</a></li>
+                    <li><a href="/list">Hotel List</a></li>
+                </ul>
+            </li>
+            <li class="active">
+                <a href="/hotels-page">Shopping</a>
+                <ul class="submenu">
+                    <li><a th:href="@{/shopping-brands}">Brands</a></li>
+                    <li><a href="/hotels/amenities">Category</a></li>
+                    <li><a href="/city-page">Product</a></li>
+                    <li><a href="/city-list">City List</a></li>
+                    <li><a href="/hotels-page">Add Hotel</a></li>
+                    <li><a href="/list">Hotel List</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Hotels</a></li>
+
+        </ul>
+    </div>
+
+    <!-- Topbar -->
+    <div class="topbar">
+        <img src="images/logo.png" alt="" width="70px">
+        <input type="text" placeholder="Search...">
+        <button>Search</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <h1>Add New Brand</h1>
+            <form th:action="@{/create}" th:object="${brandDto}" method="post">
+                <!-- Brand ID -->
+                <!-- <div class="form-group">
+                    <label for="brandId">Brand ID</label>
+                    <input type="text" id="brandId" th:field="*{brandId}" placeholder="Enter brand ID" />
+                    <div class="error" th:if="${#fields.hasErrors('brandId')}" th:errors="*{brandId}"></div>
+                </div> -->
+
+                <!-- Name -->
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" th:field="*{name}" placeholder="Enter brand name" />
+                    <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" th:field="*{description}" placeholder="Enter brand description"></textarea>
+                    <div class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                </div>
+
+                <!-- Country -->
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <input type="text" id="country" th:field="*{country}" placeholder="Enter country of origin" />
+                    <div class="error" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-actions">
+                    <button type="submit" class="btn">Save Brand</button>
+                    <a class="btn btn-outline-primary" href="/brands" role="button">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

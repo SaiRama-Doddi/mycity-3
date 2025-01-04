@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Hotel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/CSS/Styles.css}">
+</head>
+<body>
+    <div class="container" style="min-width: 100%;">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <!-- <h2>My<span>Site</span></h2> -->
+                <img th:src="@{/images/logo-city.jpg}" alt="Profile" class="profile" height="40px" width="60px">
+
+
+            </div>
+            <ul>
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="/songs">Songs</a></li>
+                <li><a href="shopping">Shopping</a></li>
+                <li class="active">
+                    <a href="/hotels-page">Hotels</a>
+                    <ul class="submenu">
+                        <li><a href="/hotels/rooms">Rooms</a></li>
+                        <li><a href="/amenities/add">Amenities</a></li>
+                        <li><a href="/city-page">Add City</a></li>
+                        <li><a href="/city-list">City List</a></li>
+                        <li><a href="/hoteladd">Add Hotel</a></li>
+                        <li><a href="/list">Hotel List</a></li>
+                       
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="welcome">
+                    <h2 id="greeting" th:text="${greetingText + ','+ username}"></h2>
+                    <p>Here is what Happening In Your Store</p>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="user-icons">
+                    <i class="fas fa-bell"></i>
+                    <img src="profile.jpg" alt="User Profile" class="profile-pic">
+                </div>
+            </div>
+
+            <!-- Form Container -->
+            <div class="form-container mt-5">
+                <form th:action="@{/save}" method="post" th:object="${hotel}">
+            
+                    <input type="hidden" th:field="*{hotelId}">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Hotel Name</label>
+                        <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Enter hotel name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" th:field="*{description}" placeholder="Enter description" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Rating</label>
+                        <input type="number" class="form-control" id="rating" th:field="*{rating}" placeholder="Enter rating (1-5)" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contactInfo" class="form-label">Contact Info</label>
+                        <input type="text" class="form-control" id="contactInfo" th:field="*{contactInfo}" placeholder="Enter contact info" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="city" class="form-label">City</label>
+                        <select class="form-control" id="city" th:field="*{city}" required>
+                            <option value="" disabled selected>Select a city</option>
+                            <option th:each="city : ${cities}" th:value="${city.cityId}" th:text="${city.name}"></option>
+                        </select>
+                    </div> 
+                     <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <select id="address" name="addressId" class="form-control custom-select"  required>
+                            <option value="" disabled selected>Select Address</option>
+                            <option value="0">None</option>
+                            <option th:each="addr : ${address}" th:value="${addr.addressId}" th:text="${addr.addressLine1}"></option>
+                        </select>
+                    </div> 
+                    
+                    
+                   <!--  <div class="mb-3">
+                        <label for="rooms">Select Rooms</label>
+                        <select id="rooms" name="rooms" class="form-control custom-select">
+                            <option value="" disabled selected>Select Rooms</option>
+                            <option value="0">None</option>
+                            <option th:each="room : ${rooms}" th:value="${room.roomId}" th:text="${room.roomId}"></option>
+                        </select>
+                        
+                    </div>  -->
+ 
+
+                      <!-- Amenities Selection (Multiple) -->
+                     <div class="mb-3">
+                        <label for="amenities" class="form-label">Select Amenities</label>
+                        <select id="amenities" name="amenities" class="form-control" multiple>
+                            <option value="" disabled>Select Amenities</option>
+                            <option th:each="amenity : ${amenities}"
+                              th:value="${amenity.amenityId}"
+                              th:text="${amenity.name}"
+                              th:selected="${hotel.amenities?.contains(amenity) ?: false}">
+                           </option>
+
+                        </select>
+                    </div>
+                    
+                    
+
+        <!-- Map Source -->
+         <div class="mb-3">
+            <label for="mapSource" class="form-label">Map Source</label>
+            <input type="text" class="form-control" id="mapSource" th:field="*{mapSource}" placeholder="Enter map source URL"maxlength="500">
+        </div>
+               
+           <button type="submit" class="btn btn-primary">Add Hotel</button>
+                </form>
+            </div>
+            
+            
+        </div>
+    </div>
+
+    <script th:src="@{/JS/Script.js}"></script>
+</body>
+</html>

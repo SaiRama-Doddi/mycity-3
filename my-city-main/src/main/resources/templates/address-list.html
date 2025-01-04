@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Address List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        table td {
+            width: 100px;
+        }
+    </style>
+    <script>
+        function confirmDelete(id) {
+            if (confirm("Are you sure you want to delete this address?")) {
+                window.location.href = '/address/delete/' + id;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Address List</h2>
+        <div class="mt-3">
+            <a href="/address/add" class="btn btn-success">Add New Address</a>
+        </div>
+        <table class="table table-bordered mt-4">
+            <thead>
+                <tr>
+                    <th>A ID</th>
+                    <th>Address Line 1</th>
+                    <th>Address Line 2</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Postal Code</th>
+                    <th>Country</th>
+                    <th>Hotel Name</th> <!-- New column for Hotel Name -->
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="address : ${addresses}">
+                    <td th:text="${address.addressId}" style="width: 5%;"></td>
+                    <td th:text="${address.addressLine1}"></td>
+                    <td th:text="${address.addressLine2}"></td>
+                    <td th:text="${address.city}"></td>
+                    <td th:text="${address.state}"></td>
+                    <td th:text="${address.postalCode}"></td>
+                    <td th:text="${address.country}"></td>
+                    <td th:text="${address.hotel != null && address.hotel.hotelId != 0 ? address.hotel.name : 'Not Selected'}"></td>
+                    <!-- Displaying Hotel Name -->
+                    <td style="width: 20%;">
+                        <a th:href="@{/address/edit/{id}(id=${address.addressId})}" class="btn btn-primary btn-sm">Edit</a>
+                        <button class="btn btn-danger btn-sm" 
+                                th:onclick="'confirmDelete(' + ${address.addressId} + ')'">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

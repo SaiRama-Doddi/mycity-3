@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Popup Modal Styles */
+.popup-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+}
+
+.popup-actions {
+    margin-top: 15px;
+}
+
+button {
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #f37022;
+    color: white;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Check-in Popup Modal -->
+<div id="checkinModal" class="popup-modal">
+    <div class="popup-content">
+        <h3>Select Check-in Date</h3>
+        <input type="date" id="checkinDate" />
+        <div class="popup-actions">
+            <button id="checkinSaveBtn">Save</button>
+            <button id="checkinCancelBtn">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- Check-out Popup Modal -->
+<div id="checkoutModal" class="popup-modal">
+    <div class="popup-content">
+        <h3>Select Check-out Date</h3>
+        <input type="date" id="checkoutDate" />
+        <div class="popup-actions">
+            <button id="checkoutSaveBtn">Save</button>
+            <button id="checkoutCancelBtn">Cancel</button>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    // Handle Person Dropdown
+    const personFilter = document.querySelector(".filterbox[data-type='Persons']");
+    const personDropdown = personFilter.querySelector(".dropdownContent");
+    const personSelectedText = personFilter.querySelector(".filter-input .selectedText");
+
+    personFilter.addEventListener("click", function (event) {
+        event.stopPropagation(); // Prevents closing dropdown immediately
+        personDropdown.classList.toggle("show");
+    });
+
+    personDropdown.querySelectorAll(".listItem input").forEach((input) => {
+        input.addEventListener("change", function () {
+            personSelectedText.textContent = input.labels[0].textContent;
+            personDropdown.classList.remove("show");
+        });
+    });
+
+    // Handle Check-in Popup
+    const checkinFilter = document.querySelector(".filterbox[data-type='Check-in'] .filter-input");
+    const checkinSelectedText = checkinFilter.querySelector(".selectedText");
+    const checkinModal = document.getElementById("checkinModal");
+    const checkinSaveBtn = document.getElementById("checkinSaveBtn");
+    const checkinCancelBtn = document.getElementById("checkinCancelBtn");
+    const checkinDateInput = document.getElementById("checkinDate");
+
+    checkinFilter.addEventListener("click", function (event) {
+        event.stopPropagation(); // Prevent dropdown conflicts
+        checkinModal.style.display = "flex"; // Show the modal
+    });
+
+    // Handle Save for Check-in Date
+    checkinSaveBtn.addEventListener("click", function () {
+        if (checkinDateInput.value) {
+            checkinSelectedText.textContent = checkinDateInput.value;
+        }
+        checkinModal.style.display = "none"; // Close the modal
+    });
+
+    // Handle Cancel for Check-in Date
+    checkinCancelBtn.addEventListener("click", function () {
+        checkinModal.style.display = "none"; // Close the modal
+    });
+
+    // Handle Check-out Popup
+    const checkoutFilter = document.querySelector(".filterbox[data-type='Check-out'] .filter-input");
+    const checkoutSelectedText = checkoutFilter.querySelector(".selectedText");
+    const checkoutModal = document.getElementById("checkoutModal");
+    const checkoutSaveBtn = document.getElementById("checkoutSaveBtn");
+    const checkoutCancelBtn = document.getElementById("checkoutCancelBtn");
+    const checkoutDateInput = document.getElementById("checkoutDate");
+
+    checkoutFilter.addEventListener("click", function (event) {
+        event.stopPropagation(); // Prevent dropdown conflicts
+        checkoutModal.style.display = "flex"; // Show the modal
+    });
+
+    // Handle Save for Check-out Date
+    checkoutSaveBtn.addEventListener("click", function () {
+        if (checkoutDateInput.value) {
+            checkoutSelectedText.textContent = checkoutDateInput.value;
+        }
+        checkoutModal.style.display = "none"; // Close the modal
+    });
+
+    // Handle Cancel for Check-out Date
+    checkoutCancelBtn.addEventListener("click", function () {
+        checkoutModal.style.display = "none"; // Close the modal
+    });
+
+    // Close dropdowns and modals when clicking outside
+    document.addEventListener("click", function (event) {
+        if (!personFilter.contains(event.target)) {
+            personDropdown.classList.remove("show");
+        }
+        if (!checkinModal.contains(event.target) && event.target !== checkinFilter) {
+            checkinModal.style.display = "none";
+        }
+        if (!checkoutModal.contains(event.target) && event.target !== checkoutFilter) {
+            checkoutModal.style.display = "none";
+        }
+    });
+});
+
+</script>
+</body>
+</html>

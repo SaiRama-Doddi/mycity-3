@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="../../../src/styles.css" rel="stylesheet">
+</head>
+<body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entertainment - Movie Details</title>
+</head>
+<body>
+    <div class="w-full topbar z-[999]">    
+        <nav class="navbar flex justify-between text-white items-center mx-[3rem]">
+            <div class="navlinks-container flex h-[100%] items-center pl-8">
+                <p class="navlink" id="home-link">
+                    <a href="../../home.html" class="hover:text-white">Home</a>
+                </p>
+                <p class="navlink" id="movies-link">
+                    <a href="../../movies.html" class="hover:text-white">Movies</a>
+                </p>
+                <p class="navlink" id="musics-link">
+                    <a href="../../Mymusic.html" class="hover:text-white">Music</a>
+                </p>
+                <p class="navlink" id="shortfilms-link">
+                    <a href="../../shortfilm.html" class="hover:text-white">Short Films</a>
+                </p>
+                <p class="navlink" id="filmnews-link">
+                    <a href="../../fil.html" class="hover:text-white">Film News</a>
+                </p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="SearchBar pr-10">
+                <div class="searchInput flex w-[160px] gap-[10px] p-[10px] border-[3px] rounded-[13px] border-liteOrange mt-3 cursor-pointer" onclick="searchExpand(event)">
+                    <label for="searchbar">
+                        <img src="../../../src/assets/icons/search.svg" alt="search Icon" class="w-[25px]"/>
+                    </label>
+                    <input type="text" placeholder="Search" id="searchbar" class="searchbar bg-transparent w-full placeholder-gray-500 placeholder:font-bold focus:outline-none transition"/>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    
+
+    <div class="movieDetails-container">
+        <div class="movie-hero py-6 px-[4rem] relative">
+            <img id="mainImage"  alt="" class="z-40 rounded-[30px] w-[1364px] h-[613px] object-cover" />
+            <div class="moviedetail flex gap-6 absolute left-[14%] top-[25%]">
+                <div class="movieposter relative">
+                    <img id="posterImage" src="" alt="" class="w-[256px]  h-[321px] object-contain" />
+                    <p class="absolute bg-[#00000099] p-3 w-full bottom-0 text-center font-semibold text-white">In Cinemas</p>
+                </div>
+                <div class="details text-white flex flex-col gap-2">
+                    <h1 id="movieName" class="font-bold text-4xl capitalize"></h1>
+                    <div class="ratings text-white flex justify-between rounded-[15px] backdrop:blur-[100px] px-[1rem] py-[.4rem] w-[358px] bg-[#231F20B2] items-center">
+                        <span class="flex gap-1">
+                            <img src="../../../src/assets/icons/star.svg" alt="star" width="20" />
+                            <span id="movieRating"></span>/10
+                        </span>
+                        <p id="movieVotes"></p>
+                        <button class="bg-[#666666] p-[10px] rounded-[15px]">Rate now</button>
+                    </div>
+                    <div class="langs flex gap-4">
+                        <p id="language" class="bg-white px-[12px] py-[5px] w-fit text-[#666666] rounded-[10px] font-medium"></p>
+                        <p class="bg-white px-[12px] py-[5px] w-fit text-[#666666] rounded-[10px] font-medium">2D, IMAX 2D</p>
+                    </div>
+                    <p class="length-genre font-medium text-xl">
+                        <span id="movieDuration"></span>
+                        <span class="ml-3" id="movieGenre"></span>. UA
+                    </p>
+                    <button class="bookTickets w-fit font-bold text-[20px] bg-[#F37022] px-[19px] py-[13px] rounded-[15px]">Book Tickets</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-container mt-4">
+            <div class="filters text-white flex justify-between py-5 px-16 items-center">
+                <div class="location flex gap-[8px] px-[24px] py-[21px] bg-[#F37022] w-fit rounded-[15px] items-center cursor-pointer">
+                    <img src="../../../src/assets/icons/location.svg" alt="location Icon" width="25" />
+                    <p class="font-medium text-[23.93px]">Vishakapatinam</p>
+                </div>
+                <div class="flex relative">
+                    <label htmlFor="calendar">
+                        <img src="../../../src/assets/icons/calander.svg" alt="calendar Icon" class="cursor-pointer" id="calendarToggle" />
+                    </label>
+                    <div id="calendarContainer" class="absolute z-10 mt-12 text-black hidden"></div>
+                </div>
+
+                <div class="language">
+                    <div class="filter1 flex gap-1 cursor-pointer">
+                        <select name="language" id="languageSelect" class="bg-transparent cursor-pointer focus:outline-none">
+                            <option value="tamil">Tamil</option>
+                            <option value="telugu">Telugu</option>
+                        </select>
+                        <img src="../../../src/assets/icons/arrow.svg" alt="arrow" class="arrow-icon" />
+                    </div>
+                </div>
+                <div class='filter1 flex gap-5 cursor-pointer'>
+                    <select name="format" id="format" class='bg-transparent  cursor-pointer focus:outline-none'>
+                        <option value="" selected>Format </option>
+                        <option value="2D">2D</option>
+                        <option value="imax">IMAX</option>
+                    </select>
+                    <img src="../../../src/assets/icons/arrow.svg" alt="arrow" class='arrow-icon' />
+                </div>
+                <div class='pricing filter1 flex  cursor-pointer'>
+                    <select name="pricing" id="pricing" class='bg-transparent  cursor-pointer focus:outline-none'>
+                        <option value="" selected>Pricing </option>
+                        <option value="below300">Below 300</option>
+                        <option value="300 - 500">300 - 500</option>
+                        <option value="500 - 700">500 - 700</option>
+                    </select>
+                    <img src="../../../src/assets/icons/arrow.svg" alt="arrow" class='arrow-icon' />
+                </div>
+                <div class='show-Time filter1 flex gap-5 cursor-pointer'>
+                    <select name="showTime" id="showTime" class='bg-transparent focus:outline-none cursor-pointer'>
+                        <option value="" selected>Show Time </option>
+                        <option value="10am">10 AM</option>
+                        <option value="12pm ">12 PM</option>
+                        <option value="6 30 pm">6 30 PM</option>
+                    </select>
+                    <img src="../../../src/assets/icons/arrow.svg" alt="arrow" class='arrow-icon' />
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="theater-section mt-4 mb-8 px-16">
+            <h1 class="title2">Theaters Near You</h1>
+            <div id="theaterList" class="flex gap-12 overflow-x-scroll scrollbarhide mt-8 mx-4"></div>
+        </div>
+
+        <div class="about-section px-16">
+            <h1 class="title1">About</h1>
+            <div class="about">
+                <p id="movieOneliner" class="text-white font-medium text-2xl w-4/5 mx-4 my-8"></p>
+            </div>
+        </div>
+
+        <div class="divider mx-[4rem] h-[2px] bg-white mb-[3rem]"></div>
+
+        <div class="cast-section px-16 mb-16">
+            <div class="flex gap-2 mb-8">
+                <img src="../../../src/assets/icons/latest.svg" alt="Cast icon" width="30" />
+                <h1 class="title1">Cast</h1>
+            </div>
+            <div id="castList" class="flex w-full overflow-x-scroll scrollbarhide gap-16"></div>
+        </div>
+
+        <div class="topReviews-section pl-16 pr-4 mb-20">
+            <div class="flex mb-16 justify-between w-full items-center">
+                <div class="flex gap-2 items-center">
+                    <img src="../../../src/assets/icons/latest.svg" alt="top reviews" width="40" />
+                    <h2 class="title1">Top Reviews</h2>
+                </div>
+                <p class="text-orange-500 flex gap-2 items-center font-roboto font-medium cursor-pointer">
+                    123.4K Reviews
+                    <img src="../../../src/assets/icons/rightarrow.svg" alt="right arrow" width="7" />
+                </p>
+            </div>
+            <div id="reviewMarquee" class="review-box flex overflow-x-hidden p-2 mr-12 mb-12">
+                <marquee direction="">
+                    <div id="reviewsList" class="flex gap-16"></div>
+                </marquee>
+            </div>
+        </div>
+
+        <div class="suggestion-section mx-16 mb-20">
+            <div class="flex gap-2 items-center mb-16">
+                <img src="../../assets/icons/latest.svg" alt="suggestions" width="40" />
+                <h2 class="title1">You May Also Like</h2>
+            </div>
+            <div id="suggestedMovies" class="flex gap-16 overflow-x-scroll scrollbarhide"></div>
+        </div>
+    </div>
+
+    
+
+
+  <script type="module" src="../../assets/js/moviesDetails.js"></script>
+
+    <script src="../../assets/js/navbar.js"></script>
+</body>
+</html>
+
+</body>
+</html>

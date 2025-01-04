@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/payment.css">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+
+<body>
+  <div class="nav_header" id="myHeader">
+    <header id="header">
+      <div class="logo_placeholder">
+        <img src="/imgs/logo.png" alt="logo" />
+      </div>
+      <div class="nav_links_placeholder">
+        <ul class="nav_links">
+          <li class="nav_link"><a href="/mycity-homepage">Home</a></li>
+          <li class="nav_link"><a href="/Entertainment/home">Entertainment</a></li>
+          <li class="nav_link active"><a th:href="@{/shopping}">Shopping</a></li>
+          <li class="nav_link"><a href="/tourism">Tourism</a></li>
+          <li class="nav_link"><a th:href="@{/beauty}">Pay Bills</a></li>
+          <li class="nav_link"><a th:href="@{/hotels}">Hotels</a></li>
+        </ul>
+      </div>
+      <div class="login-button_placeholder">
+        <button class="login_button"><a href="/register" class="signup-btn">Sign Up</a></button>
+      </div>
+    </header>
+  </div>
+
+  <!-- Order Section -->
+  <div class="container mt-4">
+    <div class="row">
+      <!-- Product Section -->
+      <div class="col-md-4">
+        <div class="product-card">
+          <div class="d-flex justify-content-center">
+            <img th:src="@{/products/image/{id}(id=${product.productId})}" alt="Watch" class="product-image">
+          </div>
+          <div class="price-details mt-3">
+            <p>Price Details</p>
+            <hr>
+            <p th:text="'Quantity: ' + ${quantity}"></p>
+            <h6 th:text="'Price - ₹ ' + ${product.price}"></h6>
+            <h6 th:text="'Total Price - ₹ ' + ${totalPrice}"></h6>
+            <hr>
+            <h5 th:text="'Total Payable - ₹ '+${totalPrice}"></h5>
+            <hr>
+            <p class="savings-text"
+              th:text="'Your total savings for this order ₹ '+(${product.originalPrice}-${product.price})"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Address Section -->
+      <div class="col-md-8">
+        <div class="d-flex align-items-center mb-3">
+          <input type="radio" id="address-radio" name="address" class="form-check-input address-radio" checked>
+          <label for="address-radio" class="form-check-label ms-2">
+            <h5 class="mb-0">No 123, Main Road, Andhra Pradesh, 600001</h5>
+          </label>
+          <button type="button" class="btn btn-orange rounded-2 ms-5">Deliver Here</button>
+        </div>
+
+        <p class="d-block mb-2" style="color: rgba(243, 112, 34, 1)">Add New Address</p>
+        <div class="d-flex gap-2 mb-3">
+          <button class="btn btn-orange rounded-2">Use Current Location</button>
+        </div>
+        <form>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <input type="text" class="form-control" placeholder="Enter Your Name">
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control" placeholder="Contact Number">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <input type="text" class="form-control" placeholder="Street no">
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control" placeholder="Village/Town/District">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <select class="form-select">
+                <option selected>Select State</option>
+                <option>Andhra Pradesh</option>
+                <option>Tamil Nadu</option>
+                <option>Telangana</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control" placeholder="Landmark">
+            </div>
+          </div>
+          <div class="d-flex gap-2">
+            <form action="/api/payment/create-order/{productId}(productId=${product.productId})" method="POST" id="payment-form">
+              <input type="hidden" name="orderId" value="${orderId}" />
+              <input type="hidden" name="amount" value="${product.price}" />
+              <button type="button" id="pay-button" class="btn-orange btn">Save & Deliver</button>
+          </form>
+            <a th:href="@{/summary/{productId}(productId=${product.productId})}">
+              <button type="button" class="btn">Cancel</button>
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+<script>
+  document.getElementById('pay-button').onclick = function () {
+      // Fetch order ID from backend
+      fetch('/api/payment/create-order?amount=500')  // Example amount: 500 INR
+          .then(response => response.json())
+          .then(data => {
+              var options = {
+                  key: 'rzp_test_hr66RzeUcyoNO7',  // Razorpay Key
+                  amount: data.amount,
+                  currency: data.currency,
+                  name: 'My City Payment',
+                  description: 'Product Description',
+                  order_id: data.id,
+                  handler: function (response) {
+                      // Send payment success details to backend
+                      fetch('/api/payment/payment-callback', {
+                          method: 'POST',
+                          body: new URLSearchParams({
+                              razorpay_payment_id: response.razorpay_payment_id,
+                              razorpay_order_id: response.razorpay_order_id,
+                              razorpay_signature: response.razorpay_signature
+                          })
+                      })
+                          .then(response => response.json())
+                          .then(data => {
+                              alert('Payment processed successfully!');
+                          });
+                  }
+              };
+
+              var rzp = new Razorpay(options);
+              rzp.open();
+          });
+  };
+</script>
+
+</body>
+
+<footer>
+  <div class="footer_nav-links_placeholder">
+    <ul class="footer_nav-links">
+      <li class="footer_nav-link"><a href="/about">About</a></li>
+      <li class="footer_nav-link"><a href="/contact">Contact</a></li>
+      <li class="footer_nav-link"><a href="">Privacy Policy</a></li>
+    </ul>
+  </div>
+  <div class="footer_social-links_placeholder">
+    <ul class="footer_social-links">
+      <li class="footer_social-link"><a href="#">Facebook</a></li>
+      <li class="footer_social-link"><a href="#">Twitter</a></li>
+      <li class="footer_social-link"><a href="#">Instagram</a></li>
+    </ul>
+  </div>
+  <div class="footer_copy-rights_placeholder">
+    <p class="copy-rights">Copyright © 2024 MyCity. All rights reserved.</p>
+  </div>
+</footer>
+
+</html>

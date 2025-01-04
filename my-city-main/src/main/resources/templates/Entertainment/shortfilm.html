@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Short Films</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .scrollbarhide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="w-full topbar z-[999]">    
+        <nav class="navbar flex justify-between text-white items-center mx-[3rem]">
+            <div class="navlinks-container flex h-[100%] items-center pl-8">
+                <p class="navlink" id="home-link">
+                    <a href="home.html" class="hover:text-white">Home</a>
+                </p>
+                <p class="navlink" id="movies-link">
+                    <a href="../src/movies.html" class="hover:text-white">Movies</a>
+                </p>
+                <p class="navlink" id="musics-link">
+                    <a href="../src/Mymusic.html" class="hover:text-white">Music</a>
+                </p>
+                <p class="navlink" id="shortfilms-link">
+                    <a href="../src/shortfilm.html" class="hover:text-white">Short Films</a>
+                </p>
+                <p class="navlink" id="filmnews-link">
+                    <a href="../src/fil.html" class="hover:text-white">Film News</a>
+                </p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="SearchBar pr-10">
+                <div class="searchInput flex w-[160px] gap-[10px] p-[10px] border-[3px] rounded-[13px] border-liteOrange mt-3 cursor-pointer" onclick="searchExpand(event)">
+                    <label for="searchbar">
+                        <img src="../src/assets/icons/search.svg" alt="search Icon" class="w-[25px]"/>
+                    </label>
+                    <input type="text" placeholder="Search" id="searchbar" class="searchbar bg-transparent w-full placeholder-gray-500 placeholder:font-bold focus:outline-none transition"/>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="shortfilms-container text-white z-[-1] absolute top-0">
+        <!-- Hero Image Section -->
+        <div class="hero-image relative z-[-1]">
+            <img src="../src/assets/images/short films/adimaithanam.png" alt="Adimaithanam" class="h-[100%] z-[-1]">
+            <div class="image-cover absolute w-[100%] h-[100%] top-0"></div>
+
+            <div class="film-detail absolute top-[15rem] left-[6rem] px-[2rem] flex flex-col gap-3">
+                <h1 class="title font-normal font-poetsen text-[64px]">Adimaithanam</h1>
+                <p class="w-[52%] break-words text-[14px] font-montserrat font-semibold">
+                    The story encapsulates the journey of a young single mother Meena, working as a maid. Despite many setbacks and hardships, Meena believes that there is nothing she cannot ...
+                </p>
+                <div class="genre">
+                    <p class="text-[#FF2E00] font-montserrat font-semibold">GENRES</p>
+                    <p class="font-montserrat font-semibold">Drama</p>
+                </div>
+                <div class="buttons flex gap-[1rem] items-center">
+                    <a href="/src/shortfilmDetails.html">
+                        <div class="watch-btn bg-[#F37022] content-center px-[30px] py-[10px] rounded-[30px] text-[20px] font-montserrat font-semibold h-fit">WATCH</div>
+                    </a>
+                    <div id="add-list-btn" class="content-center px-[20px] py-[10px] rounded-[30px] text-[20px] font-montserrat font-semibold flex gap-3 bg-[#5C5C5C] cursor-pointer">
+                        <p class="add-list">MYLIST</p>
+                        <img id="add-icon" src="../src/assets/icons/plus.svg" alt="add icon" class="text-white addicon w-[20px] font-bold" />
+                    </div>
+                </div>
+                <div class="flex gap-3 px-2 mt-3 text-[18px] font-montserrat items-center">
+                    <p>U/A</p>
+                    <p class="px-2 border-[1px] text-[18px] border-white rounded-[5px]">4K</p>
+                    <p class="font-bold text-[18px] text-[#959595]">2015</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Award Winning Section -->
+        <div class="awardWinning-section mx-[4rem] px-2 py-5 bg-[#0B0F1678] absolute translate-y-[-23rem] w-[95%] rounded-[25px] filter backdrop-blur-[15px] h-[400px]">
+            <div class="title-box font-montserrat flex items-center justify-between mb-[.5rem]">
+                <h1 class="font-bold text-[18px] leading-tight">Award Winning Shortfilms</h1>
+                <select id="languageDropdown" class="rounded-[30px] bg-[#666666] px-4    py-2 w-fit text-white">
+                    <option data-filter="all" value="all">All</option>
+                    <option data-filter="tamil"  value="tamil">Tamil</option>
+                    <option data-filter="telugu" value="telugu">Telugu</option>
+                    <option data-filter="hindi" value="hindi">Hindi</option>
+                </select>
+            </div>
+
+            <div id="awardShowsContainer" class="overflow-x-scroll scrollbarhide flex mt-[2rem] w-[1200px] gap-[2rem]">
+                
+            </div>
+        </div>
+
+        <!-- Recommended Section -->
+        <div class="recommendation px-[4rem] my-[3rem]">
+            <h1 class="font-bold text-[18px] font-montserrat mb-[1rem]">RECOMMENDED FOR YOU</h1>
+            <div id="languages" class="languages font-montserrat flex w-[80%] justify-between">
+                <!-- Languages will be inserted here dynamically -->
+            </div>
+
+            <div id="recommendedFilms" class="overflow-x-scroll scrollbarhide flex mt-[2rem] w-[1200px] gap-[5rem]">
+                <!-- Recommended films will be inserted here dynamically -->
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="bg-[#F37022] px-[2rem] py-[1rem] flex justify-between items-center text-white">
+            <a href="#" class="font-poppins font-medium text-[20px]">About Us</a>
+            <a href="#" class="font-poppins font-medium text-[20px]">Contact Us</a>
+            <div class="socials flex gap-[20px]" id="socialMediaLinks">
+                <!-- Social media links will be inserted here dynamically -->
+            </div>
+            <p class="font-poppins font-medium text-[20px]">Copyright@Myango2016</p>
+        </div>
+    </div>
+
+    <script type="module" src="./assets/js/shortfilm.js"></script>
+    <script src="./assets/js/navbar.js"></script>
+</body>
+</html>

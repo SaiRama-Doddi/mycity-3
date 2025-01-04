@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room List</title>
+        <link rel="stylesheet" th:href="@{/CSS/Styles.css}">
+</head>
+<body style="display: block;">
+ 
+    <table border="1">
+        <h1>Rooms</h1>
+        <a href="/room/new">Add New Room</a>
+        <thead>
+            <tr>
+                <th>Room Id</th>
+                <th>Room Type</th>
+                <th>Price Per Night</th>
+                <th>Max Guests</th>
+                <th>Availability</th>
+                <th>Hotel Name</th>
+                <th>Room Count</th>
+                <th>Amenity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="room : ${rooms}">
+                <tr>
+                    <td th:text="${room.roomId}"></td>
+                    <td th:text="${room.roomType}"></td>
+                    <td th:text="${room.pricePerNight}"></td>
+                    <td th:text="${room.maxGuests}"></td>
+                    <td th:text="${room.isAvailable} ? 'Available' : 'Not Available'"></td>
+                    <td th:text="${room.hotel.name}"></td>
+                    <td th:text="${room.roomCount}"></td>
+        
+        
+
+                    <td>
+                        <ul>
+                            <th:block th:each="amenity : ${room.amenities}">
+                                <li th:text="${amenity.name}"></li>
+                            </th:block>
+                        </ul>
+                    </td>
+                    <td>
+                        <a th:href="@{/room/edit/{roomId}(roomId=${room.roomId})}"    >Edit</a>
+
+                        <a href="#" th:onclick="'confirmDelete(' + ${room.roomId} + ')'">Delete</a>
+                    </td>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+
+
+    <script>
+        function confirmDelete(roomId) {
+            if (confirm("Are you sure you want to delete this room?")) {
+                window.location.href = "/room/delete/" + roomId;
+            }
+        }
+    </script>
+</body>
+</html>

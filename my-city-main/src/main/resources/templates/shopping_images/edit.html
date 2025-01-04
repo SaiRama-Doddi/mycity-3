@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form th:action="@{/shopping-images/editImage}" th:object="${image}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{imageId}" />
+        <div>
+            <label>Image:</label>
+            <input type="file" name="imageFile" />
+        </div>
+        <div>
+            <label>Product:</label>
+            <select th:field="*{product.productId}">
+                <option th:each="product : ${products}" 
+                        th:value="${product.productId}" 
+                        th:text="${product.name}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Save</button>
+        <a th:href="@{/shopping-images/list}" class="btn btn-secondary">Cancel</a>
+    </form>
+    
+</body>
+</html>

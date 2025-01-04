@@ -1,0 +1,129 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+ 
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: rgba(243, 112, 34, 1);
+    top: 50px;
+    color: white;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    overflow-x: auto;
+}
+ 
+.sidebar .logo {
+    margin-left: 10px;
+    margin-bottom: 30px;
+}
+ 
+.sidebar .logo h2 {
+    font-size: 24px;
+   
+}
+ 
+.sidebar .logo span {
+    color: white;
+    font-weight: bold;
+}
+ 
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+ 
+.sidebar ul li {
+    padding: 15px 20px;
+    cursor: pointer;
+}
+ 
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+ 
+.sidebar ul li.active {
+    background-color: white;
+    border-radius: 5px;
+    color: rgba(243, 112, 34, 1);
+ 
+    a{
+        color: rgba(243, 112, 34, 1);
+        font-weight: bold;
+    }
+}
+ 
+.sidebar ul .submenu {
+    margin-top: 5px;
+    margin-left: 20px;
+    display: none;
+    list-style-type: circle; /* Differentiating the submenu */
+}
+ 
+.sidebar ul li:hover .submenu {
+    display: block;
+}
+ 
+ 
+/* Topbar styling */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0px;
+    right: 0;
+    height: 60px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.topbar input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+}
+
+.topbar button {
+    padding: 10px 15px;
+    background-color: rgba(243, 112, 34, 1);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.topbar button:hover {
+    background-color: rgb(241, 139, 79);
+}
+
+/* Main content styling */
+.main-content {
+    margin-left: 250px;
+    margin-top: 80px;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+table {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.btn-primary, .btn-danger {
+    font-size: 12px;
+}

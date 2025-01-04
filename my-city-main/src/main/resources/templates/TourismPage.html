@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CSS/Styles.css">
+    <title>Tourism</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        /* Ensure consistent image size */
+        /*  .carousel-item img {
+            width: 100%;
+            height: 100vh; 
+            object-fit: cover;
+        } */
+
+        /* Header styling */
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background-color: black;
+            /* Semi-transparent background */
+            color: white;
+            z-index: 1000;
+            /* Ensure it's on top of the carousel */
+        }
+
+        /* Center the header text */
+        .header-text {
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        /* Adjust container height to fit content over carousel */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Optional: Give carousel indicators a different look */
+        .carousel-indicators li {
+            background-color: white;
+        }
+
+        header {
+            background-color: black;
+            display: flex;
+            flex-direction: row;
+            height: 60px;
+            margin: 20px 100px 0 20px;
+            margin: 20px 40px;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 25px;
+            top: 0;
+            z-index: 1000;
+            left: 0;
+            width: 90%;
+        }
+
+        .logo_placeholder {
+            color: whitesmoke;
+            width: fixed;
+        }
+
+        ul {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            justify-content: space-evenly;
+            width: 800px !important;
+            list-style: none;
+
+            .nav_link {
+                padding: 10px 10px 10px 10px;
+                transition: all 0.2s ease-in-out;
+
+                a {
+                    text-decoration: none;
+                    color: whitesmoke;
+                }
+
+                &:hover {
+                    border-bottom: 2px solid orange;
+                    color: orange;
+
+                    a {
+                        color: orange;
+                    }
+                }
+
+                &.active {
+                    border-bottom: 2px solid orange;
+                    color: orange;
+
+                    a {
+                        color: orange;
+                    }
+                }
+            }
+        }
+
+        .login_button {
+            padding: 10px 15px 10px 15px;
+            border-radius: 15px;
+            width: fixed;
+            border: 2px solid orange;
+            outline: none;
+            background-color: orange;
+            cursor: pointer;
+
+            a {
+                text-decoration: none;
+                color: whitesmoke;
+            }
+        }
+
+        .text_block {
+            margin: 100px 0 0 50px;
+        }
+
+        footer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            background-color: black;
+            height: 59px;
+            align-items: center;
+
+            ul {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                list-style: none;
+                width: 300px !important;
+
+                li {
+                    a {
+                        text-decoration: none;
+                        color: whitesmoke;
+
+                        &:hover {
+                            color: beige;
+                        }
+                    }
+                }
+            }
+
+            p {
+                color: white;
+            }
+        }
+    </style>
+	<script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+
+    <!-- Header placed over the carousel -->
+    <div class="body">
+        <div class="nav_header" id="myHeader" hx-boost="true">
+            <div class="mobile_header">
+                <svg width="32px" height="32px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    transform="rotate(0)">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path d="M4 6H20M4 12H20M4 18H20" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round"></path>
+                    </g>
+                </svg>
+            </div>
+            <header id="header" hx-boost="true">
+                <div class="logo_placeholder">
+                    <img src="/img/logo.jpg" alt="logo">
+                </div>
+                <div class="nav_links_placeholder">
+                    <ul class="nav_links">
+                        <li class="nav_link"><a href="/"><span>Home</span></a></li>
+                        <li class="nav_link"><a href="/entertainment"><span>Entertainment</span></a></li>
+                        <li class="nav_link"><a href="/shopping"><span>Shopping</span></a></li>
+                        <li class="nav_link active"><a href="/tourism"><span>Tourism</span></a></li>
+                        <li class="nav_link"><a href="/paybills"><span>Pay Bills</span></a></li>
+                        <li class="nav_link"><a href="/hotels"><span>Hotels</span></a></li>
+                    </ul>
+                </div>
+                <div class="login-button_placeholder">
+                    <button class="login_button"><a href="/register" class="signup-btn">Sign Up</a></button>
+                </div>
+            </header>
+        </div>
+        <div class="text_block">
+            <h1 class="text-style_border">Explore</h1>
+            <h1 class="text-style_border">Districts</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="grid-container">
+            <!-- Card 1 -->
+            <a th:href="@{/AlluriSitharamaRaju-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/Img/Alluri Sitharama raju/allurisitharamaraju.webp" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Alluri Sitharama Raju</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★★★</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 2 -->
+            <a th:href="@{/Anakapalle-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/anakapalli.png" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Anakapalli</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★★☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 3 -->
+            <a th:href="@{/Ananthapuramu-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/Img/Ananthapuramu/VeeraBhadraTemple/VeeraBhadraTemple-1.jpg" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Ananthapuramu</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 4 -->
+            <a th:href="@{/Annamayya-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/Annamayya1.png" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Annamayya</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★★★</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 5 -->
+            <a th:href="@{/Bapatla-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/bapatla.png" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Bapatla</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★★☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 6 -->
+            <a th:href="@{/Chittor-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/chittor.png" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Chittoor</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 7 -->
+            <a th:href="@{/Konaseema-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/ambedkar_Konaseema.png" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Dr. B.R. Ambedkar Konaseema</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 8 -->
+            <a th:href="@{/EastGodavari-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/east-godavari.png" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">East Godavari</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 9 -->
+            <a th:href="@{/Eluru-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/eluru.jpg" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Eluru</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 10 -->
+            <a th:href="@{/Guntur-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/guntur.png" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Guntur</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 11 -->
+            <a th:href="@{/Kakinada-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/kakinada.png" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Kakinada</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 12 -->
+            <a th:href="@{/Krishna-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/krishna.jpg" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Krishna</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 13 -->
+            <a th:href="@{/Kurnool-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/kurnool.png" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Kurnool</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 14 -->
+            <a th:href="@{/Nandyala-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/nandyal.png" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Nandyal</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 15 -->
+            <a th:href="@{/Ntr-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="https://files.yappe.in/place/full/gandhi-hill-vijayawada-199008.webp"
+                        alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Ntr</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 16 -->
+            <a th:href="@{/Palnadu-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/Img/palnadu.png" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Palnadu</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 17 -->
+            <a th:href="@{/Parvathipuram-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="https://www.deccanchronicle.com/h-upload/2024/09/22/500x300_1844354-22vzdc05.webp" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Parvathipuram Manyam</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 18 -->
+            <a th:href="@{/Prakasam-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/BhairavaKona3.png" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Prakasam</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 19 -->
+            <a th:href="@{/Sri-Potti-Sriramulu-Nellore-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/Jonnavada-Kamakshi-Temple3.webp" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Sri Potti Sriramulu Nellore</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 20 -->
+            <a th:href="@{/Sri-Sathya-Sai-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/lepakshi3.png" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Sri Sathya Sai</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 21 -->
+            <a th:href="@{/Srikakulam-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/srikakulam.png" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Srikakulam</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <!--<div class="reviews">(13 reviews)</div>-->
+                    </div>
+                </div>
+            </a>
+            <!-- Card 22 -->
+            <a th:href="@{/Tirupathi-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/tirupati.png" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Tirupathi</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <!-- <div class="stars">★★★☆☆</div>-->
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 23 -->
+            <a th:href="@{/Visakhapatnam-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/visakhapatnam.jpg" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Visakhapatnam</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <!-- <div class="stars">★★★☆☆</div>-->
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 24 -->
+            <a th:href="@{/Vzm-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/vizianagaram.png" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">Vizianagaram</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <!-- <div class="stars">★★★☆☆</div>-->
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 25 -->
+            <a th:href="@{/West-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/west godavari1.png" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title">West Godavari</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+            <!-- Card 26 -->
+            <a th:href="@{/YSR-Tourism}" style="text-decoration: none;">
+                <div class="card">
+                    <img src="/img/ysr.jpg" alt="Destination Image">
+                    <div class="card-content">
+                        <div class="card-title"> Y.S.R. Kadapa</div>
+                        <div class="card-subtitle">Lorem ipsum dolor sit amet</div>
+                        <div class="stars">★★★☆☆</div>
+                        <div class="reviews">(13 reviews)</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer_nav-links_placeholder" hx-boost="true">
+            <ul class="footer_nav-links">
+                <li class="footer_nav-link"><a href="/about">About</a></li>
+                <li class="footer_nav-link"><a href="/contact">Contact</a></li>
+                <li class="footer_nav-link"><a href="">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer_social-links_placeholder">
+            <ul class="footer_social-links">
+                <li class="footer_social-link"><a href="#">
+                        <svg fill="white" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="24px"
+                            height="24px" viewBox="0 0 14.906 32">
+                            <path
+                                d="M14.874,11.167 L14.262,14.207 C14.062,15.208 13.100,15.992 12.072,15.992 L10.000,15.992 L10.000,30.000 C10.000,31.104 9.159,32.000 8.049,32.000 L5.030,32.000 C3.920,32.000 3.017,31.102 3.017,29.999 L3.017,15.992 L2.011,15.992 C0.901,15.992 -0.002,15.095 -0.002,13.991 L-0.002,10.990 C-0.002,9.887 0.901,8.989 2.011,8.989 L3.017,8.989 L3.017,6.003 C3.017,2.716 5.693,0.041 8.994,0.013 C9.015,0.012 9.033,0.001 9.055,0.001 L13.081,0.001 C13.636,0.001 14.000,0.448 14.000,1.000 L14.000,6.000 C14.000,6.553 13.636,7.004 13.081,7.004 L10.061,7.004 L10.060,8.989 L13.079,8.989 C13.645,8.989 14.167,9.228 14.509,9.644 C14.852,10.059 14.985,10.615 14.874,11.167 ZM9.092,10.990 C9.078,10.991 9.067,10.998 9.053,10.998 L9.053,10.998 C8.497,10.997 8.046,10.549 8.047,9.997 L8.047,9.990 C8.047,9.990 8.047,9.990 8.047,9.990 C8.047,9.990 8.047,9.990 8.047,9.990 L8.049,6.003 C8.049,5.450 8.499,5.003 9.055,5.003 L12.074,5.003 L12.074,2.002 L9.094,2.002 C9.077,2.002 9.063,2.011 9.045,2.011 C6.831,2.011 5.030,3.802 5.030,6.003 L5.030,10.005 C5.030,10.558 4.579,11.006 4.023,11.006 C3.996,11.006 3.973,10.992 3.946,10.990 L2.011,10.990 L2.011,13.991 L4.023,13.991 C4.579,13.991 5.030,14.439 5.030,14.992 C5.030,15.044 5.008,15.088 5.000,15.138 L5.000,30.000 L8.049,29.999 L8.049,15.002 C8.049,14.998 8.047,14.995 8.047,14.992 C8.047,14.439 8.497,13.991 9.053,13.991 L12.072,13.991 C12.145,13.991 12.275,13.886 12.288,13.816 L12.857,10.990 L9.092,10.990 Z" />
+                        </svg>
+                    </a></li>
+                <li class="footer_social-link"><a href="#">
+                        <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
+                                fill="white" />
+                            <path
+                                d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                                fill="white" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
+                                fill="white" />
+                        </svg>
+                    </a></li>
+                <li class="footer_social-link"><a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white"
+                            class="bi bi-twitter-x" viewBox="0 0 16 16">
+                            <path
+                                d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+                        </svg>
+                    </a></li>
+                <li class="footer_social-link"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="footer_copy-rights_placeholder">
+            <p class="copy-rights">Copyright © 2024 MyCity. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="/JS/Script.js"></script>
+    <!-- Bootstrap JS with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <script>
+        // Initialize carousel with JS for automatic scroll
+        var myCarousel = new bootstrap.Carousel(document.querySelector('#carouselExampleIndicators'), {
+            interval: 5000, // 5000ms = 5 seconds
+            ride: 'carousel'
+        });
+    </script>
+</body>
+
+</html>

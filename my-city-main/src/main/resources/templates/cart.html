@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    
+    <style>
+        header {
+    background-color: rgb(0, 0, 0); /* Add transparency for better video visibility */
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    margin: 20px 80px 0 80px;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 25px;
+    position: relative;
+    z-index: 100; /* Ensure header is above video */
+}
+
+.mobile_header {
+    display: none;
+}
+
+.logo_placeholder {
+    color: whitesmoke;
+    width: auto;
+}
+
+.logo_placeholder img {
+    width: 80px;
+    height: 55px;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-content: space-evenly;
+    width: 800px !important;
+    list-style: none;
+}
+
+.nav_link {
+    padding: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.nav_link a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.nav_link:hover {
+    border-bottom: 2px solid orange;
+    color: orange;
+}
+
+.nav_link:hover a {
+    color: orange;
+}
+
+.nav_link.active {
+    border-bottom: 2px solid orange;
+    color: orange;
+}
+
+.nav_link.active a {
+    color: orange;
+}
+
+.login_button {
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 2px solid #f5640a;
+    background-color: #f5640a;
+    cursor: pointer;
+}
+
+.login_button a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+                Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+        }
+
+        .container {
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .cart-wrapper {
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        .cart-container {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+        }
+
+        .cart-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cart-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem 0;
+            color: #6b7280;
+        }
+
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .product-image {
+            width: 6rem;
+            height: 6rem;
+            object-fit: cover;
+            border-radius: 0.5rem;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-name {
+            font-weight: 500;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .product-price {
+            color: #6b7280;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border: none;
+            background-color: #e5e7eb;
+            border-radius: 9999px;
+            cursor: pointer;
+            color: #4b5563;
+            font-size: 1.25rem;
+            transition: background-color 0.2s;
+        }
+
+        .quantity-btn:hover {
+            background-color: #d1d5db;
+        }
+
+        .quantity-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .quantity-value {
+            width: 2rem;
+            text-align: center;
+        }
+
+        .item-total {
+            width: 6rem;
+            text-align: right;
+            font-weight: 500;
+        }
+
+        .remove-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            border: none;
+            background-color: transparent;
+            border-radius: 9999px;
+            cursor: pointer;
+            color: #dc2626;
+            font-size: 1.25rem;
+            transition: background-color 0.2s;
+        }
+
+        .remove-btn:hover {
+            background-color: #fef2f2;
+        }
+
+        .cart-footer {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .total-label {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: #111827;
+        }
+
+        .total-amount {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .checkout-btn:hover {
+            background-color: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav_header" id="myHeader">
+        <div class="mobile_header">
+            <svg width="32px" height="32px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"
+                transform="rotate(0)">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path d="M4 6H20M4 12H20M4 18H20" stroke="white" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </g>
+            </svg>
+        </div>
+        <header id="header">
+            <div class="logo_placeholder">
+                <img src="/imgs/logo.png">
+            </div>
+            <div class="nav_links_placeholder">
+                <ul class="nav_links">
+                    <li class="nav_link ">
+                        <a href="/mycity-homepage"><span>Home</span></a>
+                    </li>
+                    <li class="nav_link">
+                        <a href="/Entertainment/home"><span>Entertainment</span></a>
+                    </li>
+                    <li class="nav_link active">
+                        <a href="/shopping"><span>Shopping</span></a>
+                    </li>
+                    <li class="nav_link">
+                        <a href="/tourism"><span>Tourism</span></a>
+                    </li>
+                    <li class="nav_link">
+                        <a href="/beauty"><span>Pay Bills</span></a>
+                    </li>
+                    <li class="nav_link">
+                        <a href="/hotels"><span>Hotels</span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="login-button_placeholder">
+                <button class="login_button">
+                    <a href="/register" class="signup-btn">Sign Up</a>
+                </button>
+            </div>
+        </header>
+    
+    <div class="container">
+        <div class="cart-wrapper">
+            <div class="cart-container">
+                <div class="cart-header">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M2 3h2l2.5 12h11l3-9H6"></path>
+                        <circle cx="10" cy="20" r="1"></circle>
+                        <circle cx="18" cy="20" r="1"></circle>
+                    </svg>
+                    <h1 class="cart-title">Shopping Cart</h1>
+                </div>
+                <div id="cartContent">
+                    <div th:if="${cartItems.empty}" class="empty-cart">Your cart is empty</div>
+                    <div class="cart-items" th:if="${!cartItems.empty}">
+                        <div class="cart-item" th:each="item : ${cartItems}">
+                            <img th:src="@{/products/image/{id}(id=${item.product.productId})}" 
+                                 alt="Product Image" class="product-image" />
+                            <div class="product-info">
+                                <h3 class="product-name" th:text="${item.product.name}"></h3>
+                                <p class="product-price" th:text="'₹' + ${item.product.price}"></p>
+                            </div>
+                            <div class="quantity-controls">
+                                <a th:href="@{/cart/decrease/{cartItemId}(cartItemId=${item.cartId})}" 
+                                   class="quantity-btn" style="text-decoration: none;">-</a>
+                                <span class="quantity-value" th:text="${item.quantity}"></span>
+                                <a th:href="@{/cart/increase/{cartItemId}(cartItemId=${item.cartId})}" 
+                                   class="quantity-btn" style="text-decoration: none;">+</a>
+                            </div>
+                            <div class="item-total" th:text="'₹' + (${item.quantity} * ${item.product.price})"></div>
+                            <a th:href="@{/cart/delete/{cartItemId}(cartItemId=${item.cartId})}" 
+                               class="remove-btn" style="text-decoration: none;">×</a>
+                        </div>
+                    </div>
+                    <div class="cart-footer" th:if="${!cartItems.empty}">
+                        <div class="total-row">
+                            <span class="total-label">Total Amount</span>
+                            <span class="total-amount" th:text="'₹' + ${totalAmount}"></span>
+                        </div>
+                        <a href="/checkout" class="checkout-btn" style="text-decoration: none;">Continue to Payment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cartItems = [...initialCartItems];
+
+        function formatPrice(price) {
+            return '₹' + price;
+        }
+
+        function updateCart() {
+            const cartContent = document.getElementById('cartContent');
+            
+            if (cartItems.length === 0) {
+                cartContent.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
+                return;
+            }
+
+            const totalAmount = cartItems.reduce(
+                (sum, item) => sum + (item.product.price * item.quantity),
+                0
+            );
+
+            const cartHTML = `
+                <div class="cart-items">
+                    ${cartItems.map(item => `
+                        <div class="cart-item">
+                            <img
+                                src="${item.product.image}"
+                                alt="${item.product.name}"
+                                class="product-image"
+                            />
+                            
+                            <div class="product-info">
+                                <h3 class="product-name">${item.product.name}</h3>
+                                <p class="product-price">${formatPrice(item.product.price)}</p>
+                            </div>
+
+                            <div class="quantity-controls">
+                                <button
+                                    onclick="decreaseQuantity(${item.cartId})"
+                                    class="quantity-btn"
+                                    ${item.quantity <= 1 ? 'disabled' : ''}
+                                >-</button>
+                                <span class="quantity-value">${item.quantity}</span>
+                                <button
+                                    onclick="increaseQuantity(${item.cartId})"
+                                    class="quantity-btn"
+                                >+</button>
+                            </div>
+
+                            <div class="item-total">
+                                ${formatPrice(item.quantity * item.product.price)}
+                            </div>
+
+                            <button
+                                onclick="removeItem(${item.cartId})"
+                                class="remove-btn"
+                            >×</button>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="cart-footer">
+                    <div class="total-row">
+                        <span class="total-label">Total Amount</span>
+                        <span class="total-amount">${formatPrice(totalAmount)}</span>
+                    </div>
+
+                    <button class="checkout-btn">
+                        Continue to Payment
+                    </button>
+                </div>
+            `;
+
+            cartContent.innerHTML = cartHTML;
+        }
+
+        function increaseQuantity(cartId) {
+            cartItems = cartItems.map(item =>
+                item.cartId === cartId
+                    ? { ...item, quantity: item.quantity + 1 }
+                    : item
+            );
+            updateCart();
+        }
+
+        function decreaseQuantity(cartId) {
+            cartItems = cartItems.map(item =>
+                item.cartId === cartId && item.quantity > 1
+                    ? { ...item, quantity: item.quantity - 1 }
+                    : item
+            );
+            updateCart();
+        }
+
+        function removeItem(cartId) {
+            cartItems = cartItems.filter(item => item.cartId !== cartId);
+            updateCart();
+        }
+
+        // Initialize the cart
+        updateCart();
+    </script>
+</body>
+</html>

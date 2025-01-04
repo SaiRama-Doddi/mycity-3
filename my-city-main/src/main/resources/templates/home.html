@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels - Home</title>
+    <link rel="stylesheet" th:href="@{/CSS/home.css}">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <section class="hotel-main">
+        <div class="hero-content">
+            <nav class="navBar">
+                <img th:src="@{/imgs/logo.png}" alt="MyCity Logo" width="50px" class="cityLogo">
+                <div class="navItems">
+                    <img src="/icons/close.svg" alt="cross icon"  class="cross">
+                    <div class="navlinks">
+                        <a th:href="@{/mycity-homepage}">Home</a>
+                        <a th:href="@{/Entertainment/home}">Entertainment</a>
+                        <a th:href="@{/shopping}">Shopping</a>
+                        <a th:href="@{/tourism}">Tourism</a>
+                        <a th:href="@{/beauty}">Pay Bills</a>
+                        <a th:href="@{/hotels}" class="home">Hotels</a>
+                       <!--  <a th:href="/sub-hotels">Hotels</a> -->
+                    </div>
+
+                    <div ><a href="/register" class="signup-btn" id="booknow">Sign Up</a></div>
+                </div>
+
+                <img src="/icons/hamburger.svg" alt="hamburger icon" id="hamburger" class="active hamburger">
+            </nav>
+            <section class="details">
+                <div class="descriptions">
+                    <h1>Luxurious Comfort in the Heart of the City</h1>
+                    <p>Experience unparalleled luxury at our hotel, where contemporary design meets classic elegance.
+                        Located in the heart of the city, we offer world-class amenities, spacious rooms, and
+                        personalized service to ensure a memorable stay.</p>
+                </div>
+                <div class="features">
+                    <p class="totals">
+                        12K+<span>Satisfied visitors</span>
+                    </p>
+                    <p class="totals">
+                        4.5K+<span>Amazing TourGuides</span>
+                    </p>
+                    <p class="totals">
+                        2K+<span>Special Travel Tips</span>
+                    </p>
+                </div>
+            </section>
+
+            <section class="filtercontainer" >
+                <div class="filterbox">
+                    <div class="filter-title">
+                        <img th:src="@{/icons/locationblack.svg}" alt="Location">
+                        <p>Location</p>
+                    </div>
+                    <input type="text" class="dateInputField-location location-text filter-input" placeholder="Type location">
+                </div>
+
+                <div class="filterbox" style="margin-bottom: 10px">
+                    <div class="filter-title">
+                        
+                        <p>No of Persons</p>
+                    </div>
+                  <!--   <label for="personCount" class="filter-title">No of Persons</label> -->
+                    <div class="numberInput"style="margin-left:30px">
+                        <button type="button" class="decreaseBtn" onclick="updatePersonCount(-1)">-</button>
+                        <input 
+                            type="text" 
+                            id="personCount" 
+                            name="person" 
+                            class="numberInputField" 
+                            value="1">
+                        <button type="button" class="increaseBtn" onclick="updatePersonCount(1)">+</button>
+                    </div>
+                </div>
+                
+                <div class="checkin-checkout">
+                    <div class="filterbox">
+                        <div class="filter-title">
+                            
+                            <p>Check-in</p>
+                        </div>
+                      <!--   <label for="checkinDate" class="filter-title">Check-in</label -->
+                        <div class="dateInputWrapper">
+                            <input 
+                                type="date" 
+                                id="checkinDate" 
+                                name="checkin " 
+                                class="dateInputField filter-input" 
+                                placeholder="Select date">
+                        </div>
+                    </div>
+                    
+                
+                    <div class="filterbox">
+                        <div class="filter-title">
+                            
+                            <p>Check-out</p>
+                        </div>
+                       <!--  <label for="checkoutDate" class="filter-title">Check-out</label> -->
+                        <div class="dateInputWrapper">
+                            <input 
+                                type="date" 
+                                id="checkoutDate" 
+                                name="checkout" 
+                                class="dateInputField filter-input" 
+                                placeholder="Select date">
+                        </div>
+                    </div>
+    
+                </div>
+                
+                <div class="searchbtn" id="reserveHotel">
+                    Search
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <section class="hotelListContainer"   id="roomDetailsBox">
+        <div class="listTitle">
+            <h1>Explore Our Best List of Hotels!</h1>
+            <div class="listFilter">
+                    <!-- <input type="text" placeholder="Search"> -->
+                    <form th:action="@{/search-hotels}" method="get" id="searchForm" class="search">
+                        <input type="text" name="query" placeholder="Search by name or address" value="" />
+                        <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
+                            <img th:src="@{/icons/search.svg}" alt="search icon" style="width: 24px; height: 24px;">
+                        </button>
+                    </form>
+                <img th:src="@{/icons/filterorange.svg}" alt="Filter" width="50px">
+            </div>
+        </div>
+       
+        <div class="container" style="margin-top: 40px; max-width: 100%;">
+            <div class="hotellists" id="hotelsList1" style="width: 100%; gap: 0;">
+                <div th:each="hotel : ${hotelsList1}" class="col-md-4 mb-2" style="max-width: 540px; margin: 10px;">
+                    <a th:href="@{/sub-hotels(hotelId=${hotel.hotelId})}" style="text-decoration: none; color: inherit;">
+                        <div class="row g-0">
+                            <div class="hotel-image">
+                                <!-- Render hotel image if available -->
+                                <img th:if="${hotel.primaryHotelImageBase64 != null}"
+                                     th:src="'data:image/jpeg;base64,' + ${hotel.primaryHotelImageBase64}"
+                                     alt="Hotel Image" 
+                                     style="width: 90%; height: 250px; object-fit: cover;">
+                            </div>
+                            
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${hotel.name}">Hotel Name</h5>
+                                    <p class="card-text" th:text="${hotel.address.addressLine2}">Hotel Description</p>
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                                          <!--    <span class="rating-value" th:text="${hotel.rating}"></span> -->
+                                            <span class="stars-container">
+                                                <!-- Loop to print filled stars -->
+                                                <span th:each="i : ${#numbers.sequence(1, hotel.rating)}" class="star filled">★</span>
+                                                <!-- Loop to print empty stars -->
+                                                <span th:each="i : ${#numbers.sequence(1, 5 - hotel.rating)}" class="star empty">★</span>
+                                            </span>
+                                        </small>
+                                    </p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+
+       
+    </section>
+
+    <section class="dealsDiscount">
+        <h1 class="title">Deals & Discounts</h1>
+        <div class="discountBox">
+            <div class="codeMyCity offerBox">
+                <p class="code">Use Code: MyCity</p>
+                <p class="offer">Flat 25% Off</p>
+                <p class="bookNow">BOOK NOW</p>
+            </div>
+            <div class="codeTour offerBox">
+                <p class="code">Use Code: Tour</p>
+                <p class="offer">GET 30% Off</p>
+                <p class="bookNow">BOOK NOW</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="touristPlaces">
+        <h1 class="title">Tourists Places Near You</h1>
+        <div class="placesContainer">
+            <div class="imageBox">
+                <img src="/images/hotels/anakuvalley.png" alt="Anaku Valley" class="placeimages">
+                <p class="placeName">Araku Valley Natural Wonders Day Trip From Vizag</p>
+            </div>
+            <div class="imageBox">
+                <img src="/images/hotels/jindhagada.png" alt="Jindhagada Trek" class="placeimages">
+                <p class="placeName">Jindhagada Trek</p>
+            </div>
+            <div class="imageBox">
+                <img src="/images/hotels/coastalgemprivate.png" alt="Visakhapatnam - The Coastal Gem Private Tour" class="placeimages">
+                <p class="placeName">Visakhapatnam - The Coastal Gem Private Tour</p>
+            </div>
+        </div>
+        
+
+    </section>
+    <footer>
+        <div class="footer_nav-links_placeholder" hx-boost="true">
+          <ul class="footer_nav-links">
+            <li class="footer_nav-link"><a href="/about">About</a></li>
+            <li class="footer_nav-link"><a href="/contact">Contact</a></li>
+            <li class="footer_nav-link"><a href="">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer_social-links_placeholder">
+          <ul class="footer_social-links">
+            <li class="footer_social-link">
+              <a href="#">
+                <svg fill="white" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="24px"
+                  height="24px" viewBox="0 0 14.906 32">
+                  <path
+                    d="M14.874,11.167 L14.262,14.207 C14.062,15.208 13.100,15.992 12.072,15.992 L10.000,15.992 L10.000,30.000 C10.000,31.104 9.159,32.000 8.049,32.000 L5.030,32.000 C3.920,32.000 3.017,31.102 3.017,29.999 L3.017,15.992 L2.011,15.992 C0.901,15.992 -0.002,15.095 -0.002,13.991 L-0.002,10.990 C-0.002,9.887 0.901,8.989 2.011,8.989 L3.017,8.989 L3.017,6.003 C3.017,2.716 5.693,0.041 8.994,0.013 C9.015,0.012 9.033,0.001 9.055,0.001 L13.081,0.001 C13.636,0.001 14.000,0.448 14.000,1.000 L14.000,6.000 C14.000,6.553 13.636,7.004 13.081,7.004 L10.061,7.004 L10.060,8.989 L13.079,8.989 C13.645,8.989 14.167,9.228 14.509,9.644 C14.852,10.059 14.985,10.615 14.874,11.167 ZM9.092,10.990 C9.078,10.991 9.067,10.998 9.053,10.998 L9.053,10.998 C8.497,10.997 8.046,10.549 8.047,9.997 L8.047,9.990 C8.047,9.990 8.047,9.990 8.047,9.990 C8.047,9.990 8.047,9.990 8.047,9.990 L8.049,6.003 C8.049,5.450 8.499,5.003 9.055,5.003 L12.074,5.003 L12.074,2.002 L9.094,2.002 C9.077,2.002 9.063,2.011 9.045,2.011 C6.831,2.011 5.030,3.802 5.030,6.003 L5.030,10.005 C5.030,10.558 4.579,11.006 4.023,11.006 C3.996,11.006 3.973,10.992 3.946,10.990 L2.011,10.990 L2.011,13.991 L4.023,13.991 C4.579,13.991 5.030,14.439 5.030,14.992 C5.030,15.044 5.008,15.088 5.000,15.138 L5.000,30.000 L8.049,29.999 L8.049,15.002 C8.049,14.998 8.047,14.995 8.047,14.992 C8.047,14.439 8.497,13.991 9.053,13.991 L12.072,13.991 C12.145,13.991 12.275,13.886 12.288,13.816 L12.857,10.990 L9.092,10.990 Z" />
+                </svg>
+              </a>
+            </li>
+            <li class="footer_nav-links_placeholder">
+              <a href="#">
+                <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
+                    fill="white" />
+                  <path
+                    d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                    fill="white" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
+                    fill="white" />
+                </svg>
+              </a>
+            </li>
+            <li class="footer_social-link">
+              <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-twitter-x"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+                </svg>
+              </a>
+            </li>
+            <li class="footer_social-link"><a href="#"></a></li>
+          </ul>
+        </div>
+        <div class="footer_copy-rights_placeholder">
+          <p class="copy-rights">Copyright © 2024 MyCity. All rights reserved.</p>
+        </div>
+      </footer>
+    <script type="module" th:src="@{/JS/home.js}"></script>
+
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", function () {
+
+            let hamBurger = document.getElementById('hamburger');
+let navitems = document.querySelector('.navItems');
+let cross = document.querySelector('.cross');
+
+const toggleNabBar = () => {
+    hamBurger.classList.toggle('active');
+    navitems.classList.toggle('active');
+    cross.classList.toggle('active');
+}
+   
+hamBurger.addEventListener("click" , toggleNabBar);
+cross.addEventListener("click" , toggleNabBar);
+    const starsContainers = document.querySelectorAll(".stars-container");
+    starsContainers.forEach(container => {
+        const rating = parseFloat(container.getAttribute("data-rating"));
+        const starPercentage = (rating / 5) * 100; // Assuming the rating is out of 5
+        container.style.setProperty("--star-percentage", `${starPercentage}%`);
+        container.style.width = `${starPercentage}%`; // Dynamic width based on rating
+    });
+});
+/* 
+function filterHotels() {
+    const searchInput = document.getElementById("hotelSearch").value.toLowerCase();
+    const hotelCards = document.querySelectorAll(".hotellists .col-md-4");
+
+    hotelCards.forEach(card => {
+        const hotelName = card.querySelector(".card-title").textContent.toLowerCase();
+        const hotelAddress = card.querySelector(".card-text").textContent.toLowerCase();
+
+        if (hotelName.includes(searchInput) || hotelAddress.includes(searchInput)) {
+            card.style.display = "block"; // Show matching card
+        } else {
+            card.style.display = "none"; // Hide non-matching card
+      }
+   });
+}
+ */  
+
+ function filterHotels() {
+    const searchInput = document.getElementById("hotelSearch").value.toLowerCase();
+    const hotelCards = document.querySelectorAll(".hotellists .col-md-4");
+    let firstMatch = null;
+
+    hotelCards.forEach(card => {
+        const hotelName = card.querySelector(".card-title").textContent.toLowerCase();
+        const hotelAddress = card.querySelector(".card-text").textContent.toLowerCase();
+
+        if (hotelName.includes(searchInput) || hotelAddress.includes(searchInput)) {
+            card.style.display = "block"; // Show matching card
+            if (!firstMatch) {
+                firstMatch = card; // Store the first matching card
+            }
+        } else {
+            card.style.display = "none"; // Hide non-matching card
+        }
+    });
+
+    if (firstMatch) {
+        // Scroll to the first matching hotel card
+        firstMatch.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+}
+
+// Existing search functionality
+document.getElementById("searchForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent default form submission
+    const form = this;
+
+    // Perform the search using the current form action
+    const url = form.action + "?" + new URLSearchParams(new FormData(form)).toString();
+    fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            // Replace hotel list content with search results
+            document.querySelector(".hotellists").innerHTML = new DOMParser()
+                .parseFromString(html, "text/html")
+                .querySelector(".hotellists").innerHTML;
+
+            // Scroll to hotel list container
+            document.getElementById("roomDetailsBox").scrollIntoView({ behavior: "smooth" });
+        })
+        .catch(error => console.error("Error:", error));
+});
+
+// Detect when the search input is cleared or updated (input event)
+const searchInput = document.querySelector("#searchForm input[type='text']");
+searchInput.addEventListener("input", function () {
+    if (!searchInput.value.trim()) {
+        // If the search box is empty, fetch and show all hotel cards
+        fetchAllHotels();
+    }
+});
+
+// Function to fetch and display all hotel cards (when search is cleared)
+function fetchAllHotels() {
+    const url = 'http://localhost:8080/ex';  // URL for fetching all hotels
+
+    fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            // Replace hotel list content with all hotels
+            document.querySelector(".hotellists").innerHTML = new DOMParser()
+                .parseFromString(html, "text/html")
+                .querySelector(".hotellists").innerHTML;
+
+            // Scroll to hotel list container (optional)
+            document.getElementById("roomDetailsBox").scrollIntoView({ behavior: "smooth" });
+        })
+        .catch(error => console.error("Error:", error));
+}
+    
+
+
+
+
+
+/* for filter section */
+
+function updatePersonCount(change) {
+    const inputField = document.getElementById('personCount');
+    let currentValue = parseInt(inputField.value) || 0;
+
+    // Adjust the value within valid bounds
+    let newValue = currentValue + change;
+    if (newValue < 1) newValue = 1; // Minimum 1 person
+    if (newValue > 10) newValue = 10; // Maximum 10 persons
+
+    inputField.value = newValue;
+}
+
+// Prevent non-numeric input
+document.getElementById('personCount').addEventListener('input', function (e) {
+    const value = e.target.value;
+    if (!/^\d*$/.test(value)) {
+        e.target.value = value.replace(/\D/g, ''); // Remove non-numeric characters
+    }
+});
+
+</script>
+    
+    <script type="module" th:src="@{/JS/filter.js}"></script>
+   <!--  <script src="/path/to/rating-stars.js"></script> -->
+
+</body>
+</html>

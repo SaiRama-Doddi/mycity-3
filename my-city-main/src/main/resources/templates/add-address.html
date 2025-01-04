@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Address</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        .custom-input {
+            width: 50%; /* Adjust this percentage to change the width */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Add Address</h2>
+        <form th:action="@{/address/save}" th:object="${address}" method="post" class="mt-4">
+
+            <input type="hidden" th:field="*{addressId}">
+            <div class="mb-3">
+                <label for="addressLine1" class="form-label">Address Line 1</label>
+                <input type="text" id="addressLine1" th:field="*{addressLine1}" class="form-control custom-input" required>
+            </div>
+            <div class="mb-3">
+                <label for="addressLine2" class="form-label">Address Line 2</label>
+                <input type="text" id="addressLine2" th:field="*{addressLine2}" class="form-control custom-input">
+            </div>
+            <div class="mb-3">
+                <label for="city" class="form-label">City</label>
+                <input type="text" id="city" th:field="*{city}" class="form-control custom-input" required>
+            </div>
+            <div class="mb-3">
+                <label for="state" class="form-label">State</label>
+                <input type="text" id="state" th:field="*{state}" class="form-control custom-input" required>
+            </div>
+            <div class="mb-3">
+                <label for="postalCode" class="form-label">Postal Code</label>
+                <input type="text" id="postalCode" th:field="*{postalCode}" class="form-control custom-input" required>
+            </div>
+            <div class="mb-3">
+                <label for="country" class="form-label">Country</label>
+                <input type="text" id="country" th:field="*{country}" class="form-control custom-input" required>
+            </div>
+            <div class="mb-3">
+                <label for="hotelId" class="form-label">Select Hotel</label>
+                <select id="hotelId" th:field="*{hotel.hotelId}" class="form-control custom-input" required>
+                    <option value="" th:if="*{hotel.hotelId} == null" selected>Select a Hotel</option>
+                    <option th:each="hotel : ${hotels}" 
+                            th:value="${hotel.hotelId}" 
+                            th:text="${hotel.name}" 
+                            th:selected="*{hotel.hotelId} == ${hotel.hotelId}">
+                    </option>
+                    <option value="0">None</option>
+
+                </select>
+            </div>
+            
+            
+            <div class="text-start">
+                <button type="submit" class="btn btn-primary">Save Address</button>
+                <a href="/addresses" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

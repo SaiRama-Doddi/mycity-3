@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musics</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+    <link rel="stylesheet" href="/CSS/entertainment_styles.css">
+    <style>
+        .hideText {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+
+
+
+
+        .scrollbarhide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="text-white">
+
+    <div class="w-full topbar z-[999]">
+        <nav class="navbar flex justify-between text-white items-center mx-[3rem]">
+            <div class="navlinks-container flex h-[100%] items-center pl-8">
+                <p class="navlink" id="home-link">
+                    <a href="/Entertainment/home" class="hover:text-white">Home</a>
+                </p>
+                <p class="navlink" id="movies-link">
+                    <a href="/Entertainment/Movies" class="hover:text-white">Movies</a>
+                </p>
+                <p class="navlink" id="musics-link">
+                    <a href="/Entertainment/MyMusic" class="hover:text-white">Music</a>
+                </p>
+                <p class="navlink" id="shortfilms-link">
+                    <a href="/Entertainment/ShortFilms" class="hover:text-white">Short Films</a>
+                </p>
+                <p class="navlink" id="filmnews-link">
+                    <a href="/Entertainment/FilmNews" class="hover:text-white">Film News</a>
+                </p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="SearchBar pr-10">
+                <div class="searchInput flex w-[160px] gap-[10px] p-[10px] border-[3px] rounded-[13px] border-liteOrange mt-3 cursor-pointer"
+                    onclick="searchExpand(event)">
+                    <label for="searchbar">
+                        <img src="/icons/search.svg" alt="search Icon" class="w-[25px]" />
+                    </label>
+                    <input type="text" placeholder="Search" id="searchbar"
+                        class="searchbar bg-transparent w-full placeholder-gray-500 placeholder:font-bold focus:outline-none transition" />
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+    <div class="Musics-page">
+
+        <!-- Trending Section -->
+        <div class="musics-hero flex justify-end w-full pr-[10rem] relative">
+            <div class="w-[450px] relative">
+                <img id="trending-image" src="./assets/songs/Die-With-A-Smile.jpg" alt="Trending" class="w-[450px] grayscale-[10]" />
+                <div class="coverblur w-full h-full absolute top-0 left-0"></div>
+                <div class="coverblur2 w-full h-full absolute top-0 left-0"></div>
+            </div>
+
+            <div class="absolute w-[450px] h-[450px] blur-cover"></div>
+            <div class="absolute left-0 bottom-[10rem] flex flex-col gap-3 px-[4rem]">
+                <p class="text-[16px]">Trending</p>
+                <h1 id="trending-title" class="font-bold text-[48px] font-arial"></h1>
+                <p id="trending-artist" class="text-[16px]"></p>
+                <div class="flex gap-4 items-center">
+                    <div class="play-now bg-[#F37022] flex gap-4 px-[36px] py-[15px] rounded-[18px] cursor-pointer"
+                        onclick="playNow()">
+                        <p class="text-[20px] font-semibold">Play Now</p>
+                        <img src="/icons/play1.svg" alt="play icon" width="20" />
+                    </div>
+                    <div class="add bg-white p-5 w-fit rounded-[12px] cursor-pointer" id="add-icon">
+                        <img src="/icons/plus2.svg" alt="Plus Icon" class="plus-icon" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Playlist Section -->
+        <div class="playlist-container flex px-[4rem] gap-[2rem] -translate-y-[8rem]">
+
+            <div id="newReleaseContainer"
+                class="newRelease-container absolute w-[92%] h-[100%] bg-[#373636] rounded-3xl z-[100] px-8 py-3 gap-[4rem] hidden flex-col overflow-y-scroll scrollbarhide ">
+                <div class="flex w-full justify-between items-center">
+                    <h1 class="title1">New Releases</h1>
+                    <img src="/icons/close.svg" alt=""
+                        class="w-7 bg-[#66666645] p-1 rounded-lg cursor-pointer" id="closenewRelease" />
+                </div>
+                <div class="flex flex-col">
+                    <div
+                        class="flex justify-between w-full pb-[.5rem] border-b-[1px] border-[#66666680] px-1 font-semibold text-[16px]">
+                        <div class="flex gap-6 w-[400px]">
+                            <p>#</p>
+                            <p class="w-[400px]">Title</p>
+                        </div>
+                        <p class="w-[100px] text-center">Artist</p>
+                        <!-- <p class="w-[100px] text-center">Total Tracks</p> -->
+                        <p class="w-[100px] text-center">Date Added</p>
+                    </div>
+                    <div id="newReleasesList" class="flex flex-col gap-[1rem] mt-[2rem]">
+
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="playlist-section flex flex-col w-[65%] h-[612px] text-white overflow-y-scroll scrollbarhide gap-[2rem] mb-[3rem] px-3 py-1 relative">
+
+                <div class="Top-Artists px-[1rem] py-[1rem] rounded-[25px] bg-[#202020DB] n">
+                    <div class="title flex justify-between mb-[1rem]">
+                        <h1 class="heading">Search Results</h1>
+                        <!-- <p class="text-[12px] font-normal cursor-pointer see-all" id="see-all">See all</p> -->
+                    </div>
+                    <div class="artists overflow-x-scroll w-full gap-[3rem] scrollbarhide px-[10px] px-[1rem] py-[1rem] rounded-[25px]"
+                        id="search-results-tracks">
+
+                    </div>
+                    <div class="artists overflow-x-scroll w-full gap-[3rem] scrollbarhide px-[10px]"
+                        id="search-results-artists">
+
+                    </div>
+                    <div class="artists overflow-x-scroll w-full gap-[3rem] scrollbarhide px-[10px]"
+                        id="search-results-albums">
+
+                    </div>
+                    <div class="artists overflow-x-scroll w-full gap-[3rem] scrollbarhide px-[10px]"
+                        id="search-results-playlists">
+
+                    </div>
+                    <div class="artists overflow-x-scroll w-full gap-[3rem] scrollbarhide px-[10px]"
+                        id="search-results-podcasts">
+
+                    </div>
+                    <div class="artists overflow-x-scroll w-full gap-[3rem] scrollbarhide px-[10px]"
+                        id="search-results-episodes">
+
+                    </div>
+                </div>
+
+                <div class="new-releases px-[1rem] py-[1rem] rounded-[25px] bg-[#202020DB] z-10">
+                    <div class="title flex justify-between mb-[1rem]">
+                        <h1 class="heading">New Releases</h1>
+                        <p class="text-[12px] font-normal cursor-pointer see-all" id="see-all">See all</p>
+                    </div>
+                    <div class="artists flex overflow-x-scroll w-full gap-[3rem] scrollbarhide px-[10px]"
+                        id="releaseContainer">
+
+                    </div>
+                </div>
+
+                <div class="Top-Artists px-[1rem] py-[1rem] rounded-[25px] bg-[#202020DB] n">
+                    <div class="title flex justify-between mb-[1rem]">
+                        <h1 class="heading">Top Artists</h1>
+                        <p class="text-[12px] font-normal cursor-pointer see-all" id="see-all">See all</p>
+                    </div>
+                    <div class="artists flex overflow-x-scroll w-full gap-[3rem] scrollbarhide px-[10px]"
+                        id="topArtistsList">
+
+                    </div>
+                </div>
+
+                <div class="Top-Artists px-[1rem] py-[1rem] rounded-[25px] bg-[#202020DB] n">
+                    <div class="title flex justify-between mb-[1rem]">
+                        <h1 class="heading">Top Playlists</h1>
+                        <p class="text-[12px] font-normal cursor-pointer see-all" id="see-all">See all</p>
+                    </div>
+                    <div class="artists flex overflow-x-scroll w-full gap-[3rem] scrollbarhide px-[10px]"
+                        id="topPlaylistsList">
+                        <!-- Top Playlists will be inserted here dynamically -->
+                    </div>
+                </div>
+
+                <div class="Top-Artists px-[1rem] py-[1rem] rounded-[25px] bg-[#202020DB] n">
+                    <div class="title flex justify-between mb-[1rem]">
+                        <h1 class="heading">Top Tracks</h1>
+                        <p class="text-[12px] font-normal cursor-pointer see-all" id="see-all">See all</p>
+                    </div>
+                    <div class="artists flex overflow-x-scroll w-full gap-[3rem] scrollbarhide px-[10px]"
+                        id="topTracksList">
+                        <!-- Top Tracks will be inserted here dynamically -->
+                    </div>
+                </div>
+
+                <div class="Top-Artists px-[1rem] py-[1rem] rounded-[25px] bg-[#202020DB] n">
+                    <div class="title flex justify-between mb-[1rem]">
+                        <h1 class="heading">Top Episodes</h1>
+                        <p class="text-[12px] font-normal cursor-pointer see-all" id="see-all">See all</p>
+                    </div>
+                    <div class="artists flex overflow-x-scroll w-full gap-[3rem] scrollbarhide px-[10px]"
+                        id="topEpisodesList">
+                        <!-- Top Episodes will be inserted here dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="nowPlayingSection"
+                class="nowPlaying-section bg-[#202020DB] max-w-[450px] w-[450px] h-[612px] rounded-[20px] p-[1rem] pr-[1.5rem] relative flex flex-col">
+
+                <div id="playlist"
+                    class=" flex-col bg-[#373636] w-full h-full absolute z-[999] left-0 top-0 rounded-[20px] px-3 py-[1rem] pr-[1.5rem] hidden">
+                    <div class="flex justify-between w-full">
+                        <h1 class="title2 text-[20px]">My Playlist</h1>
+                        <img src="/icons/close.svg" alt="close button"
+                            class="w-5 cursor-pointer hover:scale-[1.2]" id="closebutton" />
+                    </div>
+                    <div class="list-queue mt-[4rem] flex flex-col gap-1 overflow-y-scroll scrollbarhide h-[80%]"
+                        id="songList">
+                        <!-- Songs will be populated here -->
+                    </div>
+                </div>
+
+                <div class="nowplaying flex justify-between items-center">
+                    <h1 class="font-bold text-[15px]">Now Playing</h1>
+                    <img id="openPlaylist" src="/icons/playlist.svg" alt="Playlist icon"
+                        class="cursor-pointer" />
+
+                </div>
+
+
+                <div class="album-content flex flex-col gap-[3rem]">
+                    
+                    <div class="playlist-album flex items-center flex-col justify-center mt-[3rem] translate-y-[2rem]">
+                        <img id="trackImage" src="/assets/songs/Baby-O-Rendu_Prema-Meghaalila.jpg" alt="" class="w-[150px] mb-[1rem]" />
+                        <p id="trackTitle" class="text-[20px] font-bold"></p>
+                        <p id="trackArtist" class="text-[15px] font-normal"></p>
+                    </div>
+                    <div class="mx-[3rem] mt-[3rem] flex flex-col">
+                        <div class="flex items-center flex-col seekbar gap-1 w-[100%]">
+                            <div class="flex w-[100%] justify-between text-white z-10">
+                                <p id="currentTime">0:00</p>
+                                <p id="totalTime">0:00</p>
+                            </div>
+                            <div id="seekBg" onclick="seekSong()"
+                                class="w-[100%] hover:cursor-pointer bg-[#BCB4B4] rounded-full">
+                                <hr id="seekBar"
+                                    class="h-1 relative seekhr border-none hover:cursor-pointer bg-white rounded-full w-0" />
+                            </div>
+                        </div>
+                        <div class="controls mt-[3rem] flex justify-between items-center">
+                            <div class="loop flex flex-col items-center">
+                                <img id="loopBtn" class="cursor-pointer w-[16px] scalable loop"
+                                    src="/icons/loop2.svg" alt="loop" />
+                                <div id="loopIndicator" class="shuffledot w-1 h-1 rounded-full bg-[#ffffff] hidden">
+                                </div>
+                            </div>
+                            <img id="prevBtn" src="/icons/previouswhite.svg" alt="previous"
+                                class="cursor-pointer" />
+                            <div class="px-[18px] py-[17px] bg-[#F37022] rounded-[10px] cursor-pointer">
+                                <img id="playPauseBtn" src="/icons/play1.svg" alt="play" width="16" />
+                            </div>
+                            <img id="nextBtn" src="/icons/nextwhite.svg" alt="next"
+                                class="cursor-pointer" />
+                            <div class="shuffle flex flex-col items-center">
+                                <img id="shuffleBtn" class="cursor-pointer scalable"
+                                    src="/icons/shuffle2.svg" alt="shuffle" />
+                                <div id="shuffleIndicator" class="shuffledot w-1 h-1 rounded-full bg-[#ffffff] hidden">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lyrics flex items-center flex-col gap-2 mt-[3rem] cursor-pointer absolute bottom-1 translate-x-[-50%] left-[50%]"
+                    id="lyricsButton">
+                    <p class="font-light text-[14px] song-name hideText">Song</p>
+                    <img src="/icons/arrowup.svg" alt="Up Arrow" width="15" class="uparrow duration-500" />
+                    <p class="font-light text-[14px] lyrics-name">LYRICS</p>
+                </div>
+
+                <!-- Lyrics content section -->
+
+
+                <div
+                    class="lyric-content h-[450px] max-h-[450px] w-[70%] max-w-[80%] bg-transparent absolute bottom-[11.5%] flex flex-col items-center justify-center font-bold text-[20px] right-[4rem]  leading-[34px]  hidden">
+                    <p>Lyrics Not Available</p>
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+        <audio id="audioPlayer" src="" preload="metadata"></audio>
+    </div>
+
+    <script type="module" src="./assets/js/musics.js"></script>
+    <script type="module" src="./assets/js/player.js"></script>
+    <script type="module" src="./assets/data/js/spotify.js"></script>
+    <script src="./assets/js/navbar.js"></script>
+    <script src="./assets/js/Myspotify.js"></script>
+    <script src="./assets/js/newrelease.js"></script>
+    <!-- <script>
+        document.getElementById('searchbar').addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                // Prevent the default action if needed
+                event.preventDefault();
+
+                // Get the input value
+                const searchTerm = this.value;
+
+                // Use the input value (e.g., log it to the console or perform a search)
+                console.log('Search term:', searchTerm);
+
+            }
+        });
+    </script> -->
+    <div class="bg-[#F37022] px-[2rem] py-[1rem] flex justify-between items-center text-white">
+        <a href="about" class="font-poppins font-medium text-[20px]">About Us</a>
+        <a href="#" class="font-poppins font-medium text-[20px]">Contact Us</a>
+        <div class="socials flex gap-[20px]" id="socialMediaLinks">
+            <!-- Social media links will be inserted here dynamically -->
+        </div>
+        <p class="font-poppins font-medium text-[20px]">Copyright@Myango2016</p>
+    </div>
+
+</body>
+
+</html>
