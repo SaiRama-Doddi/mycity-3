@@ -100,7 +100,7 @@ html {
 .hotel-main {
     background: url('../images/homeMain.png');
     width: 99dvw;
-    height: 150dvh;
+    height: 151dvh;
     background-size: cover;
     position: relative;
     border: 1px solid black;
@@ -490,8 +490,8 @@ p {
 /* rating */
 .stars-container {
     display: inline-block;
-    font-size: 1.4rem; /* Adjust size as needed */
-    color: #F37022; /* Color for filled stars */
+    font-size: 1.4rem;
+    color: #F37022;
 }
 
 .star.filled {
