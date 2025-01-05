@@ -736,6 +736,7 @@ html {
         align-content: center;
         color: white;
         cursor: pointer;
+        border: none;
     }
 }
 
@@ -933,6 +934,20 @@ html {
 
 .icons {
     width: 25px;
+}
+
+
+#sub {
+    border: 1px solid #ddd; /* Optional: Add a border for better visibility */
+    padding: 10px; /* Optional: Add internal padding */
+    background-color: #fff; /* Optional: Set background for clarity */
+    border-radius: 5px; /* Optional: Rounded corners */
+    transition: transform 0.3s ease; /* Optional: Hover animation */
+    min-width: 200px;
+}
+
+#sub:hover {
+    transform: scale(1.05); /* Optional: Slightly enlarge on hover */
 }
 
 /* Mobile*/
@@ -1339,6 +1354,7 @@ html {
         padding-left: .1rem;
         padding-right: .1rem;
         width: 90%;
+        cursor: pointer;
     }
 
 
@@ -1843,6 +1859,7 @@ html {
         display: flex;
         flex-direction: column;
         border-radius: 10px;
+        cursor: pointer;
     }
 
     .filterbox {
@@ -1883,8 +1900,12 @@ html {
                 font-family: 'Inter', sans-serif;
                 font-size: 20px;
                 color: #ffffff;
+                cursor: pointer;
             }
+        }
 
+        .decreaseBtn,.increaseBtn{
+            cursor: pointer;
         }
 
         .dateInputWrapper {

@@ -40,6 +40,10 @@
             justify-content: space-between;
         }
 
+        strong,span{
+            font-size: 20px;
+        }
+
         .image-container img {
             width: 100%;
             border-radius: 8px;
@@ -73,11 +77,16 @@
         .amenities {
             display: flex;
             gap: 15px;
+            font-size: 20px;
         }
 
         .amenities li {
             display: flex;
             align-items: center;
+        }
+
+        .amenities li p{
+            font-size: 20px;
         }
 
         .amenities img {
@@ -1028,7 +1037,7 @@
         </div>
 
         <!-- Right: Reservation Details -->
-        <div class="details-container">
+        <div class="details-container"  >
             <!-- Room Details -->
             <p><strong>Room Type:</strong> <span th:text="${reservation.roomType}"></span></p>
             <p><strong>Max-Guests:</strong> <span th:text="${reservation.maxGuests}"></span></p>
@@ -1050,7 +1059,7 @@
                                          amenity.name == '24/7 Room Service' ? '/icons/room.svg' :
                                          amenity.name == 'Private Dining Experiences' ? '/icons/dining.svg' :
                                          '/icons/filterorange.svg'}}" th:alt="${amenity.name + ' Icon'}" class="icons">
-                        <p th:text="${amenity.name}"></p>
+                        <p th:text="${amenity.name}" style="font-size: 20px;"></p>
                     </li>
                 </ul>
             </div>

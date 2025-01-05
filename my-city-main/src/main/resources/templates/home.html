@@ -125,10 +125,10 @@
     <section class="hotelListContainer"   id="roomDetailsBox">
         <div class="listTitle">
             <h1>Explore Our Best List of Hotels!</h1>
-            <div class="listFilter">
+            <div class="listFilter" >
                     <!-- <input type="text" placeholder="Search"> -->
                     <form th:action="@{/search-hotels}" method="get" id="searchForm" class="search">
-                        <input type="text" name="query" placeholder="Search by name or address" value="" />
+                        <input type="text" name="query" placeholder="Search by name or address" value=""   style="justify-content: center;" />
                         <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
                             <img th:src="@{/icons/search.svg}" alt="search icon" style="width: 24px; height: 24px;">
                         </button>
@@ -366,7 +366,7 @@ searchInput.addEventListener("input", function () {
 
 // Function to fetch and display all hotel cards (when search is cleared)
 function fetchAllHotels() {
-    const url = 'http://localhost:8080/ex';  // URL for fetching all hotels
+    const url = 'http://localhost:8089/hotels';  // URL for fetching all hotels
 
     fetch(url)
         .then(response => response.text())
