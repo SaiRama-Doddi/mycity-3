@@ -366,7 +366,7 @@ searchInput.addEventListener("input", function () {
 
 // Function to fetch and display all hotel cards (when search is cleared)
 function fetchAllHotels() {
-    const url = 'http://localhost:8089/hotels';  // URL for fetching all hotels
+    const url = 'http://localhost:8080/hotels';  // URL for fetching all hotels
 
     fetch(url)
         .then(response => response.text())
