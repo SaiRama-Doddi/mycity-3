@@ -6,9 +6,199 @@
     <meta http-equiv="X-UA-Compatible" content="IE=7">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Contact Us</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/CSS/TourismStyles.css">
     <script src="/JS/Script.js"></script>
     <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
+    <style>
+        :root {
+    --primary-color: #F26522;
+    --secondary-color: #007AFF;
+    --text-color: #333;
+    --white: #fff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-image: url('/images/rk.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.navbar {
+    background-color: var(--secondary-color);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: var(--white);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--white);
+    text-decoration: none;
+}
+
+.signup-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+
+
+footer {
+    background-color: black;
+    padding: 1rem;
+    margin-top: auto;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: var(--white);
+}
+
+.footer-links a {
+    color: var(--white);
+    text-decoration: none;
+    margin-right: 1rem;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icon {
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.contact-container {
+    display: flex;
+    padding: 2rem;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: calc(100vh - 140px);
+    position: relative;
+}
+
+.contact-form {
+    flex: 1;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    font-size: 1rem;
+    background: white; 
+    color: var(--text-color); /
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: rgba(0, 0, 0, 0.6); 
+}
+.submit-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #e55511;
+}
+
+.contact-info {
+    flex: 1;
+    background-color: var(--primary-color);
+    padding: 2rem;
+    border-radius: 10px;
+    color: var(--white);
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-item img {
+    width: 24px;
+    height: 24px;
+}
+
+.map {
+    margin-top: 2rem;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .contact-container {
+        flex-direction: column;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+}  
+
+.info-item i {
+    font-size: 24px; 
+    color: var(--white); 
+    margin-right: 1rem; 
+}
+</style>
 
 </head>
 
@@ -45,95 +235,44 @@
                 </div>
             </header>
         </div>
-        <div class="text_block contact">
-            <div class="form_container">
-                <form th:action="@{/submitContactForm}" method="post" class="contact_form">
-                    <div class="form-group">
-                        <input type="text" data-id="name" placeholder="Enter Your Name" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" data-id="email" placeholder="Enter Your Mail Id" id="email" name="email"
-                            required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" data-id="number" placeholder="Contact Number" id="number" name="number"
-                            required>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" data-id="messsage" placeholder="Message" name="message" rows="5"
-                            required></textarea>
-                    </div>
-                    <button type="submit" class="contact_submit" data-id="contact-submit">Submit</button>
+        <main class="contact-container">
+            <div class="contact-form">
+                <form id="contactForm">
+                    <input type="text" placeholder="Enter Your Name" required>
+                    <input type="email" placeholder="Enter Your Mail Id" required>
+                    <input type="tel" placeholder="Contact Number" required maxlength="10" pattern="[1-9]{1}[0-9]{9}">                <textarea placeholder="Message" rows="4" required></textarea>
+                    <button type="submit" class="submit-btn">Submit</button>
                 </form>
             </div>
-            <div class="details_container">
-                <div class="address">
-                    <div class="address_icon">
-                        <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path
-                                    d="M12 21C15.5 17.4 19 14.1764 19 10.2C19 6.22355 15.866 3 12 3C8.13401 3 5 6.22355 5 10.2C5 14.1764 8.5 17.4 12 21Z"
-                                    stroke="whitesmoke" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                </path>
-                                <path
-                                    d="M12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12Z"
-                                    stroke="whitesmoke" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                </path>
-                            </g>
-                        </svg>
-                    </div>
-                    <div class="address_text">
-                        <h3>No 123, main road<br>Andhra Pradesh, 600001</h3>
+    
+            <div class="contact-info">
+                <div class="info-item">
+                    <i class="material-icons">location_on</i> 
+                    <div class="info-text">
+                        <h3>No 123, main road vishakapatnam</h3>
+                        <p>Andhra pradesh</p>
+                        <p>600001</p>
                     </div>
                 </div>
-                <div class="mail">
-                    <div class="mail_icon">
-                        <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path
-                                    d="M4 18L9 12M20 18L15 12M3 8L10.225 12.8166C10.8665 13.2443 11.1872 13.4582 11.5339 13.5412C11.8403 13.6147 12.1597 13.6147 12.4661 13.5412C12.8128 13.4582 13.1335 13.2443 13.775 12.8166L21 8M6.2 19H17.8C18.9201 19 19.4802 19 19.908 18.782C20.2843 18.5903 20.5903 18.2843 20.782 17.908C21 17.4802 21 16.9201 21 15.8V8.2C21 7.0799 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V15.8C3 16.9201 3 17.4802 3.21799 17.908C3.40973 18.2843 3.71569 18.5903 4.09202 18.782C4.51984 19 5.07989 19 6.2 19Z"
-                                    stroke="whitesmoke" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                </path>
-                            </g>
-                        </svg>
-                    </div>
-                    <div class="mail_text">
-                        <h3>My_city@gmail.com</h3>
-                    </div>
+                
+                <div class="info-item">
+                    <i class="material-icons">email</i> 
+                    <p>supportmycity@gmail.com</p>
                 </div>
-                <div class="phone">
-                    <div class="phone_icon">
-                        <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path
-                                    d="M3 5.5C3 14.0604 9.93959 21 18.5 21C18.8862 21 19.2691 20.9859 19.6483 20.9581C20.0834 20.9262 20.3009 20.9103 20.499 20.7963C20.663 20.7019 20.8185 20.5345 20.9007 20.364C21 20.1582 21 19.9181 21 19.438V16.6207C21 16.2169 21 16.015 20.9335 15.842C20.8749 15.6891 20.7795 15.553 20.6559 15.4456C20.516 15.324 20.3262 15.255 19.9468 15.117L16.74 13.9509C16.2985 13.7904 16.0777 13.7101 15.8683 13.7237C15.6836 13.7357 15.5059 13.7988 15.3549 13.9058C15.1837 14.0271 15.0629 14.2285 14.8212 14.6314L14 16C11.3501 14.7999 9.2019 12.6489 8 10L9.36863 9.17882C9.77145 8.93713 9.97286 8.81628 10.0942 8.64506C10.2012 8.49408 10.2643 8.31637 10.2763 8.1317C10.2899 7.92227 10.2096 7.70153 10.0491 7.26005L8.88299 4.05321C8.745 3.67376 8.67601 3.48403 8.55442 3.3441C8.44701 3.22049 8.31089 3.12515 8.15802 3.06645C7.98496 3 7.78308 3 7.37932 3H4.56201C4.08188 3 3.84181 3 3.63598 3.09925C3.4655 3.18146 3.29814 3.33701 3.2037 3.50103C3.08968 3.69907 3.07375 3.91662 3.04189 4.35173C3.01413 4.73086 3 5.11378 3 5.5Z"
-                                    stroke="whitesmoke" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                </path>
-                            </g>
-                        </svg>
-                    </div>
-                    <div class="phone_text">
-                        <h3>123456789</h3>
-                    </div>
+                
+                <div class="info-item">
+                    <i class="material-icons">phone</i> 
+                    <p>+91 9876543210</p>
                 </div>
-                <div class="map_location">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d610.3963602523119!2d83.36127490435848!3d17.773483000723445!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a395b7b72f8ef43%3A0xa9cb64fd45137134!2sP.B%20Royal%20Apartment!5e0!3m2!1sen!2sin!4v1728846746804!5m2!1sen!2sin"
-                        width="400" height="310" style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    
+                <div class="map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d486415.1779541658!2d82.93290753142855!3d17.739051133413586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a39431389e6973f%3A0x92d9c20395498468!2sVisakhapatnam%2C%20Andhra%20Pradesh!5e0!3m2!1sen!2sin!4v1735895516789!5m2!1sen!2sin" width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
+
+
     <footer>
         <div class="footer_nav-links_placeholder" hx-boost="true">
             <ul class="footer_nav-links">
@@ -182,6 +321,44 @@
         </div>
         
     </footer>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault(); 
+        
+            const nameInput = document.querySelector('input[type="text"]');
+            const emailInput = document.querySelector('input[type="email"]');
+            const phoneInput = document.querySelector('input[type="tel"]');
+            const messageInput = document.querySelector('textarea');
+        
+            let isValid = true;
+        
+            const nameRegex = /^[A-Za-z\s]+$/;
+            if (!nameRegex.test(nameInput.value.trim())) {
+                alert('Name should contain only alphabets.');
+                isValid = false;
+            }
+        
+            const phoneRegex = /^[1-9][0-9]{9}$/;
+            if (!phoneRegex.test(phoneInput.value.trim())) {
+                alert('Phone number must be exactly 10 digits, not start with 0, and not be all zeros.');
+                return; 
+            }
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|in|org|net|edu|gov)$/i;
+            if (!emailRegex.test(emailInput.value.trim())) {
+                alert('Please enter a valid email address with domains like .com, .in, etc.');
+                isValid = false;
+            }
+        
+            if (messageInput.value.trim() === '') {
+                alert('Message cannot be empty.');
+                isValid = false;
+            }
+        
+            if (isValid) {
+                alert('Form submitted successfully!');
+            }
+        });    </script>
 </body>
 
 </html>

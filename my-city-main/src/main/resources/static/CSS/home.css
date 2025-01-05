@@ -98,7 +98,7 @@ html {
 /* HERO */
 
 .hotel-main {
-    background: url('../images/homeMain.png');
+    background: url('/Img/homeMain.jpg');
     width: 99dvw;
     height: 151dvh;
     background-size: cover;
@@ -393,7 +393,7 @@ p {
     width: 426px;
     height: 70px;
     border-radius: 15px;
-    border: 1px solid black;
+    border: 2px solid #F37022;
     align-content: center;
     text-align: center;
     position: relative;
